@@ -3,7 +3,7 @@ import Navbar from "../pages/Share/Navbar";
 
 const Root = () => {
   return (
-    <div className="">
+    <div className="font-poppins">
       <Navbar />
       <Outlet />
     </div>
