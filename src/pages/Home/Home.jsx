@@ -4,6 +4,7 @@ import Headline from "./Headline";
 import Hero from "./Hero";
 import HighLights from "./HighLights";
 import Popular from "./Popular";
+import Reviews from "./Reviews";
 import Stats from "./stats";
 
 const Home = () => {
@@ -16,6 +17,7 @@ const Home = () => {
       <Popular />
       <Stats />
       <HighLights />
+      <Reviews />
     </div>
   );
 };

@@ -30,7 +30,7 @@ const Stats = () => {
         </div>
         {/* stats */}
         <div>
-          <div className="w-2/3 flex justify-center items-center flex-col lg:flex-row border-2 border-black rounded-2xl mx-auto p-2 shadow">
+          <div className="w-2/3 mt-10 flex justify-center items-center flex-col lg:flex-row border-2 border-black rounded-2xl mx-auto p-2 shadow">
             <div className="w-1/3 border-r-2 border-black flex justify-center items-center flex-col">
               <div className="stat-title">Active Students</div>
               <div className="stat-value flex items-center gap-2">
