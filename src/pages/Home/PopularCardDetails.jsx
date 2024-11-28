@@ -1,4 +1,3 @@
-
 const SkeletonOne = () => {
   return (
     <div>
@@ -61,28 +60,30 @@ const cards = [
     content: <SkeletonOne />,
     className: "md:col-span-2",
     thumbnail:
-      "https://i.pinimg.com/736x/22/bc/8e/22bc8ebef610eb881071e1a7007a7a80.jpg",
+      "https://i.pinimg.com/736x/14/18/c3/1418c3d8765931a1b8edd348869f2ae1.jpg",
+    // "https://i.pinimg.com/736x/22/bc/8e/22bc8ebef610eb881071e1a7007a7a80.jpg",
   },
   {
     id: 2,
     content: <SkeletonTwo />,
     className: "col-span-1",
     thumbnail:
-      "https://i.pinimg.com/736x/02/52/e3/0252e3a3282f752ab9c0e97400eb7778.jpg",
+      "https://i.pinimg.com/736x/4a/0a/39/4a0a39c5c5f0971a9131bddb213aaf25.jpg",
   },
   {
     id: 3,
     content: <SkeletonThree />,
     className: "col-span-1",
     thumbnail:
-      "https://i.pinimg.com/736x/76/f7/3b/76f73beec6e920708dad59aed69838e3.jpg",
+      "https://i.pinimg.com/736x/de/e1/74/dee174c245a13a551f0f7e85a8a3fbf4.jpg",
   },
   {
     id: 4,
     content: <SkeletonFour />,
     className: "md:col-span-2",
     thumbnail:
-      "https://i.pinimg.com/736x/b3/55/05/b35505c5cf9ecf80c47dd94ed5e7c23e.jpg",
+      "https://i.pinimg.com/736x/bf/47/be/bf47be2e9b2563f9023a12ca7a974709.jpg",
+    // "https://i.pinimg.com/736x/5b/e2/78/5be2781105238fe6fb5b037f0d6ccaab.jpg",
   },
 ];
 

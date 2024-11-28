@@ -9,13 +9,13 @@ const About = () => {
       img: "https://i.pinimg.com/736x/ff/4e/63/ff4e634f1fc5dfe0c573fc6e131957d3.jpg",
     },
     {
-      img: "https://i.pinimg.com/736x/72/c9/c3/72c9c3602fc0d516e519e3bcf3c7016b.jpg",
+      img: "https://i.pinimg.com/736x/36/1c/2f/361c2ff2affc361eae7acf7cb1e81553.jpg",
     },
   ];
 
   return (
-    <div className="w-full h-screen bg-[#efeee9]">
-      <div className="w-4/5 h-full mx-auto">
+    <div className="w-full h-full bg-[#efeee9] overflow-hidden">
+      <div className="w-4/5 h-screen mx-auto my-10">
         <div className="flex justify-between items-start">
           <div className="w-1/2 p-5 text-left space-y-5 ">
             <h1 className="flex items-center text-5xl">

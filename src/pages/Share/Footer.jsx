@@ -3,13 +3,12 @@ import { Link } from "react-router";
 
 const Footer = () => {
   return (
-    <footer className="footer p-10 bg-black text-white">
+    <footer className="footer p-10 bg-[#acbbbd] text-black">
       <nav>
         <h6 className="footer-title">Services</h6>
         <Link className="link link-hover">Web Development</Link>
         <Link className="link link-hover">App Development</Link>
         <Link className="link link-hover">Game Development</Link>
-        <Link className="link link-hover">Grapic deginer</Link>
       </nav>
       <nav>
         <h6 className="footer-title">Company</h6>

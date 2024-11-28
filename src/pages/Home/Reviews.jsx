@@ -34,7 +34,7 @@ const Reviews = () => {
   ];
 
   return (
-    <div className="w-full h-screen bg-[#e3f1f4]">
+    <div className="w-full h-screen bg-[#efecfd]">
       <div className="w-4/5 h-full mx-auto">
         <div className="w-full h-1/6">
           <h1 className="text-center p-4 font-bold text-2xl">

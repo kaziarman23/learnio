@@ -1,3 +1,5 @@
+import Headline from "./Headline";
+
 const Hero = () => {
   return (
     <div className="w-full h-full mx-auto p-2">
@@ -33,6 +35,7 @@ const Hero = () => {
           </div>
         </div>
       </div>
+      <Headline />
     </div>
   );
 };

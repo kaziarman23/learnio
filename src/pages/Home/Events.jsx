@@ -22,7 +22,7 @@ const Events = () => {
 
   return (
     <div className="w-full h-full">
-      <div className="w-4/5 h-full mx-auto p-5">
+      <div className="w-4/5 h-full mx-auto p-10">
         {/* benner part */}
         <div className="flex justify-between items-center mb-5">
           <div className="w-1/2 h-full space-y-5">

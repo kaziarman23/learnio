@@ -60,7 +60,7 @@ const ImageComponent = ({ card }) => {
       height="500"
       width="500"
       className={cn(
-        "object-cover object-top absolute inset-0 h-full w-full transition duration-200"
+        "object-fit absolute inset-0 h-full w-full transition duration-200"
       )}
       alt="thumbnail"
     />
