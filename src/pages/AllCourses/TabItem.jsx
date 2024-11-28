@@ -18,7 +18,7 @@ const TabItem = ({ Course }) => {
           <h4>Total Students : {course.courseStudentsCount}</h4>
           <div className="flex justify-between items-center">
             <p>Price : {course.coursePrice} $</p>
-            <button className="btn">Enroll</button>
+            <button className="btn hover:bg-black hover:text-white">Details</button>
           </div>
         </div>
       ))}
