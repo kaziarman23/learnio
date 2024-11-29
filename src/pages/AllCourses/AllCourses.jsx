@@ -20,23 +20,23 @@ const AllCourses = () => {
 
   // Filtering Courses
   const webDev = allCourses.filter(
-    (course) => course.courseTitle === "Web Development"
+    (course) => course.category === "web-development"
   );
   const appDev = allCourses.filter(
-    (course) => course.courseTitle === "App Development"
+    (course) => course.category === "app-development"
   );
   const gameDev = allCourses.filter(
-    (course) => course.courseTitle === "Game Development"
+    (course) => course.category === "game-development"
   );
   const webDes = allCourses.filter(
-    (course) => course.courseTitle === "UI/UX Design"
+    (course) => course.category === "uiux-designer"
   );
   const machine = allCourses.filter(
-    (course) => course.courseTitle === "Machine Learning"
+    (course) => course.category === "mechine-learning"
   );
 
+  
   return (
-    // <div className="w-full h-full bg-[#f6f9ff] overflow-hidden">
     <div className="w-full h-full bg-[#f2f3f3] overflow-hidden">
       <div className="w-4/5 h-full mx-auto my-10">
         <h1 className="font-bold text-center text-4xl p-2">All Courses</h1>
