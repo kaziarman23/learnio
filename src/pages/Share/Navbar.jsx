@@ -1,7 +1,15 @@
+import { signOut } from "firebase/auth";
 import { FaGripfire } from "react-icons/fa";
-import { NavLink } from "react-router";
+import { useDispatch, useSelector } from "react-redux";
+import { Link, NavLink } from "react-router";
+import auth from "../../Firebase/Firebase.Config";
+import { logoutUser } from "../../Redux/features/userSlice";
 
 const Navbar = () => {
+  // states
+  const { userEmail } = useSelector((state) => state.userSlice);
+  const dispatch = useDispatch();
+
   const navlinks = (
     <>
       <NavLink to="/">
@@ -15,6 +23,11 @@ const Navbar = () => {
       </NavLink>
     </>
   );
+
+  const handleLogout = () => {
+    signOut(auth);
+    dispatch(logoutUser());
+  };
 
   return (
     <div className="w-full h-full border-b-2">
@@ -54,12 +67,27 @@ const Navbar = () => {
             <ul className="menu menu-horizontal px-1">{navlinks}</ul>
           </div>
           <div className="flex justify-end gap-2">
-            <button className="btn hover:bg-black hover:text-white">
-              Register
-            </button>
-            <button className="btn hover:bg-black hover:text-white">
-              Login
-            </button>
+            {userEmail ? (
+              <button
+                onClick={handleLogout}
+                className="btn hover:bg-black hover:text-white"
+              >
+                logout
+              </button>
+            ) : (
+              <>
+                <Link to="/register">
+                  <button className="btn hover:bg-black hover:text-white">
+                    Register
+                  </button>
+                </Link>
+                <Link to="/login">
+                  <button className="btn hover:bg-black hover:text-white">
+                    Login
+                  </button>
+                </Link>
+              </>
+            )}
           </div>
         </div>
       </div>

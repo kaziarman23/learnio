@@ -1,8 +1,12 @@
 import { useForm } from "react-hook-form";
+import { useSelector } from "react-redux";
 
 const TeacherEnrollment = () => {
   // states
   const { handleSubmit, register } = useForm();
+  const { userName, userPhoto, userEmail } = useSelector(
+    (state) => state.userSlice
+  );
 
   // handle form submit
   const onSubmit = (data) => {
@@ -17,11 +21,11 @@ const TeacherEnrollment = () => {
         <form onSubmit={handleSubmit(onSubmit)}>
           <div className="p-4 border border-black rounded-lg space-y-5">
             {/* image input */}
-            <div className="flex justify-center items-center">
+            <div className="w-full h-1/2 flex justify-center items-center">
               <img
-                src="https://i.pinimg.com/736x/9d/0b/1b/9d0b1b867af718e52c9187b57381de67.jpg"
+                src={userPhoto}
                 alt="user profile picture"
-                className="w-3/12 h-3/12 rounded-full"
+                className="w-40 h-40 rounded-full"
               />
             </div>
 
@@ -34,8 +38,9 @@ const TeacherEnrollment = () => {
                 <input
                   id="name"
                   type="text"
-                  // readOnly
+                  readOnly
                   className="w-full rounded-md border-2 p-2 border-black"
+                  defaultValue={userName}
                   {...register("name")}
                 />
               </div>
@@ -47,8 +52,9 @@ const TeacherEnrollment = () => {
                 <input
                   id="email"
                   type="email"
-                  // readOnly
+                  readOnly
                   className="w-full rounded-md border-2 p-2 border-black"
+                  defaultValue={userEmail}
                   {...register("email")}
                 />
               </div>
@@ -92,7 +98,10 @@ const TeacherEnrollment = () => {
             </div>
             {/* Submit Button */}
             <div>
-              <button type="submit" className="w-full btn border-2 hover:bg-black hover:text-white">
+              <button
+                type="submit"
+                className="w-full btn border-2 hover:bg-black hover:text-white"
+              >
                 Submit For Review
               </button>
             </div>
