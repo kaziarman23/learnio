@@ -1,5 +1,7 @@
 /* eslint-disable react/prop-types */
 
+import { Link } from "react-router";
+
 const TabItem = ({ Course }) => {
   return (
     <div className="grid gap-5 grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
@@ -18,7 +20,11 @@ const TabItem = ({ Course }) => {
           <h4>Total Students : {course.courseStudentsCount}</h4>
           <div className="flex justify-between items-center">
             <p>Price : {course.coursePrice}$</p>
-            <button className="btn hover:bg-black hover:text-white">Details</button>
+            <Link to="/courses">
+            <button className="btn hover:bg-black hover:text-white">
+              Details
+            </button>
+            </Link>
           </div>
         </div>
       ))}
