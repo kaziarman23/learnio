@@ -2,16 +2,29 @@ import { FaGoogle } from "react-icons/fa";
 import { Link } from "react-router";
 import { useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
-import { loginUser } from "../../../Redux/features/userSlice";
+import { googleSignIn, loginUser } from "../../../Redux/features/userSlice";
 
 const Login = () => {
   // states
-  const { handleSubmit, register, reset } = useForm();
+  const {
+    handleSubmit,
+    register,
+    formState: { errors },
+    reset,
+  } = useForm();
   const dispatch = useDispatch();
 
   // handle form submit
   const onSubmit = (data) => {
     dispatch(loginUser(data));
+    reset();
+  };
+
+  const handleGoogleRegister = () => {
+    // updating the user information by dispatch
+    dispatch(googleSignIn());
+
+    // clearing inputs
     reset();
   };
   return (
@@ -32,6 +45,7 @@ const Login = () => {
                   className="w-full rounded-md p-2 border border-black/50"
                   {...register("userEmail")}
                 />
+                {errors.userEmail && <p>{errors.userEmail.message}</p>}
               </div>
               <div className="w-full flex flex-col gap-2">
                 <label htmlFor="Password">Password</label>
@@ -57,7 +71,10 @@ const Login = () => {
               </Link>
             </p>
 
-            <button className="w-full btn hover:bg-black hover:text-white">
+            <button
+              onClick={handleGoogleRegister}
+              className="w-full btn hover:bg-black hover:text-white"
+            >
               <FaGoogle /> Login with Google
             </button>
           </div>

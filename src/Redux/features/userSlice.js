@@ -3,8 +3,12 @@ import auth from "../../Firebase/Firebase.Config";
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
+  signInWithPopup,
   updateProfile,
 } from "firebase/auth";
+import { GoogleAuthProvider } from "firebase/auth";
+
+
 
 const initialState = {
   userName: "",
@@ -14,8 +18,9 @@ const initialState = {
   isError: false,
   error: "",
 };
+const googleProvider = new GoogleAuthProvider();
 
-// creating user
+// creating user with email
 export const createUser = createAsyncThunk(
   "userSlice/createUser",
   async ({ userName, userPhoto, userEmail, userPassword }) => {
@@ -38,7 +43,7 @@ export const createUser = createAsyncThunk(
   }
 );
 
-// login user
+// login user with email
 export const loginUser = createAsyncThunk(
   "userSlice/loginUser",
   async ({ userEmail, userPassword }) => {
@@ -48,6 +53,21 @@ export const loginUser = createAsyncThunk(
       userPassword
     );
     console.log(data);
+
+    return {
+      userName: data.user.displayName,
+      userPhoto: data.user.photoURL,
+      userEmail: data.user.email,
+    };
+  }
+);
+
+// creating user with google
+export const googleSignIn = createAsyncThunk(
+  "userSlice/googleSignIn",
+  async () => {
+    const data = await signInWithPopup(auth, googleProvider);
+    console.log("google sign in details: ", data);
 
     return {
       userName: data.user.displayName,
@@ -74,7 +94,6 @@ const userSlice = createSlice({
       state.userPhoto = "";
       state.userEmail = "";
     },
-    
   },
   extraReducers: (builder) => {
     builder
@@ -95,6 +114,30 @@ const userSlice = createSlice({
         state.error = false;
       })
       .addCase(createUser.rejected, (state, action) => {
+        state.userName = "";
+        state.userPhoto = "";
+        state.userEmail = "";
+        state.isLoading = false;
+        state.isError = true;
+        state.error = action.error.message;
+      }) // google singIn
+      .addCase(googleSignIn.pending, (state) => {
+        state.userName = "";
+        state.userPhoto = "";
+        state.userEmail = "";
+        state.isLoading = true;
+        state.isError = false;
+        state.error = "";
+      })
+      .addCase(googleSignIn.fulfilled, (state, { payload }) => {
+        state.userName = payload.userName;
+        state.userPhoto = payload.userPhoto;
+        state.userEmail = payload.userEmail;
+        state.isLoading = false;
+        state.isError = false;
+        state.error = false;
+      })
+      .addCase(googleSignIn.rejected, (state, action) => {
         state.userName = "";
         state.userPhoto = "";
         state.userEmail = "";
