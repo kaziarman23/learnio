@@ -18,8 +18,40 @@ const Login = () => {
 
   // handle form submit
   const onSubmit = (data) => {
-    dispatch(loginUser(data));
-    reset();
+    dispatch(loginUser(data))
+      .unwrap()
+      .then(() => {
+        // navigating the user and clearing the inputs
+        navigate("/");
+        reset();
+
+        // showing successfull alert
+        const Toast = Swal.mixin({
+          toast: true,
+          position: "top-end",
+          showConfirmButton: false,
+          timer: 3000,
+          timerProgressBar: true,
+          didOpen: (toast) => {
+            toast.onmouseenter = Swal.stopTimer;
+            toast.onmouseleave = Swal.resumeTimer;
+          },
+        });
+        Toast.fire({
+          icon: "success",
+          title: "Registetion Successfull",
+        });
+      })
+      .catch((error) => {
+        Swal.fire({
+          icon: "error",
+          title: "Register Failed",
+          text: error.message || "Something went wrong. Please try again.",
+          confirmButtonText: "Retry",
+          background: "black",
+          color: "white",
+        });
+      });
   };
 
   const handleGoogleRegister = () => {

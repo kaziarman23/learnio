@@ -2,40 +2,41 @@ import { useState } from "react";
 import { useEffect } from "react";
 import { Tab, TabList, TabPanel, Tabs } from "react-tabs";
 import TabItem from "./TabItem";
+import { useGetCoursesQuery } from "../../Redux/features/Api/coursesApi";
+import Loading from "../../components/Loading/Loading";
 
 const AllCourses = () => {
   // states and variables
-  const [allCourses, setAllCourses] = useState([]);
+  const { data, isLoading, isError } = useGetCoursesQuery();
   const [tabIndex, setTabIndex] = useState(0);
 
-  // fetching data
-  useEffect(() => {
-    fetch("/courses.json")
-      .then((res) => res.json())
-      .then((data) => setAllCourses(data))
-      .catch((error) =>
-        console.log("Error when fetch all courses data:", error)
-      );
-  }, [setAllCourses]);
+ 
+
+  if (isLoading) {
+    return <Loading></Loading>;
+  }
+
+  if (isError) {
+    console.log("Error found in AllCourses component: ", isError);
+  }
 
   // Filtering Courses
-  const webDev = allCourses.filter(
+  const webDev = data.filter(
     (course) => course.category === "web-development"
   );
-  const appDev = allCourses.filter(
+  const appDev = data.filter(
     (course) => course.category === "app-development"
   );
-  const gameDev = allCourses.filter(
+  const gameDev = data.filter(
     (course) => course.category === "game-development"
   );
-  const webDes = allCourses.filter(
+  const webDes = data.filter(
     (course) => course.category === "uiux-designer"
   );
-  const machine = allCourses.filter(
+  const machine = data.filter(
     (course) => course.category === "mechine-learning"
   );
 
-  
   return (
     <div className="w-full h-full bg-[#f2f3f3] overflow-hidden">
       <div className="w-4/5 h-full mx-auto my-10">

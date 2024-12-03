@@ -15,7 +15,7 @@ const Navbar = () => {
       <NavLink to="/">
         <li className="p-2 font-bold text-black">Home</li>
       </NavLink>
-      <NavLink to="/allCourses">
+      <NavLink to="/courses">
         <li className="p-2 font-bold text-black">All Courses</li>
       </NavLink>
       <NavLink to="/teacherEnrollment">
@@ -70,7 +70,7 @@ const Navbar = () => {
             {userEmail ? (
               <button
                 onClick={handleLogout}
-                className="btn hover:bg-black hover:text-white"
+                className="btn hover:bg-red-600 hover:text-white"
               >
                 logout
               </button>

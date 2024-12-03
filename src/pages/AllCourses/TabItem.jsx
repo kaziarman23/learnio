@@ -5,9 +5,9 @@ import { Link } from "react-router";
 const TabItem = ({ Course }) => {
   return (
     <div className="grid gap-5 grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
-      {Course.map((course) => (
+      {Course.map((course, index) => (
         <div
-          key={course.id}
+          key={index}
           className="w-80 h-96 bg-[#ffffff] border-2 border-black rounded-3xl p-4 space-y-3"
         >
           <img
@@ -20,10 +20,10 @@ const TabItem = ({ Course }) => {
           <h4>Total Students : {course.courseStudentsCount}</h4>
           <div className="flex justify-between items-center">
             <p>Price : {course.coursePrice}$</p>
-            <Link to="/courses">
-            <button className="btn hover:bg-black hover:text-white">
-              Details
-            </button>
+            <Link to={`/courses/${course._id}`}>
+              <button className="btn hover:bg-black hover:text-white">
+                Details
+              </button>
             </Link>
           </div>
         </div>

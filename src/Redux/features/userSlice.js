@@ -50,7 +50,6 @@ export const loginUser = createAsyncThunk(
       userEmail,
       userPassword
     );
-    console.log(data);
 
     return {
       userName: data.user.displayName,

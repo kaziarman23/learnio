@@ -18,7 +18,7 @@ const router = createBrowserRouter([
         element: <Home />,
       },
       {
-        path: "/allCourses",
+        path: "/courses",
         element: (
           <PrivateRoute>
             <AllCourses />
@@ -26,7 +26,7 @@ const router = createBrowserRouter([
         ),
       },
       {
-        path: "/courseDetails/:id",
+        path: "/courses/:id",
         element: (
           <PrivateRoute>
             <CourseDetails />
