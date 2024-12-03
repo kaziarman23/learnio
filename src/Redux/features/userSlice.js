@@ -8,8 +8,6 @@ import {
 } from "firebase/auth";
 import { GoogleAuthProvider } from "firebase/auth";
 
-
-
 const initialState = {
   userName: "",
   userEmail: "",
@@ -93,6 +91,15 @@ const userSlice = createSlice({
       state.userName = "";
       state.userPhoto = "";
       state.userEmail = "";
+    },
+    postUsers: (state, { payload }) => {
+      state.userName = payload.userName;
+      state.userPhoto = payload.userPhoto;
+      state.userEmail = payload.userEmail;
+      state.userRole = "student";
+      state.isTeacher = null;
+      state.experience = null;
+      state.category = null;
     },
   },
   extraReducers: (builder) => {

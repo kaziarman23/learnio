@@ -3,7 +3,7 @@ import { Link, useNavigate } from "react-router";
 import { useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
 import { createUser, googleSignIn } from "../../../Redux/features/userSlice";
-import { usePostUsersMutation } from "../../../Redux/features/api/usersApi";
+import { useAddUsersMutation } from "../../../Redux/features/Api/usersApi";
 import Swal from "sweetalert2";
 
 const Register = () => {
@@ -18,9 +18,9 @@ const Register = () => {
   const navigate = useNavigate();
 
   // buged
-  console.log({ usePostUsersMutation });
-  // const [postUsers, { data }] = usePostUsersMutation();
-  // console.log("post users data : ", postUsers, data);
+  console.log({ useAddUsersMutation });
+  // const [addUsers, { data }] = useAddUsersMutation();
+  // console.log("post users data : ", addUsers, data);
 
   // handle form submit
   const onSubmit = (data) => {

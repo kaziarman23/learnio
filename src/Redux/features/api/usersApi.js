@@ -2,13 +2,11 @@ import baseApi from "./baseApi";
 
 const usersApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
-    // Get users
     getUsers: builder.query({
       query: () => "/users",
       providesTags: ["Users"],
     }),
-    // Post (create) a user
-    postUsers: builder.mutation({
+    addUsers: builder.mutation({
       query: (user) => ({
         url: "/users",
         method: "POST",
@@ -20,7 +18,5 @@ const usersApi = baseApi.injectEndpoints({
 });
 
 // having undefined || buged found
-export const { useGetUsersQuery, usePostUsersMutation } = usersApi;
+export const { useGetUsersQuery, useAddUsersMutation } = usersApi;
 export default usersApi;
-
-console.log({ useGetUsersQuery, usePostUsersMutation });

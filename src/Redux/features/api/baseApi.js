@@ -8,3 +8,4 @@ const baseApi = createApi({
 });
 
 export default baseApi;
+console.log(baseApi);
