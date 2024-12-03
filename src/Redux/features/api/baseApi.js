@@ -1,4 +1,4 @@
-import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query";
+import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
 const baseApi = createApi({
   reducerPath: "api",
@@ -8,4 +8,3 @@ const baseApi = createApi({
 });
 
 export default baseApi;
-console.log(baseApi);

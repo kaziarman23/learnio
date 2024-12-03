@@ -6,7 +6,7 @@ const usersApi = baseApi.injectEndpoints({
       query: () => "/users",
       providesTags: ["Users"],
     }),
-    addUsers: builder.mutation({
+    postUsers: builder.mutation({
       query: (user) => ({
         url: "/users",
         method: "POST",
@@ -17,6 +17,5 @@ const usersApi = baseApi.injectEndpoints({
   }),
 });
 
-// having undefined || buged found
-export const { useGetUsersQuery, useAddUsersMutation } = usersApi;
+export const { useGetUsersQuery, usePostUsersMutation } = usersApi;
 export default usersApi;

@@ -65,7 +65,6 @@ export const googleSignIn = createAsyncThunk(
   "userSlice/googleSignIn",
   async () => {
     const data = await signInWithPopup(auth, googleProvider);
-    console.log("google sign in details: ", data);
 
     return {
       userName: data.user.displayName,
