@@ -1,12 +1,22 @@
-import { useNavigate, useParams } from "react-router";
+import { useLocation, useNavigate, useParams } from "react-router";
 import { useGetCourseQuery } from "../../Redux/features/Api/coursesApi";
 import Loading from "../../components/Loading/Loading";
-import { FaGripfire } from "react-icons/fa";
+import { FaGripfire, FaUsers } from "react-icons/fa";
+import { useSelector } from "react-redux";
+import { usePostEnrollmentsMutation } from "../../Redux/features/Api/enrollmentsApi";
+import Swal from "sweetalert2";
 
 const CourseDetails = () => {
-  const navigate = useNavigate();
+  // states
   const { id } = useParams();
   const { data: course, isLoading, isError } = useGetCourseQuery(id);
+  const { userName, userEmail, userPhoto } = useSelector(
+    (state) => state.userSlice
+  );
+  const [postEnrollments] = usePostEnrollmentsMutation();
+  const location = useLocation();
+  const pastLocation = location?.state?.from;
+  const navigate = useNavigate();
 
   // handling loading
   if (isLoading) {
@@ -18,9 +28,65 @@ const CourseDetails = () => {
     console.log("Error in fetching Course details: ", isError);
   }
 
+  // handling Enrollments
+  const handleEnrollmentBtn = (data) => {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You Want to Enroll for this Course!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, Do It!",
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        // after confirming the enrollment
+        const enrollmentInfo = {
+          courseId: data._id,
+          courseTitle: data.courseTitle,
+          courseTeacherName: data.courseTeacherName,
+          courseTeacherEmail: data.courseTeacherEmail,
+          courseImage: data.courseImage,
+          coursePrice: data.coursePrice,
+          userName,
+          userEmail,
+          userPhoto,
+          paymentStatus: "unpaid",
+          enrollmentStatus: "pandding",
+        };
+        console.log("enrollment Info: ", enrollmentInfo);
+        postEnrollments(enrollmentInfo)
+          .unwrap()
+          .then((resolveData) => {
+            console.log("resolveData: ", resolveData);
+            // navigating the user and showing a success alert
+            navigate(-1);
+            Swal.fire({
+              position: "top-end",
+              icon: "success",
+              title: "Enrollment Successfull",
+              showConfirmButton: false,
+              timer: 1500,
+            });
+          })
+          .catch((error) => {
+            // showing an error alert
+            Swal.fire({
+              title: "Error!",
+              text:
+                error.message ||
+                "Error when saving the enrollments data in the server",
+              icon: "error",
+              confirmButtonText: "Okey",
+            });
+          });
+      }
+    });
+  };
+
   // handling previous button
   const handlePreviousBtn = () => {
-    navigate(-1);
+    navigate(pastLocation);
   };
   return (
     <div className="w-full min-h-screen overflow-hidden">
@@ -49,14 +115,16 @@ const CourseDetails = () => {
                 Course Description: {course.courseDescription}
               </p>
               <p className="text-xl font-semibold">
-                Course Price: {course.coursePrice}
+                Course Price: {course.coursePrice} $
               </p>
-              <p className="text-xl font-semibold">
-                Total Student: {course.courseStudentsCount}
+              <p className="text-xl font-semibold flex items-center gap-2">
+                Total Student: {course.courseStudentsCount} <FaUsers />
               </p>
               <div className="flex gap-3">
-                {/* Have to handle the enrollment button */}
-                <button className="btn hover:bg-blue-500 hover:text-white">
+                <button
+                  onClick={() => handleEnrollmentBtn(course)}
+                  className="btn hover:bg-blue-500 hover:text-white"
+                >
                   Enroll Course
                 </button>
                 <button

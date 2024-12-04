@@ -1,8 +1,9 @@
 /* eslint-disable react/prop-types */
 
-import { Link } from "react-router";
+import { Link, useLocation } from "react-router";
 
 const TabItem = ({ Course }) => {
+  const location = useLocation();
   return (
     <div className="grid gap-5 grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
       {Course.map((course, index) => (
@@ -20,7 +21,10 @@ const TabItem = ({ Course }) => {
           <h4>Total Students : {course.courseStudentsCount}</h4>
           <div className="flex justify-between items-center">
             <p>Price : {course.coursePrice}$</p>
-            <Link to={`/courses/${course._id}`}>
+            <Link
+              to={`/courses/${course._id}`}
+              state={{ from: location.pathname }}
+            >
               <button className="btn hover:bg-black hover:text-white">
                 Details
               </button>

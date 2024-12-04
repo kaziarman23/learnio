@@ -7,10 +7,12 @@ import Loading from "../../components/Loading/Loading";
 
 const AllCourses = () => {
   // states and variables
-  const { data, isLoading, isError } = useGetCoursesQuery();
+  const { data, isLoading, isError, refetch } = useGetCoursesQuery();
   const [tabIndex, setTabIndex] = useState(0);
 
- 
+  useEffect(() => {
+    refetch();
+  }, [data, refetch]);
 
   if (isLoading) {
     return <Loading></Loading>;
@@ -21,18 +23,12 @@ const AllCourses = () => {
   }
 
   // Filtering Courses
-  const webDev = data.filter(
-    (course) => course.category === "web-development"
-  );
-  const appDev = data.filter(
-    (course) => course.category === "app-development"
-  );
+  const webDev = data.filter((course) => course.category === "web-development");
+  const appDev = data.filter((course) => course.category === "app-development");
   const gameDev = data.filter(
     (course) => course.category === "game-development"
   );
-  const webDes = data.filter(
-    (course) => course.category === "uiux-designer"
-  );
+  const webDes = data.filter((course) => course.category === "uiux-designer");
   const machine = data.filter(
     (course) => course.category === "mechine-learning"
   );
