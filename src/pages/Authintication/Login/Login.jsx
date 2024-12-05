@@ -1,5 +1,5 @@
 import { FaGoogle } from "react-icons/fa";
-import { Link, useNavigate } from "react-router";
+import { Link, useLocation, useNavigate } from "react-router";
 import { useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
 import { googleSignIn, loginUser } from "../../../Redux/features/userSlice";
@@ -15,6 +15,7 @@ const Login = () => {
   } = useForm();
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const location = useLocation();
 
   // handle form submit
   const onSubmit = (data) => {
@@ -22,7 +23,7 @@ const Login = () => {
       .unwrap()
       .then(() => {
         // navigating the user and clearing the inputs
-        navigate("/");
+        navigate(location?.state?.from || "/");
         reset();
 
         // showing successfull alert
@@ -59,7 +60,7 @@ const Login = () => {
       .unwrap()
       .then((data) => {
         // navigating the user and clearing the inputs
-        navigate("/");
+        navigate(location?.state?.from || "/");
         reset();
 
         // showing successfull alert

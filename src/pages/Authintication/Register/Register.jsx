@@ -70,13 +70,15 @@ const Register = () => {
       });
   };
 
-  const handleGoogleRegister = async () => {  
+  const handleGoogleRegister = async () => {
     dispatch(googleSignIn())
       .unwrap()
       .then((data) => {
         // sending data in the server
         const userInfo = {
-          ...data,
+          userName: data.userName,
+          userPhoto: data.userPhoto,
+          userEmail: data.userEmail,
           userRole: "student",
           isTeacher: null,
           experience: null,

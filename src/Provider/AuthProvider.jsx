@@ -27,7 +27,7 @@ const AuthProvider = ({ children }) => {
         dispatch(toggleLoading(false));
       } else {
         dispatch(logoutUser());
-        // dispatch(toggleLoading(false));
+        dispatch(toggleLoading(false));
       }
     });
 

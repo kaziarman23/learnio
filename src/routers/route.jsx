@@ -7,8 +7,10 @@ import TeacherEnrollment from "../pages/TeacherEnrollment/TeacherEnrollment";
 import Register from "../pages/Authintication/Register/Register";
 import Login from "../pages/Authintication/Login/Login";
 import PrivateRoute from "./PrivateRoute";
+import Dashboard from "../layout/Dashboard";
+import Interface from "../pages/Dashboard/Interface";
 
-const router = createBrowserRouter([
+const Router = createBrowserRouter([
   {
     path: "/",
     element: <Root />,
@@ -34,7 +36,7 @@ const router = createBrowserRouter([
         ),
       },
       {
-        path: "/teacherEnrollment",
+        path: "/teacher",
         element: (
           <PrivateRoute>
             <TeacherEnrollment />
@@ -51,6 +53,24 @@ const router = createBrowserRouter([
       },
     ],
   },
+  {
+    path: "dashboard",
+    element: (
+      <PrivateRoute>
+        <Dashboard />
+      </PrivateRoute>
+    ),
+    children: [
+      {
+        path: "/dashboard/interface",
+        element: (
+          <PrivateRoute>
+            <Interface />
+          </PrivateRoute>
+        ),
+      },
+    ],
+  },
 ]);
 
-export default router;
+export default Router;

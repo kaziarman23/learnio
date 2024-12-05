@@ -1,14 +1,16 @@
 import { signOut } from "firebase/auth";
 import { FaGripfire } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
-import { Link, NavLink } from "react-router";
+import { Link, NavLink, useNavigate } from "react-router";
 import auth from "../../Firebase/Firebase.Config";
 import { logoutUser } from "../../Redux/features/userSlice";
+import Swal from "sweetalert2";
 
 const Navbar = () => {
   // states
   const { userEmail } = useSelector((state) => state.userSlice);
   const dispatch = useDispatch();
+  const navigate = useNavigate()
 
   const navlinks = (
     <>
@@ -18,15 +20,29 @@ const Navbar = () => {
       <NavLink to="/courses">
         <li className="p-2 font-bold text-black">All Courses</li>
       </NavLink>
-      <NavLink to="/teacherEnrollment">
+      <NavLink to="/teacher">
         <li className="p-2 font-bold text-black">Teacher Enrollment</li>
+      </NavLink>
+      <NavLink to="/dashboard/interface">
+        <li className="p-2 font-bold text-black">Dashboard</li>
       </NavLink>
     </>
   );
 
+  // handle logout
   const handleLogout = () => {
     signOut(auth);
     dispatch(logoutUser());
+
+    // navigating the user and showing a success alert
+    navigate(-1);
+    Swal.fire({
+      position: "top-end",
+      icon: "success",
+      title: "Logout SuccessFull",
+      showConfirmButton: false,
+      timer: 1500,
+    });
   };
 
   return (

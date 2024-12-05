@@ -1,16 +1,57 @@
 import { useForm } from "react-hook-form";
 import { useSelector } from "react-redux";
+import { useNavigate } from "react-router";
+import { usePostTeachersMutation } from "../../Redux/features/Api/teachersApi";
+import Swal from "sweetalert2";
+import Loading from "../../components/Loading/Loading";
 
 const TeacherEnrollment = () => {
   // states
+  const navigate = useNavigate();
   const { handleSubmit, register } = useForm();
+  const [postTeachers, { isLoading, isError }] = usePostTeachersMutation();
   const { userName, userPhoto, userEmail } = useSelector(
     (state) => state.userSlice
   );
 
+  // handle Loading
+  if (isLoading) {
+    return <Loading />;
+  }
+  // handle Error
+  if (isError) {
+    Swal.fire({
+      title: "Error!",
+      text: isError.message || "Error in teacher enrollment component",
+      icon: "error",
+      confirmButtonText: "Okey",
+    });
+  }
+
   // handle form submit
   const onSubmit = (data) => {
-    console.log(data);
+    postTeachers(data)
+      .unwrap()
+      .then(() => {
+        // navigating the user and showing a success alert
+        navigate(-1);
+        Swal.fire({
+          title: "Success",
+          text: `${userName} is now a Teacher`,
+          icon: "success",
+          confirmButtonText: "Okey",
+        });
+      })
+      .catch((error) => {
+        // showing an error alert
+        Swal.fire({
+          title: "Error!",
+          text:
+            error.message || "Error while sending teacher data in the database",
+          icon: "error",
+          confirmButtonText: "Okey",
+        });
+      });
   };
 
   return (
@@ -100,7 +141,7 @@ const TeacherEnrollment = () => {
             <div>
               <button
                 type="submit"
-                className="w-full btn border-2 hover:bg-black hover:text-white"
+                className="w-full btn border-2 hover:bg-blue-500 hover:text-white"
               >
                 Submit For Review
               </button>

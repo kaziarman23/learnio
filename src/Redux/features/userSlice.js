@@ -90,15 +90,6 @@ const userSlice = createSlice({
       state.userPhoto = "";
       state.userEmail = "";
     },
-    postUsers: (state, { payload }) => {
-      state.userName = payload.userName;
-      state.userPhoto = payload.userPhoto;
-      state.userEmail = payload.userEmail;
-      state.userRole = "student";
-      state.isTeacher = null;
-      state.experience = null;
-      state.category = null;
-    },
   },
   extraReducers: (builder) => {
     builder
