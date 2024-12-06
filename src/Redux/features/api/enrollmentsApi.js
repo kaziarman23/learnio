@@ -14,8 +14,18 @@ export const enrollmentsApi = baseApi.injectEndpoints({
       }),
       invalidatesTags: ["Enrollments", "Courses"],
     }),
+    deleteEnrollments: builder.mutation({
+      query: (id) => ({
+        url: `/enrollments/${id}`,
+        method: "DELETE",
+      }),
+      invalidatesTags: ["Enrollments"],
+    }),
   }),
 });
 
-export const { useGetEnrollmentsQuery, usePostEnrollmentsMutation } =
-  enrollmentsApi;
+export const {
+  useGetEnrollmentsQuery,
+  usePostEnrollmentsMutation,
+  useDeleteEnrollmentsMutation,
+} = enrollmentsApi;

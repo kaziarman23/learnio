@@ -1,14 +1,15 @@
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
-import { useUpdateUsersMutation } from "../../../Redux/features/api/usersApi";
+import { useUpdateUsersMutation } from "../../../../Redux/features/Api/usersApi";
 import { updateProfile } from "firebase/auth";
-import auth from "../../../Firebase/Firebase.Config";
-import Loading from "../../../components/Loading/Loading";
+import auth from "../../../../Firebase/Firebase.Config";
+import Loading from "../../../../components/Loading/Loading";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router";
-import { setUser } from "../../../Redux/features/userSlice";
+import { setUser } from "../../../../Redux/features/userSlice";
 
 const UpdateStudentProfile = () => {
+  //states
   const { userName, userPhoto, userEmail } = useSelector(
     (state) => state.userSlice
   );
@@ -17,10 +18,12 @@ const UpdateStudentProfile = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
+  // handle loging
   if (isLoading) {
     return <Loading />;
   }
 
+  // handle error
   if (isError) {
     Swal.fire({
       title: "Error!",
@@ -33,6 +36,7 @@ const UpdateStudentProfile = () => {
     });
   }
 
+  // handle submit
   const onSubmit = async (data) => {
     // collecting the input datas
     const userInfo = {
@@ -84,13 +88,14 @@ const UpdateStudentProfile = () => {
     }
   };
 
+  // handle cancel btn
   const handleCancel = () => {
     reset();
     navigate(-1);
   };
 
   return (
-    <div className="w-full min-h-screen flex justify-center items-center">
+    <div className="w-full min-h-screen flex justify-center items-center bg-[#e0cece]">
       <div className="w-2/3 h-1/2 mx-auto bg-[#c7c1c1] rounded-lg p-5">
         <h1 className="text-2xl font-bold text-center mb-5">
           Updating User Profile

@@ -8,13 +8,13 @@ const StudentProfile = () => {
   );
 
   return (
-    <div className="w-full h-screen flex justify-center items-center">
+    <div className="w-full h-screen flex justify-center items-center bg-[#e0cece]">
       <div className="w-1/2 h-2/3 mx-auto bg-[#c7c1c1] rounded-lg">
         <div className="w-full h-1/2 flex justify-center items-center">
           <img
             src={userPhoto}
             alt="user profile"
-            className="w-40 h-40 object-cover rounded-3xl border-2"
+            className="w-40 h-40 object-cover rounded-full border-2"
           />
         </div>
         <div className="w-full h-1/2 p-5 space-y-5">

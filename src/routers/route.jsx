@@ -10,7 +10,8 @@ import PrivateRoute from "./PrivateRoute";
 import Dashboard from "../layout/Dashboard";
 import Interface from "../pages/Dashboard/Interface";
 import StudentProfile from "../pages/Dashboard/StudentDashboard/StudentProfile/StudentProfile";
-import UpdateStudentProfile from "../pages/Dashboard/StudentDashboard/UpdateStudentProfile";
+import UpdateStudentProfile from "../pages/Dashboard/StudentDashboard/StudentProfile/UpdateStudentProfile";
+import StudentEnrollments from "../pages/Dashboard/StudentDashboard/StudentEnrollment/StudentEnrollments";
 
 const Router = createBrowserRouter([
   {
@@ -84,6 +85,14 @@ const Router = createBrowserRouter([
         element: (
           <PrivateRoute>
             <UpdateStudentProfile />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "/dashboard/studentEnrollments",
+        element: (
+          <PrivateRoute>
+            <StudentEnrollments />
           </PrivateRoute>
         ),
       },
