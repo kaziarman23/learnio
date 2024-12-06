@@ -29,7 +29,9 @@ const Register = () => {
 
         // sending data in the server
         const userInfo = {
-          ...data,
+          userName: data.userName,
+          userPhoto: data.userPhoto,
+          userEmail: data.userEmail,
           userRole: "student",
           isTeacher: null,
           experience: null,

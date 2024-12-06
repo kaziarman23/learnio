@@ -19,7 +19,14 @@ const AllCourses = () => {
   }
 
   if (isError) {
-    console.log("Error found in AllCourses component: ", isError);
+    // showing an error alert
+    Swal.fire({
+      title: "Error!",
+      text:
+        isError.message || "Error while sending teacher data in the database",
+      icon: "error",
+      confirmButtonText: "Okey",
+    });
   }
 
   // Filtering Courses

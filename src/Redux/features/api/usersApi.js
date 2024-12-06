@@ -14,8 +14,20 @@ const usersApi = baseApi.injectEndpoints({
       }),
       invalidatesTags: ["Users"],
     }),
+    updateUsers: builder.mutation({
+      query: (userInfo) => ({
+        url: "/users",
+        method: "PATCH",
+        body: userInfo,
+      }),
+      invalidatesTags: ["Users"],
+    }),
   }),
 });
 
-export const { useGetUsersQuery, usePostUsersMutation } = usersApi;
+export const {
+  useGetUsersQuery,
+  usePostUsersMutation,
+  useUpdateUsersMutation,
+} = usersApi;
 export default usersApi;

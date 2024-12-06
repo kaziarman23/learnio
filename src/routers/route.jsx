@@ -9,6 +9,8 @@ import Login from "../pages/Authintication/Login/Login";
 import PrivateRoute from "./PrivateRoute";
 import Dashboard from "../layout/Dashboard";
 import Interface from "../pages/Dashboard/Interface";
+import StudentProfile from "../pages/Dashboard/StudentDashboard/StudentProfile/StudentProfile";
+import UpdateStudentProfile from "../pages/Dashboard/StudentDashboard/UpdateStudentProfile";
 
 const Router = createBrowserRouter([
   {
@@ -66,6 +68,22 @@ const Router = createBrowserRouter([
         element: (
           <PrivateRoute>
             <Interface />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "/dashboard/studentProfile",
+        element: (
+          <PrivateRoute>
+            <StudentProfile />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "/dashboard/updateStudentProfile",
+        element: (
+          <PrivateRoute>
+            <UpdateStudentProfile />
           </PrivateRoute>
         ),
       },

@@ -44,10 +44,10 @@ const TeacherEnrollment = () => {
       })
       .catch((error) => {
         // showing an error alert
+        console.log(error);
         Swal.fire({
           title: "Error!",
-          text:
-            error.message || "Error while sending teacher data in the database",
+          text: "Error while sending teacher data in the database",
           icon: "error",
           confirmButtonText: "Okey",
         });
