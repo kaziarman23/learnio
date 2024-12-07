@@ -8,11 +8,12 @@ import { Link } from "react-router";
 import Swal from "sweetalert2";
 import { FaMoneyCheck, FaRegTrashAlt } from "react-icons/fa";
 import { RiMoneyDollarBoxFill } from "react-icons/ri";
+import { useEffect } from "react";
 
 const StudentEnrollments = () => {
   // states
   const { userName, userEmail } = useSelector((state) => state.userSlice);
-  const { data, isLoading, isError, error } = useGetEnrollmentsQuery();
+  const { data, refetch, isLoading, isError, error } = useGetEnrollmentsQuery();
   const [deleteEnrollments] = useDeleteEnrollmentsMutation();
 
   // handle loading
@@ -32,6 +33,13 @@ const StudentEnrollments = () => {
       confirmButtonText: "Okey",
     });
   }
+
+  useEffect(() => {
+    // handle current data
+    if (data) {
+      refetch();
+    }
+  }, []);
 
   // filtering data from the database
   const allEnrollments = data.filter((data) => data.userEmail === userEmail);
@@ -122,12 +130,14 @@ const StudentEnrollments = () => {
                   <td>{enrollment.coursePrice}$</td>
                   <td className="flex justify-center">
                     {enrollment.paymentStatus === "unpaid" ? (
-                      <button
-                        type="button"
-                        className="btn font-bold px-8 bg-indigo-500 hover:bg-indigo-700"
-                      >
-                        Pay <FaMoneyCheck />
-                      </button>
+                      <Link to={`/dashboard/payment/${enrollment._id}`}>
+                        <button
+                          type="button"
+                          className="btn font-bold px-8 bg-indigo-500 hover:bg-indigo-700"
+                        >
+                          Pay <FaMoneyCheck />
+                        </button>
+                      </Link>
                     ) : (
                       <button
                         type="button"
