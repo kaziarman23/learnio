@@ -13,6 +13,7 @@ import StudentProfile from "../pages/Dashboard/StudentDashboard/StudentProfile/S
 import UpdateStudentProfile from "../pages/Dashboard/StudentDashboard/StudentProfile/UpdateStudentProfile";
 import StudentEnrollments from "../pages/Dashboard/StudentDashboard/StudentEnrollment/StudentEnrollments";
 import Payment from "../pages/Dashboard/StudentDashboard/Payment/Payment";
+import PaymentHistory from "../pages/Dashboard/StudentDashboard/PaymentHistory/PaymentHistory";
 
 const Router = createBrowserRouter([
   {
@@ -102,6 +103,14 @@ const Router = createBrowserRouter([
         element: (
           <PrivateRoute>
             <Payment />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "/dashboard/studentPaymentHistory",
+        element: (
+          <PrivateRoute>
+            <PaymentHistory />
           </PrivateRoute>
         ),
       },

@@ -117,6 +117,7 @@ const CheckoutForm = ({ id }) => {
         const paymentInfo = {
           enrollmentId: enrollmentDetails._id,
           courseId: enrollmentDetails.courseId,
+          courseTitle: enrollmentDetails.courseTitle,
           courseTeacherName: enrollmentDetails.courseTeacherName,
           coursePrice: enrollmentDetails.coursePrice,
           userEmail: enrollmentDetails.userEmail,

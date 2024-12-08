@@ -14,14 +14,21 @@ const paymentApi = baseApi.injectEndpoints({
       }),
       invalidatesTags: ["Payments"],
     }),
-    // TODO: have to change the name postPaymentIntent
+    deletePayments: builder.mutation({
+      query: (id) => ({
+        url: `/payments/${id}`,
+        method: "DELETE",
+      }),
+      invalidatesTags: ["Payments"],
+    }),
+    // Payment intent api
     postPaymentIntent: builder.mutation({
       query: (paymentInfo) => ({
         url: "/payments/create-payment-intent",
         method: "POST",
         body: paymentInfo,
       }),
-      invalidatesTags: ["Payments"],
+      invalidatesTags: ["Enrollments","Payments"],
     }),
   }),
 });
@@ -29,5 +36,6 @@ const paymentApi = baseApi.injectEndpoints({
 export const {
   useGetPaymentsQuery,
   usePostPaymentsMutation,
+  useDeletePaymentsMutation,
   usePostPaymentIntentMutation,
 } = paymentApi;

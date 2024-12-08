@@ -4,68 +4,77 @@ import {
   useGetEnrollmentsQuery,
 } from "../../../../Redux/features/Api/enrollmentsApi";
 import Loading from "../../../../components/Loading/Loading";
-import { Link } from "react-router";
+import { Link } from "react-router-dom";
 import Swal from "sweetalert2";
 import { FaMoneyCheck, FaRegTrashAlt } from "react-icons/fa";
 import { RiMoneyDollarBoxFill } from "react-icons/ri";
-import { useEffect } from "react";
+import { useEffect, useMemo } from "react";
 
 const StudentEnrollments = () => {
-  // states
+  // Redux state
   const { userName, userEmail } = useSelector((state) => state.userSlice);
-  const { data, refetch, isLoading, isError, error } = useGetEnrollmentsQuery();
+
+  // RTK Query hooks
+  const { data, isLoading, isError, error, refetch } = useGetEnrollmentsQuery();
   const [deleteEnrollments] = useDeleteEnrollmentsMutation();
 
-  // handle loading
+  useEffect(() => {
+    if (data) {
+      refetch();
+    }
+  }, [data]);
+
+  // Filter enrollments only for the current user
+  const allEnrollments = useMemo(
+    () =>
+      data?.filter((enrollment) => enrollment.userEmail === userEmail) || [],
+    [data, userEmail]
+  );
+
+  // Handle loading
   if (isLoading) {
     return <Loading />;
   }
 
-  // handle error
+  // Handle error
   if (isError) {
+    console.log(
+      "Error when fetching data from getEnrollmentsQuery: ",
+      error.error
+    );
+    console.log("Error message is: ", error.message);
+
+    // showing an error alert
     Swal.fire({
       title: "Error!",
       text:
-        error?.data?.message ||
-        error?.error ||
-        "Error when updating the user profile",
+        error?.data?.message || error?.error || "Error when fetching payments",
       icon: "error",
-      confirmButtonText: "Okey",
+      confirmButtonText: "OK",
     });
+    return null;
   }
 
-  useEffect(() => {
-    // handle current data
-    if (data) {
-      refetch();
-    }
-  }, []);
-
-  // filtering data from the database
-  const allEnrollments = data.filter((data) => data.userEmail === userEmail);
-
-  // handle empty enrollments
-  if (!allEnrollments || allEnrollments.length === 0) {
+  // Handle empty enrollments
+  if (allEnrollments.length === 0) {
     return (
-      <div className="w-full h-screen bg-[#e0cece] flex justify-center items-center flex-col gap-5">
-        <h1 className="text-3xl font-bold text-center">
-          {userName} have {allEnrollments.length} Enrollments.
+      <div className="w-full h-screen bg-gray-100 flex justify-center items-center flex-col gap-5">
+        <h1 className="text-2xl font-bold text-center">
+          {userName}, you have no enrollments.
         </h1>
-        <div>
-          <Link to="/courses">
-            <button
-              type="button"
-              className="btn hover:bg-blue-500 hover:text-white hover:border-none"
-            >
-              All Courses
-            </button>
-          </Link>
-        </div>
+        <Link to="/courses">
+          <button
+            type="button"
+            className="btn hover:bg-blue-500 hover:text-white hover:border-none"
+          >
+            Browse Courses
+          </button>
+        </Link>
       </div>
     );
   }
 
-  // handle delete
+  // Handle delete
   const handleDelete = (id) => {
     Swal.fire({
       title: "Are you sure?",
@@ -77,25 +86,22 @@ const StudentEnrollments = () => {
       confirmButtonText: "Yes, delete it!",
     }).then((result) => {
       if (result.isConfirmed) {
-        // deleting a data from enrollments database
         deleteEnrollments(id)
           .unwrap()
           .then(() => {
-            // success alert
             Swal.fire({
               title: "Success",
               text: "Enrollment Deleted Successfully",
               icon: "success",
-              confirmButtonText: "Okey",
+              confirmButtonText: "OK",
             });
           })
-          .catch((error) => {
-            // error alert
+          .catch((err) => {
             Swal.fire({
               title: "Error!",
-              text: error.message,
+              text: err.message || "Failed to delete enrollment",
               icon: "error",
-              confirmButtonText: "Okey",
+              confirmButtonText: "OK",
             });
           });
       }
@@ -106,10 +112,8 @@ const StudentEnrollments = () => {
     <div className="w-full h-screen bg-[#e0cece] flex justify-center items-center">
       <div className="w-11/12 h-4/5 bg-[#c7c1c1] rounded-xl overflow-y-scroll">
         <h1 className="text-3xl font-bold text-center p-2">My Enrollments</h1>
-        {/* table content */}
-        <div className="p-5 overflow-x-auto ">
+        <div className="p-5 overflow-x-auto">
           <table className="table table-zebra">
-            {/* head */}
             <thead>
               <tr className="uppercase border-y-2 border-black text-base">
                 <th>SL</th>
@@ -122,7 +126,7 @@ const StudentEnrollments = () => {
               </tr>
             </thead>
             <tbody>
-              {data.map((enrollment, index) => (
+              {allEnrollments.map((enrollment, index) => (
                 <tr key={enrollment._id}>
                   <th>{index + 1}</th>
                   <td>{enrollment.courseTitle}</td>
@@ -141,16 +145,16 @@ const StudentEnrollments = () => {
                     ) : (
                       <button
                         type="button"
-                        className="btn disabled cursor-not-allowed font-bold px-8 bg-blue-500 hover:bg-blue-500"
+                        className="btn disabled cursor-not-allowed font-bold px-8 bg-blue-500"
                       >
                         Paid <RiMoneyDollarBoxFill className="w-6 h-6" />
                       </button>
                     )}
                   </td>
                   <td>
-                    {enrollment.enrollmentStatus === "pandding" ? (
+                    {enrollment.enrollmentStatus === "pendding" ? (
                       <h1 className="font-bold text-2xl uppercase border-black border text-center bg-yellow-500 rounded-sm">
-                        Pandding
+                        Pendding
                       </h1>
                     ) : (
                       <h1 className="font-bold text-2xl uppercase rounded-sm border-black border text-center bg-green-500">
@@ -162,7 +166,7 @@ const StudentEnrollments = () => {
                     {enrollment.paymentStatus === "paid" ? (
                       <button
                         type="button"
-                        className="btn bg-gray-500 text-black disabled cursor-not-allowed border-black hover:bg-gray-500"
+                        className="btn bg-gray-500 text-black disabled cursor-not-allowed border-black"
                       >
                         <FaRegTrashAlt />
                       </button>
@@ -170,7 +174,7 @@ const StudentEnrollments = () => {
                       <button
                         onClick={() => handleDelete(enrollment._id)}
                         type="button"
-                        className="btn bg-red-500 text-white border-black hover:bg-red-600 hover:text-black"
+                        className="btn bg-red-500 text-white border-black hover:bg-red-600"
                       >
                         <FaRegTrashAlt />
                       </button>
