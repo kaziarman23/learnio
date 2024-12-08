@@ -49,7 +49,7 @@ const PaymentHistory = () => {
   // Handle empty enrollments
   if (payments.length === 0) {
     return (
-      <div className="w-full h-screen bg-gray-100 flex justify-center items-center flex-col gap-5">
+      <div className="w-full h-screen bg-[#e0cece] flex justify-center items-center flex-col gap-5">
         <h1 className="text-2xl font-bold text-center">
           {userName}, you have no payment history.
         </h1>

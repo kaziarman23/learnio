@@ -4,11 +4,11 @@ import { CgProfile } from "react-icons/cg";
 import { FaGripfire, FaHome, FaRegCreditCard } from "react-icons/fa";
 import { SiCoursera, SiGoogleclassroom } from "react-icons/si";
 import { useDispatch } from "react-redux";
-import { NavLink, Outlet, useNavigate } from "react-router";
-import Swal from "sweetalert2";
+import { NavLink, Outlet, useNavigate } from "react-router-dom";
 import { logoutUser } from "../Redux/features/userSlice";
-import auth from "../Firebase/Firebase.Config";
 import { MdDashboard } from "react-icons/md";
+import Swal from "sweetalert2";
+import auth from "../Firebase/Firebase.Config";
 
 const Dashboard = () => {
   // states
@@ -30,7 +30,7 @@ const Dashboard = () => {
       timer: 1500,
     });
   };
-
+  const userRole = "user";
   return (
     <div className="flex h-screen">
       {/* side bar content */}
@@ -44,44 +44,77 @@ const Dashboard = () => {
           {/* menu section */}
           <div className="mt-10 p-4">
             <ul>
-              <NavLink to="/dashboard/interface">
-                <li className="p-2 text-lg font-bold flex items-center gap-2 bg-black text-white rounded-2xl">
-                  <MdDashboard />
-                  Interface
-                </li>
-              </NavLink>
-              <NavLink to="/dashboard/studentProfile">
-                <li className="p-2 text-lg font-bold flex items-center gap-2 rounded-2xl">
-                  <CgProfile />
-                  Profile
-                </li>
-              </NavLink>
-              <NavLink to="/dashboard/studentEnrollments">
-                <li className="p-2 text-lg font-bold flex items-center gap-2">
-                  <SiGoogleclassroom />
-                  My Enrollments
-                </li>
-              </NavLink>
-              <NavLink to="/dashboard/studentPaymentHistory">
-                <li className="p-2 text-lg font-bold flex items-center gap-2">
-                  <FaRegCreditCard />
-                  Payment History
-                </li>
-              </NavLink>
+              {userRole === "admin" ? (
+                // Admin dashboard
+                <></>
+              ) : userRole === "teacher" ? (
+                // Teacher dashboard
+                <></>
+              ) : (
+                // User dashboard
+                <>
+                  <NavLink
+                    to="/dashboard/interface"
+                    className={({ isActive }) =>
+                      `p-2 text-lg font-bold flex items-center gap-2 ${
+                        isActive ? "bg-black text-white rounded-2xl" : ""
+                      }`
+                    }
+                  >
+                    <MdDashboard />
+                    Interface
+                  </NavLink>
+                  <NavLink
+                    to="/dashboard/studentProfile"
+                    className={({ isActive }) =>
+                      `p-2 text-lg font-bold flex items-center gap-2 ${
+                        isActive ? "bg-black text-white rounded-2xl" : ""
+                      }`
+                    }
+                  >
+                    <CgProfile />
+                    Profile
+                  </NavLink>
+                  <NavLink
+                    to="/dashboard/studentEnrollments"
+                    className={({ isActive }) =>
+                      `p-2 text-lg font-bold flex items-center gap-2 ${
+                        isActive ? "bg-black text-white rounded-2xl" : ""
+                      }`
+                    }
+                  >
+                    <SiGoogleclassroom />
+                    My Enrollments
+                  </NavLink>
+                  <NavLink
+                    to="/dashboard/studentPaymentHistory"
+                    className={({ isActive }) =>
+                      `p-2 text-lg font-bold flex items-center gap-2 ${
+                        isActive ? "bg-black text-white rounded-2xl" : ""
+                      }`
+                    }
+                  >
+                    <FaRegCreditCard />
+                    Payment History
+                  </NavLink>
+                </>
+              )}
 
               <hr className="my-10" />
 
-              <NavLink to="/">
-                <li className="p-2 text-lg font-bold flex items-center gap-2">
-                  <FaHome />
-                  Home
-                </li>
+              <NavLink
+                to="/"
+                className="p-2 text-lg font-bold flex items-center gap-2"
+              >
+                <FaHome />
+                Home
               </NavLink>
-              <NavLink to="/courses">
-                <li className="p-2 text-lg font-bold flex items-center gap-2">
-                  <SiCoursera />
-                  All Courses
-                </li>
+              <NavLink
+                to="/courses"
+                className="p-2 text-lg font-bold flex items-center gap-2"
+              >
+                <SiCoursera />
+                All Courses
               </NavLink>
 
               <button

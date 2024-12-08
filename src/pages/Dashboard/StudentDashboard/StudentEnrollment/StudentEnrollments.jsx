@@ -58,7 +58,7 @@ const StudentEnrollments = () => {
   // Handle empty enrollments
   if (allEnrollments.length === 0) {
     return (
-      <div className="w-full h-screen bg-gray-100 flex justify-center items-center flex-col gap-5">
+      <div className="w-full h-screen bg-[#e0cece] flex justify-center items-center flex-col gap-5">
         <h1 className="text-2xl font-bold text-center">
           {userName}, you have no enrollments.
         </h1>
@@ -152,7 +152,7 @@ const StudentEnrollments = () => {
                     )}
                   </td>
                   <td>
-                    {enrollment.enrollmentStatus === "pendding" ? (
+                    {enrollment.enrollmentStatus === "pandding" ? (
                       <h1 className="font-bold text-2xl uppercase border-black border text-center bg-yellow-500 rounded-sm">
                         Pendding
                       </h1>
@@ -174,7 +174,7 @@ const StudentEnrollments = () => {
                       <button
                         onClick={() => handleDelete(enrollment._id)}
                         type="button"
-                        className="btn bg-red-500 text-white border-black hover:bg-red-600"
+                        className="btn bg-red-500 text-black border-black hover:bg-red-600 hover:text-white"
                       >
                         <FaRegTrashAlt />
                       </button>

@@ -10,15 +10,20 @@ import Swal from "sweetalert2";
 import { useNavigate } from "react-router";
 
 const CheckoutForm = ({ id }) => {
-  // states
+  // States
   const [paymentError, setPaymentError] = useState("");
   const [clientSecret, setClientSecret] = useState("");
+  const [isProcessing, setIsProcessing] = useState(false);
+  const navigate = useNavigate();
+
+  // Stripe states
   const stripe = useStripe();
   const elements = useElements();
+
+  // Rtk query states
   const [postPaymentIntent] = usePostPaymentIntentMutation();
   const [postPayments] = usePostPaymentsMutation();
   const { data, isLoading, isError, error } = useGetEnrollmentsQuery();
-  const navigate = useNavigate();
 
   // handle loading
   if (isLoading) {
@@ -82,6 +87,9 @@ const CheckoutForm = ({ id }) => {
       return;
     }
 
+    // Start processing state
+    setIsProcessing(true);
+
     // Use your card Element with other Stripe.js APIs
     const { error, paymentMethod } = await stripe.createPaymentMethod({
       type: "card",
@@ -91,9 +99,10 @@ const CheckoutForm = ({ id }) => {
     if (error) {
       console.log("[error]", error);
       setPaymentError(error.message);
+      setIsProcessing(false);
     } else {
-      setPaymentError("");
       console.log("[PaymentMethod]", paymentMethod);
+      setPaymentError("");
     }
 
     // confirm card payment
@@ -110,6 +119,7 @@ const CheckoutForm = ({ id }) => {
 
     if (confirmError) {
       console.log("Error when confirming payment: ", confirmError);
+      setIsProcessing(false);
     } else {
       console.log("payment Intent: ", paymentIntent);
       if (paymentIntent.status === "succeeded") {
@@ -143,6 +153,9 @@ const CheckoutForm = ({ id }) => {
               icon: "success",
               confirmButtonText: "Okey",
             });
+          })
+          .finally(() => {
+            setIsProcessing(false);
           });
       }
     }
@@ -167,10 +180,10 @@ const CheckoutForm = ({ id }) => {
       />
       <button
         type="submit"
-        disabled={!stripe || !clientSecret}
+        disabled={!stripe || !clientSecret || isProcessing}
         className="my-5 btn bg-indigo-500 hover:bg-indigo-600"
       >
-        Pay
+        {isProcessing ? "Processing..." : "Pay"}
       </button>
       {paymentError && (
         <p className="text-xl font-bold text-red-500">{paymentError}</p>
