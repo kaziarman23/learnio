@@ -11,7 +11,7 @@ import { FaRegTrashAlt } from "react-icons/fa";
 
 const TeacherCourses = () => {
   // Redux state
-  const { userEmail } = useSelector((state) => state.userSlice);
+  const { userName, userEmail } = useSelector((state) => state.userSlice);
 
   // Rtk query
   const { data, isLoading, isError, error } = useGetCoursesQuery();
@@ -52,7 +52,7 @@ const TeacherCourses = () => {
         <h1 className="text-2xl font-bold text-center">
           {userName}, have no courses.
         </h1>
-        <Link to="/addCourse">
+        <Link to="/dashboard/addCourse">
           <button
             type="button"
             className="btn hover:bg-blue-500 hover:text-white hover:border-none"

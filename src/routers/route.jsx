@@ -17,6 +17,7 @@ import Profile from "../pages/Dashboard/Profile/Profile";
 import UpdateProfile from "../pages/Dashboard/Profile/UpdateProfile";
 import TeacherCourses from "../pages/Dashboard/TeacherDashboard/TeacherCourses/TeacherCourses";
 import ReviewEnrollments from "../pages/Dashboard/TeacherDashboard/ReviewEnrollments/ReviewEnrollments";
+import NotFound from "../pages/NotFound/NotFound";
 
 
 const Router = createBrowserRouter([
@@ -59,6 +60,10 @@ const Router = createBrowserRouter([
       {
         path: "/login",
         element: <Login />,
+      },
+      {
+        path: "*",
+        element: <NotFound />,
       },
     ],
   },

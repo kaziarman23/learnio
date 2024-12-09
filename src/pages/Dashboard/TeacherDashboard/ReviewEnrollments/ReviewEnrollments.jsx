@@ -10,10 +10,11 @@ import { useMemo } from "react";
 import { FaRegCheckCircle } from "react-icons/fa";
 import { MdAttachMoney, MdOutlineMoneyOff } from "react-icons/md";
 import { IoMdCloseCircle } from "react-icons/io";
+import { Link } from "react-router";
 
 const ReviewEnrollments = () => {
   // Redux state
-  const { userEmail } = useSelector((state) => state.userSlice);
+  const { userName, userEmail } = useSelector((state) => state.userSlice);
 
   // Rtk query hooks
   const { data, isLoading, isError, error } = useGetEnrollmentsQuery();
@@ -92,6 +93,25 @@ const ReviewEnrollments = () => {
       });
   };
 
+  // Handle empty enrollments
+  if (enrollments.length === 0) {
+    return (
+      <div className="w-full h-screen bg-[#e0cece] flex justify-center items-center flex-col gap-5">
+        <h1 className="text-2xl font-bold text-center">
+          {userName}, have no enrollments for review.
+        </h1>
+        <Link to="/dashboard/interface">
+          <button
+            type="button"
+            className="btn hover:bg-blue-500 hover:text-white hover:border-none"
+          >
+            Interface
+          </button>
+        </Link>
+      </div>
+    );
+  }
+
   return (
     <div className="w-full min-h-screen flex justify-center items-center bg-[#e0cece]">
       <div className="w-11/12 overflow-hidden mx-auto my-5 bg-[#c7c1c1] rounded-lg">
@@ -157,10 +177,13 @@ const ReviewEnrollments = () => {
                           <IoMdCloseCircle className="w-8 h-8 mx-auto" />
                         </button>
                       </>
-                    ) : (
-                      // TODO: HAVE TO FIX THE STATE OF ENROLLMENT STATUS.
+                    ) : enrollment.enrollmentStatus === "active" ? (
                       <h1 className="flex justify-center items-center gap-3 font-bold text-center text-base bg-blue-500 p-3 uppercase rounded-xl">
-                        {enrollment.enrollmentStatus}
+                        Actived
+                      </h1>
+                    ) : (
+                      <h1 className="flex justify-center items-center gap-3 font-bold text-center text-base bg-red-500 p-3 mt-1 uppercase rounded-xl">
+                        Rejected
                       </h1>
                     )}
                   </th>

@@ -16,14 +16,14 @@ export const enrollmentsApi = baseApi.injectEndpoints({
     }),
     updateActiveEnrollments: builder.mutation({
       query: (id) => ({
-        url: `/enrollments/${id}`,
+        url: `/enrollments/active/${id}`,
         method: "PUT",
       }),
       invalidatesTags: ["Enrollments"],
     }),
     updateRejectEnrollments: builder.mutation({
       query: (id) => ({
-        url: `/enrollments/${id}`,
+        url: `/enrollments/reject/${id}`,
         method: "PUT",
       }),
       invalidatesTags: ["Enrollments"],

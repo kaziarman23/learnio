@@ -3,18 +3,53 @@ import { BiSolidLogOutCircle } from "react-icons/bi";
 import { CgProfile } from "react-icons/cg";
 import { FaGripfire, FaHome, FaRegCreditCard } from "react-icons/fa";
 import { SiCoursera, SiGoogleclassroom } from "react-icons/si";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { NavLink, Outlet, useNavigate } from "react-router-dom";
 import { logoutUser } from "../Redux/features/userSlice";
 import { MdDashboard, MdPreview } from "react-icons/md";
 import Swal from "sweetalert2";
 import auth from "../Firebase/Firebase.Config";
 import { HiArchiveBox, HiArchiveBoxArrowDown } from "react-icons/hi2";
+import { useMemo } from "react";
+import { useGetUsersQuery } from "../Redux/features/Api/usersApi";
+import Loading from "../components/Loading/Loading";
 
 const Dashboard = () => {
   // states
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  // Redux state
+  const { userEmail } = useSelector((state) => state.userSlice);
+
+  // Rtk query hooks
+  const { data, isLoading, isError, error } = useGetUsersQuery();
+
+  // finding the data
+  const userInfo = useMemo(
+    () => data?.find((user) => user.userEmail === userEmail),
+    [userEmail, data]
+  );
+  const user = userInfo?.userRole;
+
+  // Handle loading
+  if (isLoading) {
+    return <Loading />;
+  }
+
+  // Handle error
+  if (isError) {
+    console.log("Error When fetching user data: ", error.error);
+
+    // showing an error alert
+    Swal.fire({
+      title: "Error!",
+      text: "Error When fetching user data",
+      icon: "error",
+      confirmButtonText: "OK",
+    });
+    return null;
+  }
 
   // handle logout
   const handleLogout = () => {
@@ -32,8 +67,6 @@ const Dashboard = () => {
     });
   };
 
-  const userRole = "teacher";
-
   return (
     <div className="flex">
       {/* side bar content */}
@@ -47,10 +80,10 @@ const Dashboard = () => {
           {/* menu section */}
           <div className="mt-10 p-4">
             <ul>
-              {userRole === "admin" ? (
+              {user === "admin" ? (
                 // Admin dashboard
                 <></>
-              ) : userRole === "teacher" ? (
+              ) : user === "teacher" ? (
                 // Teacher dashboard
                 <>
                   <NavLink
