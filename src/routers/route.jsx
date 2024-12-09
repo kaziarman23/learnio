@@ -9,11 +9,15 @@ import Login from "../pages/Authintication/Login/Login";
 import PrivateRoute from "./PrivateRoute";
 import Dashboard from "../layout/Dashboard";
 import Interface from "../pages/Dashboard/Interface";
-import StudentProfile from "../pages/Dashboard/StudentDashboard/StudentProfile/StudentProfile";
-import UpdateStudentProfile from "../pages/Dashboard/StudentDashboard/StudentProfile/UpdateStudentProfile";
 import StudentEnrollments from "../pages/Dashboard/StudentDashboard/StudentEnrollment/StudentEnrollments";
 import Payment from "../pages/Dashboard/StudentDashboard/Payment/Payment";
 import PaymentHistory from "../pages/Dashboard/StudentDashboard/PaymentHistory/PaymentHistory";
+import AddCourse from "../pages/Dashboard/TeacherDashboard/AddCourse/AddCourse";
+import Profile from "../pages/Dashboard/Profile/Profile";
+import UpdateProfile from "../pages/Dashboard/Profile/UpdateProfile";
+import TeacherCourses from "../pages/Dashboard/TeacherDashboard/TeacherCourses/TeacherCourses";
+import ReviewEnrollments from "../pages/Dashboard/TeacherDashboard/ReviewEnrollments/ReviewEnrollments";
+
 
 const Router = createBrowserRouter([
   {
@@ -75,21 +79,48 @@ const Router = createBrowserRouter([
         ),
       },
       {
-        path: "/dashboard/studentProfile",
+        path: "/dashboard/profile",
         element: (
           <PrivateRoute>
-            <StudentProfile />
+            <Profile />
           </PrivateRoute>
         ),
       },
       {
-        path: "/dashboard/updateStudentProfile",
+        path: "/dashboard/updateProfile",
         element: (
           <PrivateRoute>
-            <UpdateStudentProfile />
+            <UpdateProfile />
           </PrivateRoute>
         ),
       },
+      // admin route
+      // teacher route
+      {
+        path: "/dashboard/addCourse",
+        element: (
+          <PrivateRoute>
+            <AddCourse />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "/dashboard/teacherCourses",
+        element: (
+          <PrivateRoute>
+            <TeacherCourses />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "/dashboard/ReviewEnrollments",
+        element: (
+          <PrivateRoute>
+            <ReviewEnrollments />
+          </PrivateRoute>
+        ),
+      },
+      // student route
       {
         path: "/dashboard/studentEnrollments",
         element: (

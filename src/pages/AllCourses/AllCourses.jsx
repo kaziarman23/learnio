@@ -4,10 +4,11 @@ import { Tab, TabList, TabPanel, Tabs } from "react-tabs";
 import TabItem from "./TabItem";
 import { useGetCoursesQuery } from "../../Redux/features/Api/coursesApi";
 import Loading from "../../components/Loading/Loading";
+import Swal from "sweetalert2";
 
 const AllCourses = () => {
   // states and variables
-  const { data, isLoading, isError, refetch } = useGetCoursesQuery();
+  const { data, isLoading, isError, error, refetch } = useGetCoursesQuery();
   const [tabIndex, setTabIndex] = useState(0);
 
   useEffect(() => {
@@ -19,24 +20,31 @@ const AllCourses = () => {
   }
 
   if (isError) {
+    console.log("Error : ", error.error);
     // showing an error alert
     Swal.fire({
       title: "Error!",
-      text:
-        isError.message || "Error while sending teacher data in the database",
+      text: "Error while sending teacher data in the database",
       icon: "error",
       confirmButtonText: "Okey",
     });
   }
 
   // Filtering Courses
-  const webDev = data.filter((course) => course.category === "web-development");
-  const appDev = data.filter((course) => course.category === "app-development");
-  const gameDev = data.filter(
+  const courses = data.filter((course) => course.courseStatus === "active");
+  const webDev = courses.filter(
+    (course) => course.category === "web-development"
+  );
+  const appDev = courses.filter(
+    (course) => course.category === "app-development"
+  );
+  const gameDev = courses.filter(
     (course) => course.category === "game-development"
   );
-  const webDes = data.filter((course) => course.category === "uiux-designer");
-  const machine = data.filter(
+  const webDes = courses.filter(
+    (course) => course.category === "uiux-designer"
+  );
+  const machine = courses.filter(
     (course) => course.category === "mechine-learning"
   );
 

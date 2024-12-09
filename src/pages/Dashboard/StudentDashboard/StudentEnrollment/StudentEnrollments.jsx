@@ -39,16 +39,14 @@ const StudentEnrollments = () => {
   // Handle error
   if (isError) {
     console.log(
-      "Error when fetching data from getEnrollmentsQuery: ",
+      "Error when fetching data from getEnrollmentsQuery because/ ",
       error.error
     );
-    console.log("Error message is: ", error.message);
 
     // showing an error alert
     Swal.fire({
       title: "Error!",
-      text:
-        error?.data?.message || error?.error || "Error when fetching payments",
+      text: "Error when fetching payments data",
       icon: "error",
       confirmButtonText: "OK",
     });

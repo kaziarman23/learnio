@@ -8,11 +8,17 @@ import Loading from "../../components/Loading/Loading";
 const TeacherEnrollment = () => {
   // states
   const navigate = useNavigate();
+
+  // Form hook
   const { handleSubmit, register } = useForm();
-  const [postTeachers, { isLoading, isError }] = usePostTeachersMutation();
+
+  // Redux state
   const { userName, userPhoto, userEmail } = useSelector(
     (state) => state.userSlice
   );
+
+  // Rtk query hook
+  const [postTeachers, { isLoading, isError }] = usePostTeachersMutation();
 
   // handle Loading
   if (isLoading) {
@@ -82,7 +88,7 @@ const TeacherEnrollment = () => {
                   readOnly
                   className="w-full rounded-md border-2 p-2 border-black"
                   defaultValue={userName}
-                  {...register("name")}
+                  {...register("userName")}
                 />
               </div>
 
@@ -96,7 +102,7 @@ const TeacherEnrollment = () => {
                   readOnly
                   className="w-full rounded-md border-2 p-2 border-black"
                   defaultValue={userEmail}
-                  {...register("email")}
+                  {...register("userEmail")}
                 />
               </div>
             </div>

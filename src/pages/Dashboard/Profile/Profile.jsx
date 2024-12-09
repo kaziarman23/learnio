@@ -1,7 +1,7 @@
 import { useSelector } from "react-redux";
 import { Link } from "react-router";
 
-const StudentProfile = () => {
+const Profile = () => {
   // states
   const { userName, userEmail, userPhoto } = useSelector(
     (state) => state.userSlice
@@ -21,7 +21,7 @@ const StudentProfile = () => {
           <h1 className="text-2xl font-bold">Name: {userName}</h1>
           <h2 className="text-2xl font-bold">Email: {userEmail}</h2>
           <div>
-            <Link to="/dashboard/updateStudentProfile">
+            <Link to="/dashboard/updateProfile">
               <button className="btn hover:bg-black hover:border-none hover:text-white">
                 Update Your Profile
               </button>
@@ -33,4 +33,4 @@ const StudentProfile = () => {
   );
 };
 
-export default StudentProfile;
+export default Profile;

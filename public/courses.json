@@ -8,7 +8,7 @@
     "coursePrice": 45,
     "courseDescription": "Learn how to build responsive and interactive user interfaces using HTML, CSS, and JavaScript.",
     "courseStudentsCount": 150,
-    "courseStatus": "pending"
+    "courseStatus": "active"
   },
   {
     "category": "web-development",
@@ -19,7 +19,7 @@
     "coursePrice": 40,
     "courseDescription": "Master server-side programming with Node.js, Express, and database integration.",
     "courseStudentsCount": 200,
-    "courseStatus": "pending"
+    "courseStatus": "active"
   },
   {
     "category": "web-development",
@@ -30,7 +30,7 @@
     "coursePrice": 50,
     "courseDescription": "Become proficient in both frontend and backend technologies to create complete web applications.",
     "courseStudentsCount": 180,
-    "courseStatus": "pending"
+    "courseStatus": "active"
   },
   {
     "category": "app-development",
@@ -41,7 +41,7 @@
     "coursePrice": 35,
     "courseDescription": "Build modern Android apps using Kotlin and Android Studio.",
     "courseStudentsCount": 120,
-    "courseStatus": "pending"
+    "courseStatus": "active"
   },
   {
     "category": "app-development",
@@ -52,7 +52,7 @@
     "coursePrice": 48,
     "courseDescription": "Learn how to create stunning iOS apps with Swift and Xcode.",
     "courseStudentsCount": 95,
-    "courseStatus": "pending"
+    "courseStatus": "active"
   },
   {
     "category": "app-development",
@@ -63,7 +63,7 @@
     "coursePrice": 42,
     "courseDescription": "Develop apps for both Android and iOS using Flutter or React Native.",
     "courseStudentsCount": 140,
-    "courseStatus": "pending"
+    "courseStatus": "active"
   },
   {
     "category": "game-development",
@@ -74,7 +74,7 @@
     "coursePrice": 30,
     "courseDescription": "Explore the principles of game design and learn how to craft engaging experiences.",
     "courseStudentsCount": 85,
-    "courseStatus": "pending"
+    "courseStatus": "active"
   },
   {
     "category": "game-development",
@@ -85,7 +85,7 @@
     "coursePrice": 49,
     "courseDescription": "Learn to build 2D and 3D games using Unity and C# scripting.",
     "courseStudentsCount": 210,
-    "courseStatus": "pending"
+    "courseStatus": "active"
   },
   {
     "category": "game-development",
@@ -96,7 +96,7 @@
     "coursePrice": 47,
     "courseDescription": "Master Unreal Engine to create visually stunning games.",
     "courseStudentsCount": 190,
-    "courseStatus": "pending"
+    "courseStatus": "active"
   },
   {
     "category": "uiux-designer",
@@ -107,7 +107,7 @@
     "coursePrice": 38,
     "courseDescription": "Understand the basics of user experience design and create user-centered products.",
     "courseStudentsCount": 130,
-    "courseStatus": "pending"
+    "courseStatus": "active"
   },
   {
     "category": "uiux-designer",
@@ -118,7 +118,7 @@
     "coursePrice": 44,
     "courseDescription": "Learn about design systems, typography, and layout to create visually appealing interfaces.",
     "courseStudentsCount": 160,
-    "courseStatus": "pending"
+    "courseStatus": "active"
   },
   {
     "category": "uiux-designer",
@@ -129,7 +129,7 @@
     "coursePrice": 46,
     "courseDescription": "Create interactive prototypes using Figma to bring your designs to life.",
     "courseStudentsCount": 110,
-    "courseStatus": "pending"
+    "courseStatus": "active"
   },
   {
     "category": "mechine-learning",
@@ -140,7 +140,7 @@
     "coursePrice": 39,
     "courseDescription": "Learn the fundamentals of machine learning, including supervised and unsupervised learning techniques.",
     "courseStudentsCount": 170,
-    "courseStatus": "pending"
+    "courseStatus": "active"
   },
   {
     "category": "mechine-learning",
@@ -151,7 +151,7 @@
     "coursePrice": 50,
     "courseDescription": "Master deep learning concepts using Python libraries like TensorFlow and PyTorch.",
     "courseStudentsCount": 150,
-    "courseStatus": "pending"
+    "courseStatus": "active"
   },
   {
     "category": "mechine-learning",
@@ -162,7 +162,7 @@
     "coursePrice": 43,
     "courseDescription": "An introduction to artificial intelligence concepts and real-world applications.",
     "courseStudentsCount": 125,
-    "courseStatus": "pending"
+    "courseStatus": "active"
   },
   {
     "category": "app-development",
@@ -173,7 +173,7 @@
     "coursePrice": 17,
     "courseDescription": "A comprehensive course on android development, suitable for beginners and professionals alike.",
     "courseStudentsCount": 185,
-    "courseStatus": "pending"
+    "courseStatus": "active"
   },
   {
     "category": "mechine-learning",
@@ -184,7 +184,7 @@
     "coursePrice": 19,
     "courseDescription": "A comprehensive course on deep learning with python, suitable for beginners and professionals alike.",
     "courseStudentsCount": 226,
-    "courseStatus": "pending"
+    "courseStatus": "active"
   },
   {
     "category": "app-development",
@@ -195,7 +195,7 @@
     "coursePrice": 40,
     "courseDescription": "A comprehensive course on android development, suitable for beginners and professionals alike.",
     "courseStudentsCount": 192,
-    "courseStatus": "pending"
+    "courseStatus": "active"
   },
   {
     "category": "mechine-learning",
@@ -206,7 +206,7 @@
     "coursePrice": 25,
     "courseDescription": "A comprehensive course on data science essentials, suitable for beginners and professionals alike.",
     "courseStudentsCount": 84,
-    "courseStatus": "pending"
+    "courseStatus": "active"
   },
   {
     "category": "uiux-designer",
@@ -217,7 +217,7 @@
     "coursePrice": 29,
     "courseDescription": "A comprehensive course on prototyping with figma, suitable for beginners and professionals alike.",
     "courseStudentsCount": 205,
-    "courseStatus": "pending"
+    "courseStatus": "active"
   },
   {
     "category": "mechine-learning",
@@ -228,7 +228,7 @@
     "coursePrice": 20,
     "courseDescription": "A comprehensive course on machine learning basics, suitable for beginners and professionals alike.",
     "courseStudentsCount": 169,
-    "courseStatus": "pending"
+    "courseStatus": "active"
   },
   {
     "category": "web-development",
@@ -239,7 +239,7 @@
     "coursePrice": 42,
     "courseDescription": "A comprehensive course on devops essentials, suitable for beginners and professionals alike.",
     "courseStudentsCount": 125,
-    "courseStatus": "pending"
+    "courseStatus": "active"
   },
   {
     "category": "uiux-designer",
@@ -250,7 +250,7 @@
     "coursePrice": 48,
     "courseDescription": "A comprehensive course on advanced ux research, suitable for beginners and professionals alike.",
     "courseStudentsCount": 169,
-    "courseStatus": "pending"
+    "courseStatus": "active"
   },
   {
     "category": "mechine-learning",
@@ -261,7 +261,7 @@
     "coursePrice": 21,
     "courseDescription": "A comprehensive course on reinforcement learning, suitable for beginners and professionals alike.",
     "courseStudentsCount": 193,
-    "courseStatus": "pending"
+    "courseStatus": "active"
   },
   {
     "category": "mechine-learning",
@@ -272,7 +272,7 @@
     "coursePrice": 44,
     "courseDescription": "A comprehensive course on reinforcement learning, suitable for beginners and professionals alike.",
     "courseStudentsCount": 244,
-    "courseStatus": "pending"
+    "courseStatus": "active"
   },
   {
     "category": "web-development",
@@ -283,7 +283,7 @@
     "coursePrice": 15,
     "courseDescription": "A comprehensive course on frontend development, suitable for beginners and professionals alike.",
     "courseStudentsCount": 50,
-    "courseStatus": "pending"
+    "courseStatus": "active"
   },
   {
     "category": "web-development",
@@ -294,7 +294,7 @@
     "coursePrice": 26,
     "courseDescription": "A comprehensive course on backend development, suitable for beginners and professionals alike.",
     "courseStudentsCount": 51,
-    "courseStatus": "pending"
+    "courseStatus": "active"
   },
   {
     "category": "game-development",
@@ -305,7 +305,7 @@
     "coursePrice": 26,
     "courseDescription": "A comprehensive course on unreal engine development, suitable for beginners and professionals alike.",
     "courseStudentsCount": 93,
-    "courseStatus": "pending"
+    "courseStatus": "active"
   },
   {
     "category": "app-development",
@@ -316,7 +316,7 @@
     "coursePrice": 24,
     "courseDescription": "A comprehensive course on app monetization strategies, suitable for beginners and professionals alike.",
     "courseStudentsCount": 194,
-    "courseStatus": "pending"
+    "courseStatus": "active"
   },
   {
     "category": "app-development",
@@ -327,7 +327,7 @@
     "coursePrice": 12,
     "courseDescription": "A comprehensive course on cross-platform app development, suitable for beginners and professionals alike.",
     "courseStudentsCount": 73,
-    "courseStatus": "pending"
+    "courseStatus": "active"
   },
   {
     "category": "web-development",
@@ -338,7 +338,7 @@
     "coursePrice": 47,
     "courseDescription": "A comprehensive course on fullstack development, suitable for beginners and professionals alike.",
     "courseStudentsCount": 135,
-    "courseStatus": "pending"
+    "courseStatus": "active"
   },
   {
     "category": "game-development",
@@ -349,7 +349,7 @@
     "coursePrice": 10,
     "courseDescription": "A comprehensive course on 2d game art, suitable for beginners and professionals alike.",
     "courseStudentsCount": 112,
-    "courseStatus": "pending"
+    "courseStatus": "active"
   },
   {
     "category": "app-development",
@@ -360,7 +360,7 @@
     "coursePrice": 41,
     "courseDescription": "A comprehensive course on mobile ui design, suitable for beginners and professionals alike.",
     "courseStudentsCount": 60,
-    "courseStatus": "pending"
+    "courseStatus": "active"
   },
   {
     "category": "app-development",
@@ -371,7 +371,7 @@
     "coursePrice": 23,
     "courseDescription": "A comprehensive course on cross-platform app development, suitable for beginners and professionals alike.",
     "courseStudentsCount": 223,
-    "courseStatus": "pending"
+    "courseStatus": "active"
   },
   {
     "category": "app-development",
@@ -382,7 +382,7 @@
     "coursePrice": 13,
     "courseDescription": "A comprehensive course on ios development, suitable for beginners and professionals alike.",
     "courseStudentsCount": 98,
-    "courseStatus": "pending"
+    "courseStatus": "active"
   },
   {
     "category": "web-development",
@@ -393,7 +393,7 @@
     "coursePrice": 50,
     "courseDescription": "A comprehensive course on devops essentials, suitable for beginners and professionals alike.",
     "courseStudentsCount": 129,
-    "courseStatus": "pending"
+    "courseStatus": "active"
   },
   {
     "category": "web-development",
@@ -404,7 +404,7 @@
     "coursePrice": 32,
     "courseDescription": "A comprehensive course on devops essentials, suitable for beginners and professionals alike.",
     "courseStudentsCount": 96,
-    "courseStatus": "pending"
+    "courseStatus": "active"
   },
   {
     "category": "mechine-learning",
@@ -415,7 +415,7 @@
     "coursePrice": 22,
     "courseDescription": "A comprehensive course on deep learning with python, suitable for beginners and professionals alike.",
     "courseStudentsCount": 176,
-    "courseStatus": "pending"
+    "courseStatus": "active"
   },
   {
     "category": "web-development",
@@ -426,7 +426,7 @@
     "coursePrice": 11,
     "courseDescription": "A comprehensive course on react mastery, suitable for beginners and professionals alike.",
     "courseStudentsCount": 208,
-    "courseStatus": "pending"
+    "courseStatus": "active"
   },
   {
     "category": "app-development",
@@ -437,7 +437,7 @@
     "coursePrice": 25,
     "courseDescription": "A comprehensive course on mobile ui design, suitable for beginners and professionals alike.",
     "courseStudentsCount": 144,
-    "courseStatus": "pending"
+    "courseStatus": "active"
   },
   {
     "category": "uiux-designer",
@@ -448,7 +448,7 @@
     "coursePrice": 23,
     "courseDescription": "A comprehensive course on design systems, suitable for beginners and professionals alike.",
     "courseStudentsCount": 245,
-    "courseStatus": "pending"
+    "courseStatus": "active"
   },
   {
     "category": "game-development",
@@ -459,7 +459,7 @@
     "coursePrice": 30,
     "courseDescription": "A comprehensive course on unity game development, suitable for beginners and professionals alike.",
     "courseStudentsCount": 198,
-    "courseStatus": "pending"
+    "courseStatus": "active"
   },
   {
     "category": "app-development",
@@ -470,7 +470,7 @@
     "coursePrice": 42,
     "courseDescription": "A comprehensive course on mobile ui design, suitable for beginners and professionals alike.",
     "courseStudentsCount": 141,
-    "courseStatus": "pending"
+    "courseStatus": "active"
   },
   {
     "category": "uiux-designer",
@@ -481,7 +481,7 @@
     "coursePrice": 26,
     "courseDescription": "A comprehensive course on advanced ux research, suitable for beginners and professionals alike.",
     "courseStudentsCount": 95,
-    "courseStatus": "pending"
+    "courseStatus": "active"
   },
   {
     "category": "web-development",
@@ -492,7 +492,7 @@
     "coursePrice": 39,
     "courseDescription": "A comprehensive course on devops essentials, suitable for beginners and professionals alike.",
     "courseStudentsCount": 244,
-    "courseStatus": "pending"
+    "courseStatus": "active"
   },
   {
     "category": "web-development",
@@ -503,7 +503,7 @@
     "coursePrice": 34,
     "courseDescription": "A comprehensive course on react mastery, suitable for beginners and professionals alike.",
     "courseStudentsCount": 223,
-    "courseStatus": "pending"
+    "courseStatus": "active"
   },
   {
     "category": "uiux-designer",
@@ -514,7 +514,7 @@
     "coursePrice": 11,
     "courseDescription": "A comprehensive course on prototyping with figma, suitable for beginners and professionals alike.",
     "courseStudentsCount": 181,
-    "courseStatus": "pending"
+    "courseStatus": "active"
   },
   {
     "category": "uiux-designer",
@@ -525,7 +525,7 @@
     "coursePrice": 17,
     "courseDescription": "A comprehensive course on introduction to ux design, suitable for beginners and professionals alike.",
     "courseStudentsCount": 112,
-    "courseStatus": "pending"
+    "courseStatus": "active"
   },
   {
     "category": "game-development",
@@ -536,7 +536,7 @@
     "coursePrice": 23,
     "courseDescription": "A comprehensive course on 2d game art, suitable for beginners and professionals alike.",
     "courseStudentsCount": 105,
-    "courseStatus": "pending"
+    "courseStatus": "active"
   },
   {
     "category": "web-development",
@@ -547,7 +547,7 @@
     "coursePrice": 28,
     "courseDescription": "A comprehensive course on frontend development, suitable for beginners and professionals alike.",
     "courseStudentsCount": 105,
-    "courseStatus": "pending"
+    "courseStatus": "active"
   },
   {
     "category": "web-development",
@@ -558,7 +558,7 @@
     "coursePrice": 26,
     "courseDescription": "A comprehensive course on frontend development, suitable for beginners and professionals alike.",
     "courseStudentsCount": 87,
-    "courseStatus": "pending"
+    "courseStatus": "active"
   },
   {
     "category": "game-development",
@@ -569,7 +569,7 @@
     "coursePrice": 30,
     "courseDescription": "A comprehensive course on vr game development, suitable for beginners and professionals alike.",
     "courseStudentsCount": 210,
-    "courseStatus": "pending"
+    "courseStatus": "active"
   },
   {
     "category": "mechine-learning",
@@ -580,7 +580,7 @@
     "coursePrice": 41,
     "courseDescription": "A comprehensive course on deep learning with python, suitable for beginners and professionals alike.",
     "courseStudentsCount": 132,
-    "courseStatus": "pending"
+    "courseStatus": "active"
   },
   {
     "category": "uiux-designer",
@@ -591,7 +591,7 @@
     "coursePrice": 46,
     "courseDescription": "A comprehensive course on advanced ux research, suitable for beginners and professionals alike.",
     "courseStudentsCount": 114,
-    "courseStatus": "pending"
+    "courseStatus": "active"
   },
   {
     "category": "web-development",
@@ -602,7 +602,7 @@
     "coursePrice": 26,
     "courseDescription": "A comprehensive course on frontend development, suitable for beginners and professionals alike.",
     "courseStudentsCount": 107,
-    "courseStatus": "pending"
+    "courseStatus": "active"
   },
   {
     "category": "web-development",
@@ -613,7 +613,7 @@
     "coursePrice": 11,
     "courseDescription": "A comprehensive course on backend development, suitable for beginners and professionals alike.",
     "courseStudentsCount": 159,
-    "courseStatus": "pending"
+    "courseStatus": "active"
   },
   {
     "category": "app-development",
@@ -624,7 +624,7 @@
     "coursePrice": 25,
     "courseDescription": "A comprehensive course on ios development, suitable for beginners and professionals alike.",
     "courseStudentsCount": 53,
-    "courseStatus": "pending"
+    "courseStatus": "active"
   },
   {
     "category": "mechine-learning",
@@ -635,7 +635,7 @@
     "coursePrice": 16,
     "courseDescription": "A comprehensive course on deep learning with python, suitable for beginners and professionals alike.",
     "courseStudentsCount": 147,
-    "courseStatus": "pending"
+    "courseStatus": "active"
   },
   {
     "category": "game-development",
@@ -646,7 +646,7 @@
     "coursePrice": 44,
     "courseDescription": "A comprehensive course on vr game development, suitable for beginners and professionals alike.",
     "courseStudentsCount": 215,
-    "courseStatus": "pending"
+    "courseStatus": "active"
   },
   {
     "category": "app-development",
@@ -657,6 +657,6 @@
     "coursePrice": 47,
     "courseDescription": "A comprehensive course on app monetization strategies, suitable for beginners and professionals alike.",
     "courseStudentsCount": 93,
-    "courseStatus": "pending"
+    "courseStatus": "active"
   }
 ]

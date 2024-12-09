@@ -1,22 +1,28 @@
-import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
-import { useUpdateUsersMutation } from "../../../../Redux/features/Api/usersApi";
+import { useForm } from "react-hook-form";
 import { updateProfile } from "firebase/auth";
-import auth from "../../../../Firebase/Firebase.Config";
-import Loading from "../../../../components/Loading/Loading";
-import Swal from "sweetalert2";
 import { useNavigate } from "react-router";
-import { setUser } from "../../../../Redux/features/userSlice";
+import { setUser } from "../../../Redux/features/userSlice";
+import { useUpdateUsersMutation } from "../../../Redux/features/api/usersApi";
+import auth from "../../../Firebase/Firebase.Config";
+import Swal from "sweetalert2";
+import Loading from "../../../components/Loading/Loading";
 
-const UpdateStudentProfile = () => {
-  //states
+const UpdateProfile = () => {
+  // States
+  const navigate = useNavigate();
+
+  // Redux states
+  const dispatch = useDispatch();
   const { userName, userPhoto, userEmail } = useSelector(
     (state) => state.userSlice
   );
-  const { handleSubmit, register, reset } = useForm();
+
+  // Rtk query
   const [updateUsers, { isLoading, isError, error }] = useUpdateUsersMutation();
-  const navigate = useNavigate();
-  const dispatch = useDispatch();
+
+  // Use form hook
+  const { handleSubmit, register, reset } = useForm();
 
   // handle loging
   if (isLoading) {
@@ -148,4 +154,4 @@ const UpdateStudentProfile = () => {
   );
 };
 
-export default UpdateStudentProfile;
+export default UpdateProfile;
