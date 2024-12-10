@@ -1,9 +1,11 @@
 import { useForm } from "react-hook-form";
 import { useSelector } from "react-redux";
-import { useNavigate } from "react-router";
+import { Link, useNavigate } from "react-router";
 import { usePostTeachersMutation } from "../../Redux/features/Api/teachersApi";
 import Swal from "sweetalert2";
 import Loading from "../../components/Loading/Loading";
+import { useGetUsersQuery } from "../../Redux/features/api/usersApi";
+import { useMemo } from "react";
 
 const TeacherEnrollment = () => {
   // states
@@ -18,20 +20,80 @@ const TeacherEnrollment = () => {
   );
 
   // Rtk query hook
-  const [postTeachers, { isLoading, isError }] = usePostTeachersMutation();
+  const [postTeachers, { isLoading, isError, error }] =
+    usePostTeachersMutation();
+  const { data } = useGetUsersQuery();
+
+  // fetching the user data
+  const userStatus = useMemo(
+    () => data?.find((user) => user.userEmail === userEmail),
+    [data, userEmail]
+  );
+  const isTeacher = userStatus?.isTeacher;
 
   // handle Loading
   if (isLoading) {
     return <Loading />;
   }
+
   // handle Error
   if (isError) {
+    console.log("Error: ", error.error);
     Swal.fire({
       title: "Error!",
-      text: isError.message || "Error in teacher enrollment component",
+      text: "Error in teacher enrollment component",
       icon: "error",
       confirmButtonText: "Okey",
     });
+  }
+
+  if (isTeacher === "pandding") {
+    return (
+      <div className="w-full h-screen bg-white flex justify-center items-center flex-col gap-5">
+        <h1 className="text-2xl font-bold text-center">
+          Please wait Admin is reviewing you'r information.
+        </h1>
+        <Link to="/dashboard/interface">
+          <button
+            type="button"
+            className="btn hover:bg-blue-500 hover:text-white hover:border-none"
+          >
+            Interface
+          </button>
+        </Link>
+      </div>
+    );
+  } else if (isTeacher === "true") {
+    return (
+      <div className="w-full h-screen bg-white flex justify-center items-center flex-col gap-5">
+        <h1 className="text-2xl font-bold text-center">You are a teacher!</h1>
+        <Link to="/dashboard/interface">
+          <button
+            type="button"
+            className="btn hover:bg-blue-500 hover:text-white hover:border-none"
+          >
+            Interface
+          </button>
+        </Link>
+      </div>
+    );
+  } else if (isTeacher === "false") {
+    return (
+      <div className="w-full h-screen bg-white flex justify-center items-center flex-col gap-5">
+        <h1 className="text-2xl font-bold text-center">
+          You are Rejected as a Teacher. Plase Try again with more strong skills
+          !
+        </h1>
+        <Link to="/dashboard/interface">
+          <button
+            type="button"
+            className="btn hover:bg-blue-500 hover:text-white hover:border-none"
+          >
+            Interface
+          </button>
+        </Link>
+      </div>
+    );
   }
 
   // handle form submit
@@ -43,7 +105,7 @@ const TeacherEnrollment = () => {
         navigate(-1);
         Swal.fire({
           title: "Success",
-          text: `${userName} is now a Teacher`,
+          text: "Requiest send successfull",
           icon: "success",
           confirmButtonText: "Okey",
         });

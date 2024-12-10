@@ -18,7 +18,8 @@ import UpdateProfile from "../pages/Dashboard/Profile/UpdateProfile";
 import TeacherCourses from "../pages/Dashboard/TeacherDashboard/TeacherCourses/TeacherCourses";
 import ReviewEnrollments from "../pages/Dashboard/TeacherDashboard/ReviewEnrollments/ReviewEnrollments";
 import NotFound from "../pages/NotFound/NotFound";
-
+import AdminAnalytics from "../pages/Dashboard/AdminDashboard/AdminAnalytics/AdminAnalytics";
+import TeacherRequiests from "../pages/Dashboard/AdminDashboard/AdminAnalytics/TeacherRequiests/TeacherRequiests";
 
 const Router = createBrowserRouter([
   {
@@ -100,6 +101,18 @@ const Router = createBrowserRouter([
         ),
       },
       // admin route
+      {
+        path: "/dashboard/analytics",
+        element: <AdminAnalytics />,
+      },
+      {
+        path: "/dashboard/teacherRequiests",
+        element: (
+          <PrivateRoute>
+            <TeacherRequiests />
+          </PrivateRoute>
+        ),
+      },
       // teacher route
       {
         path: "/dashboard/addCourse",

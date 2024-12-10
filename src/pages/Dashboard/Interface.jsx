@@ -1,9 +1,9 @@
 import { useSelector } from "react-redux";
 import Typewriter from "typewriter-effect";
-import { useGetUsersQuery } from "../../Redux/features/Api/usersApi";
 import Loading from "../../components/Loading/Loading";
 import Swal from "sweetalert2";
 import { useMemo } from "react";
+import { useGetUsersQuery } from "../../Redux/features/api/usersApi";
 
 const Interface = () => {
   // states
@@ -55,7 +55,11 @@ const Interface = () => {
         {/* text part */}
         <div className="text-left mt-10 p-5 text-lg space-y-5">
           {user.userRole === "admin" ? (
-            <h1></h1>
+            <h1 className="font-bold">
+              Your Admin Dashboard is your central command center for overseeing
+              and optimizing the platform's operations. <br /> Here's what you
+              can do:
+            </h1>
           ) : user.userRole === "teacher" ? (
             <h1 className="font-bold">
               As a teacher, your Learnio Dashboard is your dedicated hub for
@@ -71,7 +75,27 @@ const Interface = () => {
           <ul className="list-disc space-y-3">
             {user.userRole === "admin" ? (
               // Admin access list
-              <></>
+              <>
+                <li>
+                  <span className="font-bold">Monitor User Activity:</span>{" "}
+                  Access a comprehensive overview of all registered users,
+                  including teachers, students, and other administrators.
+                </li>
+                <li>
+                  <span className="font-bold">
+                    Approve Courses for Publication:
+                  </span>
+                  Review and approve courses submitted by teachers to ensure
+                  quality and relevance before they go live.
+                </li>
+                <li>
+                  <span className="font-bold">
+                    Track Metrics and Insights:{" "}
+                  </span>
+                  View key performance metrics, such as course engagement and
+                  user growth, to make informed decisions.
+                </li>
+              </>
             ) : user.userRole === "teacher" ? (
               // Teacher access list
               <>

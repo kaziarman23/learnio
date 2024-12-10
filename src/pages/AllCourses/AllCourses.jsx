@@ -1,5 +1,4 @@
-import { useState } from "react";
-import { useEffect } from "react";
+import { useMemo, useState } from "react";
 import { Tab, TabList, TabPanel, Tabs } from "react-tabs";
 import TabItem from "./TabItem";
 import { useGetCoursesQuery } from "../../Redux/features/Api/coursesApi";
@@ -7,18 +6,25 @@ import Loading from "../../components/Loading/Loading";
 import Swal from "sweetalert2";
 
 const AllCourses = () => {
-  // states and variables
-  const { data, isLoading, isError, error, refetch } = useGetCoursesQuery();
+  // state
   const [tabIndex, setTabIndex] = useState(0);
 
-  useEffect(() => {
-    refetch();
-  }, [data, refetch]);
+  
+  // Rtk query hook
+  const { data, isLoading, isError, error } = useGetCoursesQuery();
 
+  // fetching data
+  const courses = useMemo(
+    () => data?.filter((course) => course.courseStatus === "active"),
+    [data]
+  );
+
+  // Handle Loading
   if (isLoading) {
     return <Loading></Loading>;
   }
 
+  // Handle error
   if (isError) {
     console.log("Error : ", error.error);
     // showing an error alert
@@ -31,20 +37,19 @@ const AllCourses = () => {
   }
 
   // Filtering Courses
-  const courses = data.filter((course) => course.courseStatus === "active");
-  const webDev = courses.filter(
+  const webDev = courses?.filter(
     (course) => course.category === "web-development"
   );
-  const appDev = courses.filter(
+  const appDev = courses?.filter(
     (course) => course.category === "app-development"
   );
-  const gameDev = courses.filter(
+  const gameDev = courses?.filter(
     (course) => course.category === "game-development"
   );
-  const webDes = courses.filter(
+  const webDes = courses?.filter(
     (course) => course.category === "uiux-designer"
   );
-  const machine = courses.filter(
+  const machine = courses?.filter(
     (course) => course.category === "mechine-learning"
   );
 

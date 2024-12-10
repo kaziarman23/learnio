@@ -1,18 +1,18 @@
 import { signOut } from "firebase/auth";
 import { BiSolidLogOutCircle } from "react-icons/bi";
 import { CgProfile } from "react-icons/cg";
-import { FaGripfire, FaHome, FaRegCreditCard } from "react-icons/fa";
+import { FaChalkboardTeacher, FaGripfire, FaHome, FaRegCreditCard } from "react-icons/fa";
 import { SiCoursera, SiGoogleclassroom } from "react-icons/si";
 import { useDispatch, useSelector } from "react-redux";
 import { NavLink, Outlet, useNavigate } from "react-router-dom";
 import { logoutUser } from "../Redux/features/userSlice";
-import { MdDashboard, MdPreview } from "react-icons/md";
+import { MdAnalytics, MdDashboard, MdPreview } from "react-icons/md";
 import Swal from "sweetalert2";
 import auth from "../Firebase/Firebase.Config";
 import { HiArchiveBox, HiArchiveBoxArrowDown } from "react-icons/hi2";
 import { useMemo } from "react";
-import { useGetUsersQuery } from "../Redux/features/Api/usersApi";
 import Loading from "../components/Loading/Loading";
+import { useGetUsersQuery } from "../Redux/features/api/usersApi";
 
 const Dashboard = () => {
   // states
@@ -82,7 +82,42 @@ const Dashboard = () => {
             <ul>
               {user === "admin" ? (
                 // Admin dashboard
-                <></>
+                <>
+                  <NavLink
+                    to="/dashboard/interface"
+                    className={({ isActive }) =>
+                      `p-2 text-lg font-bold flex items-center gap-2 ${
+                        isActive ? "bg-black text-white rounded-2xl" : ""
+                      }`
+                    }
+                  >
+                    <MdDashboard />
+                    Interface
+                  </NavLink>
+                  <NavLink
+                    to="/dashboard/analytics"
+                    className={({ isActive }) =>
+                      `p-2 text-lg font-bold flex items-center gap-2 ${
+                        isActive ? "bg-black text-white rounded-2xl" : ""
+                      }`
+                    }
+                  >
+                    <MdAnalytics />
+                    Analytics
+                  </NavLink>
+
+                  <NavLink
+                    to="/dashboard/teacherRequiests"
+                    className={({ isActive }) =>
+                      `p-2 text-lg font-bold flex items-center gap-2 ${
+                        isActive ? "bg-black text-white rounded-2xl" : ""
+                      }`
+                    }
+                  >
+                   <FaChalkboardTeacher />
+                    Teacher Requiest
+                  </NavLink>
+                </>
               ) : user === "teacher" ? (
                 // Teacher dashboard
                 <>
