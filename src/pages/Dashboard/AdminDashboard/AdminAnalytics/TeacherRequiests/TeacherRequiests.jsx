@@ -1,42 +1,46 @@
-import { useMemo } from "react";
 import { useSelector } from "react-redux";
+import {
+  useGetTeachersQuery,
+  useUpdateAcceptTeachersMutation,
+  useUpdateRejectTeachersMutation,
+} from "../../../../../Redux/features/Api/teachersApi";
+import Swal from "sweetalert2";
+import Loading from "../../../../../components/Loading/Loading";
+import { IoMdCloseCircle } from "react-icons/io";
+import { FaRegCheckCircle } from "react-icons/fa";
 
 const TeacherRequiests = () => {
   // Redux state
   const { userName, userEmail } = useSelector((state) => state.userSlice);
 
-  // Filtering the data
-  //   const teachers = useMemo(
-  //     () =>
-  //       data?.filter(
-  //         (enrollment) => enrollment.courseTeacherEmail === userEmail
-  //       ) || [],
-  //     [data]
-  //   );
+  // Rtk query hooks
+  const { data, isLoading, isError, error } = useGetTeachersQuery();
+  const [updateAcceptTeachers] = useUpdateAcceptTeachersMutation();
+  const [updateRejectTeachers] = useUpdateRejectTeachersMutation();
 
   // Handle loadin
-  //   if (isLoading) {
-  //     return <Loading />;
-  //   }
+  if (isLoading) {
+    return <Loading />;
+  }
 
   // Handle error
-  //   if (isError) {
-  //     console.log(
-  //       "Error when fetching the data from getCoursesQuery",
-  //       error.error
-  //     );
-  //     // showing an error alert
-  //     Swal.fire({
-  //       title: "Error!",
-  //       text: "Error when fetching getCoursesQuery data",
-  //       icon: "error",
-  //       confirmButtonText: "OK",
-  //     });
-  //     return null;
-  //   }
+  if (isError) {
+    console.log(
+      "Error when fetching the data from getTeachersQuery",
+      error.error
+    );
+    // showing an error alert
+    Swal.fire({
+      title: "Error!",
+      text: "Error when fetching getTeachersQuery data",
+      icon: "error",
+      confirmButtonText: "OK",
+    });
+    return null;
+  }
 
   // Handle empty teachers
-  if (teachers.length === 0) {
+  if (data.length === 0) {
     return (
       <div className="w-full h-screen bg-[#e0cece] flex justify-center items-center flex-col gap-5">
         <h1 className="text-2xl font-bold text-center">
@@ -54,10 +58,66 @@ const TeacherRequiests = () => {
     );
   }
 
+  // Handle accept
+  const handleAccept = (id) => {
+    // this api will update only the isTeacher filed : true
+    updateAcceptTeachers(id)
+      .unwrap()
+      .then(() => {
+        // updating the user data
+        // const userInfo = {
+        //   experience: data.experience,
+        //   category: data.category,
+        // };
+
+        Swal.fire({
+          title: "Success",
+          text: "Accepted as a teacher",
+          icon: "success",
+          confirmButtonText: "OK",
+        });
+      })
+      .catch((error) => {
+        Swal.fire({
+          title: "Error!",
+          text: error.message,
+          icon: "error",
+          confirmButtonText: "OK",
+        });
+      });
+  };
+
+  // Handle reject
+  const handleReject = (id) => {
+    // this api will update only the isTeacher filed : false
+    updateRejectTeachers(id)
+      .unwrap()
+      .then(() => {
+        // updating the user
+
+        Swal.fire({
+          title: "Success",
+          text: "Rejected as a Teacher",
+          icon: "success",
+          confirmButtonText: "OK",
+        });
+      })
+      .catch((error) => {
+        Swal.fire({
+          title: "Error!",
+          text: error.message,
+          icon: "error",
+          confirmButtonText: "OK",
+        });
+      });
+  };
+
   return (
     <div className="w-full min-h-screen flex justify-center items-center bg-[#e0cece]">
       <div className="w-11/12 overflow-hidden mx-auto my-5 bg-[#c7c1c1] rounded-lg">
-        <h1 className="text-center text-2xl font-bold p-5">Review Teachers</h1>
+        <h1 className="text-center text-2xl font-bold p-5">
+          Review Teachers Request
+        </h1>
         {/* form content */}
         <div className="overflow-x-auto p-5">
           <table className="table">
@@ -69,62 +129,53 @@ const TeacherRequiests = () => {
                 <th>Teacher Email</th>
                 <th>Teacher category</th>
                 <th>Teacher Experience</th>
+                <th>Status</th>
               </tr>
             </thead>
             <tbody>
-              {teachers.map((enrollment, index) => (
+              {data.map((teacher, index) => (
                 <tr key={index}>
                   <th>{index + 1}</th>
                   <td>
-                    <div className="w-28 h-14">
+                    <div className="w-16 h-16">
                       <img
-                        src={enrollment.courseImage}
-                        alt={enrollment.courseTitle}
-                        className="w-full h-full object-cover"
+                        src={teacher.userPhoto}
+                        alt={teacher.userName}
+                        className="w-full h-full object-cover rounded-full"
                       />
                     </div>
                   </td>
-                  {/* <td>{enrollment.courseTitle}</td>
-                  <td>{enrollment.coursePrice}</td>
-                  <td>{enrollment.userName}</td>
-                  <td>{enrollment.userEmail}</td>
-                  <th>
-                    {enrollment.paymentStatus === "unpaid" ? (
-                      <h1 className="flex justify-center items-center gap-2 font-bold text-center text-base bg-orange-500 p-3 uppercase rounded-xl">
-                        unpaid <MdOutlineMoneyOff />
-                      </h1>
-                    ) : (
-                      <h1 className="flex justify-center items-center gap-3 font-bold text-center text-base bg-blue-500 p-3 uppercase rounded-xl">
-                        Paid <MdAttachMoney />
-                      </h1>
-                    )}
-                  </th>
+                  <td>{teacher.userName}</td>
+                  <td>{teacher.userEmail}</td>
+                  <td>{teacher.category}</td>
+                  <td>{teacher.experience}</td>
+
                   <th className="flex justify-center items-center">
-                    {enrollment.enrollmentStatus === "pandding" ? (
+                    {teacher.isTeacher === "pandding" ? (
                       <>
                         <button
-                          onClick={() => handleActive(enrollment._id)}
+                          onClick={() => handleAccept(teacher._id)}
                           className="w-1/2 h-1/2 p-2 hover:text-blue-500"
                         >
                           <FaRegCheckCircle className="w-8 h-8 mx-auto" />
                         </button>
                         <button
-                          onClick={() => handleReject(enrollment._id)}
+                          onClick={() => handleReject(teacher._id)}
                           className="w-1/2 h-1/2 p-2 hover:text-red-500"
                         >
                           <IoMdCloseCircle className="w-8 h-8 mx-auto" />
                         </button>
                       </>
-                    ) : enrollment.enrollmentStatus === "active" ? (
+                    ) : teacher.isTeacher === true ? (
                       <h1 className="flex justify-center items-center gap-3 font-bold text-center text-base bg-blue-500 p-3 uppercase rounded-xl">
-                        Actived
+                        Accepted
                       </h1>
                     ) : (
                       <h1 className="flex justify-center items-center gap-3 font-bold text-center text-base bg-red-500 p-3 mt-1 uppercase rounded-xl">
                         Rejected
                       </h1>
                     )}
-                  </th> */}
+                  </th>
                 </tr>
               ))}
             </tbody>

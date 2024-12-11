@@ -22,6 +22,22 @@ const usersApi = baseApi.injectEndpoints({
       }),
       invalidatesTags: ["Users"],
     }),
+    updateUsersPromotion: builder.mutation({
+      query: (userInfo) => ({
+        url: "/users/promotion",
+        method: "PUT",
+        body: userInfo,
+      }),
+      invalidatesTags: ["Users"],
+    }),
+    updateUsersDemotion: builder.mutation({
+      query: (userInfo) => ({
+        url: "/users/demotion",
+        method: "PUT",
+        body: userInfo,
+      }),
+      invalidatesTags: ["Users"],
+    }),
   }),
 });
 

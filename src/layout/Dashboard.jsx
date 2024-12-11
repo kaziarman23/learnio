@@ -192,7 +192,7 @@ const Dashboard = () => {
                     Interface
                   </NavLink>
                   <NavLink
-                    to="/dashboard/studentProfile"
+                    to="/dashboard/profile"
                     className={({ isActive }) =>
                       `p-2 text-lg font-bold flex items-center gap-2 ${
                         isActive ? "bg-black text-white rounded-2xl" : ""

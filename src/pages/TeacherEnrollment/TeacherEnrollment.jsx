@@ -19,10 +19,10 @@ const TeacherEnrollment = () => {
     (state) => state.userSlice
   );
 
-  // Rtk query hook
+  // Rtk query hooks
   const [postTeachers, { isLoading, isError, error }] =
     usePostTeachersMutation();
-  const { data } = useGetUsersQuery();
+  const { data, refetch } = useGetUsersQuery();
 
   // fetching the user data
   const userStatus = useMemo(
@@ -63,7 +63,7 @@ const TeacherEnrollment = () => {
         </Link>
       </div>
     );
-  } else if (isTeacher === "true") {
+  } else if (isTeacher === true) {
     return (
       <div className="w-full h-screen bg-white flex justify-center items-center flex-col gap-5">
         <h1 className="text-2xl font-bold text-center">You are a teacher!</h1>
@@ -77,7 +77,7 @@ const TeacherEnrollment = () => {
         </Link>
       </div>
     );
-  } else if (isTeacher === "false") {
+  } else if (isTeacher === false) {
     return (
       <div className="w-full h-screen bg-white flex justify-center items-center flex-col gap-5">
         <h1 className="text-2xl font-bold text-center">
@@ -98,14 +98,24 @@ const TeacherEnrollment = () => {
 
   // handle form submit
   const onSubmit = (data) => {
-    postTeachers(data)
+    const teacherInfo = {
+      ...data,
+      userPhoto: userPhoto,
+      isTeacher: "pandding",
+    };
+    postTeachers(teacherInfo)
       .unwrap()
       .then(() => {
-        // navigating the user and showing a success alert
+        // refetching the user data
+        refetch();
+
+        // navigating the user
         navigate(-1);
+
+        // showing a success alert
         Swal.fire({
           title: "Success",
-          text: "Requiest send successfull",
+          text: "Requiest send successfully",
           icon: "success",
           confirmButtonText: "Okey",
         });
