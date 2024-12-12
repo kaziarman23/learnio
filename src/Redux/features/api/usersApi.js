@@ -6,7 +6,7 @@ const usersApi = baseApi.injectEndpoints({
       query: () => "/users",
       providesTags: ["Users"],
     }),
-    postUsers: builder.mutation({
+    addUser: builder.mutation({
       query: (user) => ({
         url: "/users",
         method: "POST",
@@ -14,7 +14,7 @@ const usersApi = baseApi.injectEndpoints({
       }),
       invalidatesTags: ["Users"],
     }),
-    updateUsers: builder.mutation({
+    updateUserProfile: builder.mutation({
       query: (userInfo) => ({
         url: "/users",
         method: "PATCH",
@@ -22,19 +22,40 @@ const usersApi = baseApi.injectEndpoints({
       }),
       invalidatesTags: ["Users"],
     }),
-    updateUsersPromotion: builder.mutation({
+    acceptUserForTeacher: builder.mutation({
       query: (userInfo) => ({
-        url: "/users/promotion",
+        url: "/users/promote-to-teacher",
         method: "PUT",
         body: userInfo,
       }),
       invalidatesTags: ["Users"],
     }),
-    updateUsersDemotion: builder.mutation({
+    rejectUserForTeacher: builder.mutation({
       query: (userInfo) => ({
-        url: "/users/demotion",
+        url: "/users/demote-from-teacher",
         method: "PUT",
         body: userInfo,
+      }),
+      invalidatesTags: ["Users"],
+    }),
+    promoteUserRole: builder.mutation({
+      query: (id) => ({
+        url: `/users/promoteUser/${id}`,
+        method: "PUT",
+      }),
+      invalidatesTags: ["Users"],
+    }),
+    demoteUserRole: builder.mutation({
+      query: (id) => ({
+        url: `/users/demoteUser/${id}`,
+        method: "PUT",
+      }),
+      invalidatesTags: ["Users"],
+    }),
+    deleteUser: builder.mutation({
+      query: (id) => ({
+        url: `/users/${id}`,
+        method: "DELETE",
       }),
       invalidatesTags: ["Users"],
     }),
@@ -43,7 +64,12 @@ const usersApi = baseApi.injectEndpoints({
 
 export const {
   useGetUsersQuery,
-  usePostUsersMutation,
-  useUpdateUsersMutation,
+  useAddUserMutation,
+  useUpdateUserProfileMutation,
+  useAcceptUserForTeacherMutation,
+  useRejectUserForTeacherMutation,
+  usePromoteUserRoleMutation,
+  useDemoteUserRoleMutation,
+  useDeleteUserMutation,
 } = usersApi;
 export default usersApi;

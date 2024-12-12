@@ -1,6 +1,6 @@
 import { useSelector } from "react-redux";
 import {
-  useDeleteCoursesMutation,
+  useDeleteCourseMutation,
   useGetCoursesQuery,
 } from "../../../../Redux/features/Api/coursesApi";
 import Loading from "../../../../components/Loading/Loading";
@@ -15,7 +15,7 @@ const TeacherCourses = () => {
 
   // Rtk query
   const { data, isLoading, isError, error } = useGetCoursesQuery();
-  const [deleteCourses] = useDeleteCoursesMutation();
+  const [deleteCourse] = useDeleteCourseMutation();
 
   // filtering the data
   const courses = useMemo(
@@ -76,7 +76,7 @@ const TeacherCourses = () => {
       confirmButtonText: "Yes, delete it!",
     }).then((result) => {
       if (result.isConfirmed) {
-        deleteCourses(id)
+        deleteCourse(id)
           .unwrap()
           .then(() => {
             Swal.fire({

@@ -1,7 +1,13 @@
 import { signOut } from "firebase/auth";
 import { BiSolidLogOutCircle } from "react-icons/bi";
 import { CgProfile } from "react-icons/cg";
-import { FaChalkboardTeacher, FaGripfire, FaHome, FaRegCreditCard } from "react-icons/fa";
+import {
+  FaChalkboardTeacher,
+  FaGripfire,
+  FaHome,
+  FaRegCreditCard,
+  FaUsers,
+} from "react-icons/fa";
 import { SiCoursera, SiGoogleclassroom } from "react-icons/si";
 import { useDispatch, useSelector } from "react-redux";
 import { NavLink, Outlet, useNavigate } from "react-router-dom";
@@ -10,8 +16,8 @@ import { MdAnalytics, MdDashboard, MdPreview } from "react-icons/md";
 import Swal from "sweetalert2";
 import auth from "../Firebase/Firebase.Config";
 import { HiArchiveBox, HiArchiveBoxArrowDown } from "react-icons/hi2";
-import { useMemo } from "react";
 import Loading from "../components/Loading/Loading";
+import { VscOpenPreview } from "react-icons/vsc";
 import { useGetUsersQuery } from "../Redux/features/api/usersApi";
 
 const Dashboard = () => {
@@ -24,13 +30,6 @@ const Dashboard = () => {
 
   // Rtk query hooks
   const { data, isLoading, isError, error } = useGetUsersQuery();
-
-  // finding the data
-  const userInfo = useMemo(
-    () => data?.find((user) => user.userEmail === userEmail),
-    [userEmail, data]
-  );
-  const user = userInfo?.userRole;
 
   // Handle loading
   if (isLoading) {
@@ -50,6 +49,12 @@ const Dashboard = () => {
     });
     return null;
   }
+
+  // finding the data
+  const userInfo = data.find(
+    (user) => user.userEmail.toLowerCase() === userEmail.toLowerCase()
+  );
+  const user = userInfo?.userRole;
 
   // handle logout
   const handleLogout = () => {
@@ -105,7 +110,17 @@ const Dashboard = () => {
                     <MdAnalytics />
                     Analytics
                   </NavLink>
-
+                  <NavLink
+                    to="/dashboard/profile"
+                    className={({ isActive }) =>
+                      `p-2 text-lg font-bold flex items-center gap-2 ${
+                        isActive ? "bg-black text-white rounded-2xl" : ""
+                      }`
+                    }
+                  >
+                    <CgProfile />
+                    Profile
+                  </NavLink>
                   <NavLink
                     to="/dashboard/teacherRequiests"
                     className={({ isActive }) =>
@@ -114,8 +129,32 @@ const Dashboard = () => {
                       }`
                     }
                   >
-                   <FaChalkboardTeacher />
+                    <FaChalkboardTeacher />
                     Teacher Requiest
+                  </NavLink>
+
+                  <NavLink
+                    to="/dashboard/courseReview"
+                    className={({ isActive }) =>
+                      `p-2 text-lg font-bold flex items-center gap-2 ${
+                        isActive ? "bg-black text-white rounded-2xl" : ""
+                      }`
+                    }
+                  >
+                    <VscOpenPreview />
+                    Course Review
+                  </NavLink>
+
+                  <NavLink
+                    to="/dashboard/users"
+                    className={({ isActive }) =>
+                      `p-2 text-lg font-bold flex items-center gap-2 ${
+                        isActive ? "bg-black text-white rounded-2xl" : ""
+                      }`
+                    }
+                  >
+                    <FaUsers />
+                    Users
                   </NavLink>
                 </>
               ) : user === "teacher" ? (

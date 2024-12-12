@@ -4,10 +4,9 @@ import { SiGoogleclassroom } from "react-icons/si";
 
 const Stats = () => {
   return (
-    <div className="w-full h-full bg-[#d1cecb] overflow-hidden">
-      <div className="w-4/5 h-screen mx-auto my-10">
-      <h1 className='text-center text-3xl font-bold my-10'>Community</h1>
-        <div className="flex justify-between items-center">
+    <div className="w-full h-screen bg-[#d1cecb] ">
+      <div className="w-4/5 h-full mx-auto">
+        <div className="w-full h-2/3 flex justify-between items-center">
           <div className="w-1/2 space-y-5">
             <h1 className="text-4xl font-bold">
               Empowering a Thriving Learning Community
@@ -29,7 +28,7 @@ const Stats = () => {
         </div>
         {/* stats */}
         <div>
-          <div className="w-2/3 mt-20 flex justify-center items-center flex-col lg:flex-row border-2 border-black rounded-2xl mx-auto p-2 shadow">
+          <div className="w-2/3 h-1/3 mt-20 flex justify-center items-center flex-col lg:flex-row border-2 border-black rounded-2xl mx-auto p-2 shadow">
             <div className="w-1/3 border-r-2 border-black flex justify-center items-center flex-col">
               <div className="stat-title">Active Students</div>
               <div className="stat-value flex items-center gap-2">

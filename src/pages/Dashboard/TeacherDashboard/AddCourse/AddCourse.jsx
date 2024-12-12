@@ -1,6 +1,6 @@
 import { useForm } from "react-hook-form";
 import { useSelector } from "react-redux";
-import { usePostCoursesMutation } from "../../../../Redux/features/Api/coursesApi";
+import { useAddCourseMutation } from "../../../../Redux/features/Api/coursesApi";
 import Swal from "sweetalert2";
 
 const AddCourse = () => {
@@ -13,7 +13,7 @@ const AddCourse = () => {
   } = useForm();
 
   // Rtk query hooks
-  const [postCourses] = usePostCoursesMutation();
+  const [addCourse] = useAddCourseMutation();
 
   // Redux state
   const { userName, userPhoto, userEmail } = useSelector(
@@ -28,7 +28,7 @@ const AddCourse = () => {
       courseStudentsCount: Number(data.courseStudentsCount),
       courseStatus: "pandding",
     };
-    postCourses(courseInfo)
+    addCourse(courseInfo)
       .unwrap()
       .then(() => {
         Swal.fire({

@@ -2,8 +2,8 @@ import Headline from "./Headline";
 
 const Hero = () => {
   return (
-    <div className="w-full h-full mx-auto p-2">
-      <div className="w-4/5 h-full mx-auto flex justify-between items-center">
+    <div className="w-full h-full mx-auto ">
+      <div className="w-4/5 h-full mx-auto flex justify-between items-center mt-2">
         <div className="w-1/2 h-full space-y-5">
           <h1 className="text-4xl font-bold text-left">
             Unlock Your Potential,

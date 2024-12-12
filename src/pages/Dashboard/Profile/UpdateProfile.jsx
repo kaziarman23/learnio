@@ -3,7 +3,7 @@ import { useForm } from "react-hook-form";
 import { updateProfile } from "firebase/auth";
 import { useNavigate } from "react-router";
 import { setUser } from "../../../Redux/features/userSlice";
-import { useUpdateUsersMutation } from "../../../Redux/features/api/usersApi";
+import { useUpdateUserProfileMutation } from "../../../Redux/features/api/usersApi";
 import auth from "../../../Firebase/Firebase.Config";
 import Swal from "sweetalert2";
 import Loading from "../../../components/Loading/Loading";
@@ -19,7 +19,7 @@ const UpdateProfile = () => {
   );
 
   // Rtk query
-  const [updateUsers, { isLoading, isError, error }] = useUpdateUsersMutation();
+  const [updateUserProfile, { isLoading, isError, error }] = useUpdateUserProfileMutation();
 
   // Use form hook
   const { handleSubmit, register, reset } = useForm();
@@ -64,7 +64,7 @@ const UpdateProfile = () => {
       }
 
       // Update the backend via API
-      await updateUsers(userInfo).unwrap();
+      await updateUserProfile(userInfo).unwrap();
 
       // Dispatch updated profile to Redux
       dispatch(

@@ -5,18 +5,32 @@ import { FaGripfire, FaUsers } from "react-icons/fa";
 import { useSelector } from "react-redux";
 import { usePostEnrollmentsMutation } from "../../Redux/features/Api/enrollmentsApi";
 import Swal from "sweetalert2";
+import { useGetUsersQuery } from "../../Redux/features/api/usersApi";
+import { useMemo } from "react";
 
 const CourseDetails = () => {
   // states
   const { id } = useParams();
-  const { data: course, isLoading, isError } = useGetCourseQuery(id);
-  const { userName, userEmail, userPhoto } = useSelector(
-    (state) => state.userSlice
-  );
-  const [postEnrollments] = usePostEnrollmentsMutation();
   const location = useLocation();
   const pastLocation = location?.state?.from;
   const navigate = useNavigate();
+
+  // Redux state
+  const { userName, userEmail, userPhoto } = useSelector(
+    (state) => state.userSlice
+  );
+
+  // Rtk query hooks
+  const { data: course, isLoading, isError, error } = useGetCourseQuery(id);
+  const [postEnrollments] = usePostEnrollmentsMutation();
+  const { data: usersData } = useGetUsersQuery();
+
+  // collecting the user data from the database
+  const user = useMemo(
+    () => usersData?.find((user) => user.userEmail === userEmail),
+    [usersData, userEmail]
+  );
+  const userRole = user?.userRole;
 
   // handling loading
   if (isLoading) {
@@ -25,11 +39,30 @@ const CourseDetails = () => {
 
   // handling error
   if (isError) {
-    console.log("Error in fetching Course details: ", isError);
+    console.log("Error: ", error);
+    console.log("Error message: ", error.error);
+    Swal.fire({
+      title: "Error!",
+      text: "Error when fetching the courses data from the database",
+      icon: "error",
+      confirmButtonText: "Okey",
+    });
+    return;
   }
 
   // handling Enrollments
   const handleEnrollmentBtn = (data) => {
+    // checking for the admin
+    if (userRole === "admin" || userRole === "teacher") {
+      Swal.fire({
+        title: "Error!",
+        text: "You are not a student",
+        icon: "error",
+        confirmButtonText: "Okey",
+      });
+      return;
+    }
+
     Swal.fire({
       title: "Are you sure?",
       text: "You Want to Enroll for this Course!",
@@ -70,12 +103,12 @@ const CourseDetails = () => {
             });
           })
           .catch((error) => {
+            console.log("Error: ", error);
+            console.log("Error Message: ", error.message);
             // showing an error alert
             Swal.fire({
               title: "Error!",
-              text:
-                error.message ||
-                "Error when saving the enrollments data in the server",
+              text: "Error when saving the enrollments data in the server",
               icon: "error",
               confirmButtonText: "Okey",
             });
@@ -88,6 +121,7 @@ const CourseDetails = () => {
   const handlePreviousBtn = () => {
     navigate(pastLocation);
   };
+
   return (
     <div className="w-full min-h-screen overflow-hidden">
       <div className="w-4/5 h-full mx-auto my-10 flex gap-5 flex-col">

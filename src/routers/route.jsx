@@ -19,7 +19,12 @@ import TeacherCourses from "../pages/Dashboard/TeacherDashboard/TeacherCourses/T
 import ReviewEnrollments from "../pages/Dashboard/TeacherDashboard/ReviewEnrollments/ReviewEnrollments";
 import NotFound from "../pages/NotFound/NotFound";
 import AdminAnalytics from "../pages/Dashboard/AdminDashboard/AdminAnalytics/AdminAnalytics";
-import TeacherRequiests from "../pages/Dashboard/AdminDashboard/AdminAnalytics/TeacherRequiests/TeacherRequiests";
+import TeacherRequiests from "../pages/Dashboard/AdminDashboard/TeacherRequiests/TeacherRequiests";
+import CourseReview from "../pages/Dashboard/AdminDashboard/CourseReview/CourseReview";
+import PanddingCourseReview from "../pages/Dashboard/AdminDashboard/CourseReview/PanddingCourseReview";
+import ActiveCourseReview from "../pages/Dashboard/AdminDashboard/CourseReview/ActiveCourseReview";
+import RejectCourseReview from "../pages/Dashboard/AdminDashboard/CourseReview/RejectCourseReview";
+import Users from "../pages/Dashboard/AdminDashboard/Users/Users";
 
 const Router = createBrowserRouter([
   {
@@ -100,7 +105,7 @@ const Router = createBrowserRouter([
           </PrivateRoute>
         ),
       },
-      // admin route
+      // admin routes
       {
         path: "/dashboard/analytics",
         element: <AdminAnalytics />,
@@ -113,7 +118,47 @@ const Router = createBrowserRouter([
           </PrivateRoute>
         ),
       },
-      // teacher route
+      {
+        path: "/dashboard/courseReview",
+        element: (
+          <PrivateRoute>
+            <CourseReview />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "/dashboard/courseReview/pandding",
+        element: (
+          <PrivateRoute>
+            <PanddingCourseReview />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "/dashboard/courseReview/active",
+        element: (
+          <PrivateRoute>
+            <ActiveCourseReview />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "/dashboard/courseReview/reject",
+        element: (
+          <PrivateRoute>
+            <RejectCourseReview />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "/dashboard/users",
+        element: (
+          <PrivateRoute>
+            <Users />
+          </PrivateRoute>
+        ),
+      },
+      // teacher routes
       {
         path: "/dashboard/addCourse",
         element: (
@@ -138,7 +183,7 @@ const Router = createBrowserRouter([
           </PrivateRoute>
         ),
       },
-      // student route
+      // student routes
       {
         path: "/dashboard/studentEnrollments",
         element: (

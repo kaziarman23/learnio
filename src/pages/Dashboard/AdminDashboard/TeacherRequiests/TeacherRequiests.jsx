@@ -1,22 +1,29 @@
-import { useSelector } from "react-redux";
+import Swal from "sweetalert2";
+import { IoMdCloseCircle } from "react-icons/io";
+import { FaRegCheckCircle } from "react-icons/fa";
+import { Link } from "react-router";
+import Loading from "../../../../components/Loading/Loading";
 import {
   useGetTeachersQuery,
   useUpdateAcceptTeachersMutation,
   useUpdateRejectTeachersMutation,
-} from "../../../../../Redux/features/Api/teachersApi";
-import Swal from "sweetalert2";
-import Loading from "../../../../../components/Loading/Loading";
-import { IoMdCloseCircle } from "react-icons/io";
-import { FaRegCheckCircle } from "react-icons/fa";
+} from "../../../../Redux/features/Api/teachersApi";
+import {
+  useRejectUserForTeacherMutation,
+  useAcceptUserForTeacherMutation,
+} from "../../../../Redux/features/api/usersApi";
+import { useSelector } from "react-redux";
 
 const TeacherRequiests = () => {
   // Redux state
-  const { userName, userEmail } = useSelector((state) => state.userSlice);
+  const { userName } = useSelector((state) => state.userSlice);
 
   // Rtk query hooks
   const { data, isLoading, isError, error } = useGetTeachersQuery();
   const [updateAcceptTeachers] = useUpdateAcceptTeachersMutation();
   const [updateRejectTeachers] = useUpdateRejectTeachersMutation();
+  const [acceptUserForTeacher] = useAcceptUserForTeacherMutation();
+  const [rejectUserForTeacher] = useRejectUserForTeacherMutation();
 
   // Handle loadin
   if (isLoading) {
@@ -42,45 +49,72 @@ const TeacherRequiests = () => {
   // Handle empty teachers
   if (data.length === 0) {
     return (
-      <div className="w-full h-screen bg-[#e0cece] flex justify-center items-center flex-col gap-5">
-        <h1 className="text-2xl font-bold text-center">
-          {userName}, have no teacher requiests for review.
-        </h1>
-        <Link to="/dashboard/interface">
-          <button
-            type="button"
-            className="btn hover:bg-blue-500 hover:text-white hover:border-none"
-          >
-            Interface
-          </button>
-        </Link>
+      <div className="w-full h-screen bg-[#e0cece] flex justify-center items-center">
+        <div className="w-1/2 h-40 rounded-2xl bg-[#c7c1c1] flex justify-center items-center flex-col gap-5">
+          <h1 className="text-2xl font-bold text-center">
+            {userName}, have no teacher requiests for review.
+          </h1>
+          <Link to="/dashboard/interface">
+            <button
+              type="button"
+              className="btn hover:bg-blue-500 hover:text-white hover:border-none"
+            >
+              Interface
+            </button>
+          </Link>
+        </div>
       </div>
     );
   }
 
   // Handle accept
   const handleAccept = (id) => {
-    // this api will update only the isTeacher filed : true
+    // collecting teacher data from database
+    const teacherInfo = data.find((teacher) => teacher._id === id);
+
+    // updating isTeacher filed
     updateAcceptTeachers(id)
       .unwrap()
       .then(() => {
-        // updating the user data
-        // const userInfo = {
-        //   experience: data.experience,
-        //   category: data.category,
-        // };
+        // updating the user data in the database
+        const userInfo = {
+          userEmail: teacherInfo.userEmail,
+          experience: teacherInfo.experience,
+          category: teacherInfo.category,
+        };
+        // sending data in the user database
+        acceptUserForTeacher(userInfo)
+          .unwrap()
+          .then(() => {
+            // showing a success alert
+            Swal.fire({
+              title: "Success",
+              text: "Accepted as a teacher",
+              icon: "success",
+              confirmButtonText: "OK",
+            });
+          })
+          .catch((error) => {
+            console.log("Error: ", error);
+            console.log("Error Message: ", error.message);
 
-        Swal.fire({
-          title: "Success",
-          text: "Accepted as a teacher",
-          icon: "success",
-          confirmButtonText: "OK",
-        });
+            // showing error alert
+            Swal.fire({
+              title: "Error",
+              text: "Faild to sand the data in the Users/Promotion database",
+              icon: "error",
+              confirmButtonText: "okey",
+            });
+          });
       })
       .catch((error) => {
+        console.log("Error :", error);
+        console.log("Error Message:", error.message);
+
+        // showing error alert
         Swal.fire({
           title: "Error!",
-          text: error.message,
+          text: "Faild to update teacher data",
           icon: "error",
           confirmButtonText: "OK",
         });
@@ -89,18 +123,41 @@ const TeacherRequiests = () => {
 
   // Handle reject
   const handleReject = (id) => {
-    // this api will update only the isTeacher filed : false
+    // collecting teacher data from database
+    const teacherInfo = data.find((teacher) => teacher._id === id);
+
+    // updating the isTeacher filed
     updateRejectTeachers(id)
       .unwrap()
       .then(() => {
-        // updating the user
+        // updating the user data in the database
+        const userInfo = {
+          userEmail: teacherInfo.userEmail,
+        };
+        // sending data in the user database
+        rejectUserForTeacher(userInfo)
+          .unwrap()
+          .then(() => {
+            // showing a success alert
+            Swal.fire({
+              title: "Success",
+              text: "Rejected as a teacher",
+              icon: "warning",
+              confirmButtonText: "OK",
+            });
+          })
+          .catch((error) => {
+            console.log("Error: ", error);
+            console.log("Error Message: ", error.message);
 
-        Swal.fire({
-          title: "Success",
-          text: "Rejected as a Teacher",
-          icon: "success",
-          confirmButtonText: "OK",
-        });
+            // showing error alert
+            Swal.fire({
+              title: "Error",
+              text: "Faild to sand the data in the Users/Demotion database",
+              icon: "error",
+              confirmButtonText: "okey",
+            });
+          });
       })
       .catch((error) => {
         Swal.fire({

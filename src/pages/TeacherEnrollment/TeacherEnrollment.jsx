@@ -25,11 +25,12 @@ const TeacherEnrollment = () => {
   const { data, refetch } = useGetUsersQuery();
 
   // fetching the user data
-  const userStatus = useMemo(
+  const user = useMemo(
     () => data?.find((user) => user.userEmail === userEmail),
     [data, userEmail]
   );
-  const isTeacher = userStatus?.isTeacher;
+  const isTeacher = user?.isTeacher;
+  const userRole = user?.userRole;
 
   // handle Loading
   if (isLoading) {
@@ -66,7 +67,9 @@ const TeacherEnrollment = () => {
   } else if (isTeacher === true) {
     return (
       <div className="w-full h-screen bg-white flex justify-center items-center flex-col gap-5">
-        <h1 className="text-2xl font-bold text-center">You are a teacher!</h1>
+        <h1 className="text-2xl font-bold text-center">
+          Congratulation. You are Now a Teacher in Learnio !
+        </h1>
         <Link to="/dashboard/interface">
           <button
             type="button"
@@ -79,7 +82,7 @@ const TeacherEnrollment = () => {
     );
   } else if (isTeacher === false) {
     return (
-      <div className="w-full h-screen bg-white flex justify-center items-center flex-col gap-5">
+      <div className="w-full h-screen flex justify-center items-center flex-col gap-5">
         <h1 className="text-2xl font-bold text-center">
           You are Rejected as a Teacher. Plase Try again with more strong skills
           !
@@ -98,6 +101,18 @@ const TeacherEnrollment = () => {
 
   // handle form submit
   const onSubmit = (data) => {
+    // checking for the admin
+    if (userRole === "admin" || userRole === "teacher") {
+      Swal.fire({
+        title: "Error!",
+        text: "You are not a student",
+        icon: "error",
+        confirmButtonText: "Okey",
+      });
+      return;
+    }
+
+    // saving the teacherInfo
     const teacherInfo = {
       ...data,
       userPhoto: userPhoto,

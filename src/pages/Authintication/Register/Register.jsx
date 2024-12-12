@@ -3,7 +3,7 @@ import { Link, useNavigate } from "react-router";
 import { useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
 import { createUser, googleSignIn } from "../../../Redux/features/userSlice";
-import { usePostUsersMutation } from "../../../Redux/features/api/usersApi";
+import { useAddUserMutation } from "../../../Redux/features/api/usersApi";
 import Swal from "sweetalert2";
 
 const Register = () => {
@@ -17,7 +17,7 @@ const Register = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const [postUsers] = usePostUsersMutation();
+  const [addUser] = useAddUserMutation();
 
   // handle form submit
   const onSubmit = (data) => {
@@ -37,7 +37,7 @@ const Register = () => {
           experience: null,
           category: null,
         };
-        postUsers(userInfo);
+        addUser(userInfo);
 
         // navigating the user and clearing the inputs
         navigate("/");
@@ -86,7 +86,7 @@ const Register = () => {
           experience: null,
           category: null,
         };
-        postUsers(userInfo);
+        addUser(userInfo);
 
         // navigating the user and clearing the inputs
         navigate("/");
