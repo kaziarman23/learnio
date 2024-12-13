@@ -47,7 +47,7 @@ const Navbar = () => {
 
   return (
     <div className="w-full h-full border-b-2">
-      <div className="navbar w-4/5 h-full mx-auto justify-between">
+      <div className="navbar w-full h-full mx-auto justify-between sm:w-4/5">
         <div className="justify-start">
           <div className="dropdown">
             <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
@@ -68,21 +68,22 @@ const Navbar = () => {
             </div>
             <ul
               tabIndex={0}
-              className="menu menu-sm dropdown-content rounded-box z-[1] mt-3 w-52 p-2 shadow"
+              className="menu menu-sm dropdown-content rounded-box z-[1] mt-3 w-52 p-2 shadow bg-white"
             >
               {navlinks}
             </ul>
           </div>
-          <h1 className="text-2xl font-bold flex items-center">
+          {/* <h1 className="text-2xl font-bold flex items-center"> */}
+          <h1 className="text-sm font-bold flex items-center sm:text-lg xl:text-2xl">
             <FaGripfire />
             Learnio
           </h1>
         </div>
-        <div className="flex gap-2">
+        <div className="flex sm:gap-2">
           <div className="justify-start hidden lg:flex">
             <ul className="menu menu-horizontal px-1">{navlinks}</ul>
           </div>
-          <div className="flex justify-end gap-2">
+          <div className="flex justify-end items-center gap-2">
             {userEmail ? (
               <button
                 onClick={handleLogout}
@@ -93,12 +94,12 @@ const Navbar = () => {
             ) : (
               <>
                 <Link to="/register">
-                  <button className="btn hover:bg-black hover:text-white">
+                  <button className="text-xs p-2 font-bold rounded-xl border border-black hover:bg-black hover:text-white sm:text-sm lg:text-base xl:btn">
                     Register
                   </button>
                 </Link>
                 <Link to="/login">
-                  <button className="btn hover:bg-black hover:text-white">
+                  <button className="text-xs font-bold p-2 rounded-xl border border-black hover:bg-black hover:text-white sm:text-sm lg:text-base xl:btn">
                     Login
                   </button>
                 </Link>
