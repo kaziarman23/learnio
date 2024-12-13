@@ -1,11 +1,11 @@
 const SkeletonOne = () => {
   return (
     <div>
-      <p className="font-bold md:text-4xl text-xl text-white">
+      <p className="font-bold md:text-4xl text-base text-white">
         Web Development
       </p>
       <p className="font-normal text-base text-white"></p>
-      <p className="font-normal text-base my-4 max-w-lg text-neutral-200">
+      <p className="font-normal text-sm my-4 max-w-lg text-neutral-200">
         Learn to build responsive, dynamic, and modern websites using HTML, CSS,
         JavaScript, and popular frameworks like React and Angular.
       </p>
@@ -16,11 +16,11 @@ const SkeletonOne = () => {
 const SkeletonTwo = () => {
   return (
     <div>
-      <p className="font-bold md:text-4xl text-xl text-white">
+      <p className="font-bold md:text-4xl text-base text-white">
         App Development
       </p>
       <p className="font-normal text-base text-white"></p>
-      <p className="font-normal text-base my-4 max-w-lg text-neutral-200">
+      <p className="font-normal text-sm my-4 max-w-lg text-neutral-200">
         Master the art of creating high-performance mobile applications for iOS
         and Android platforms using tools like Flutter and Swift.
       </p>
@@ -30,9 +30,9 @@ const SkeletonTwo = () => {
 const SkeletonThree = () => {
   return (
     <div>
-      <p className="font-bold md:text-4xl text-xl text-white">UI/UX Design</p>
+      <p className="font-bold md:text-4xl text-base text-white">UI/UX Design</p>
       <p className="font-normal text-base text-white"></p>
-      <p className="font-normal text-base my-4 max-w-lg text-neutral-200">
+      <p className="font-normal text-sm my-4 max-w-lg text-neutral-200">
         Dive into the principles of user-centric design and create visually
         stunning, intuitive interfaces that enhance user experiences.
       </p>
@@ -42,11 +42,11 @@ const SkeletonThree = () => {
 const SkeletonFour = () => {
   return (
     <div>
-      <p className="font-bold md:text-4xl text-xl text-white">
+      <p className="font-bold md:text-4xl text-base text-white">
         Machine Learning
       </p>
       <p className="font-normal text-base text-white"></p>
-      <p className="font-normal text-base my-4 max-w-lg text-neutral-200">
+      <p className="font-normal text-sm my-4 max-w-lg text-neutral-200">
         Explore AI technologies and algorithms to develop intelligent systems
         that can analyze data, make predictions, and solve complex problems.
       </p>

@@ -1,19 +1,19 @@
+import Hero from "./Hero";
 import About from "./About";
 import Events from "./Events";
-import Hero from "./Hero";
-import HighLights from "./HighLights";
 import Popular from "./Popular";
-import Reviews from "./Reviews";
 import Stats from "./stats";
+import HighLights from "./HighLights";
+import Reviews from "./Reviews";
 
 const Home = () => {
   return (
-    <div className="">
+    <div>
       <Hero />
       <About />
       <Events />
-      <Popular />
-      <Stats />
+      <Popular /> {/* Will Replace This Component  */}
+      <Stats /> 
       <HighLights />
       <Reviews />
     </div>

@@ -34,13 +34,13 @@ const Reviews = () => {
   ];
 
   return (
-    <div className="w-full h-screen">
-      <div className="w-4/5 h-full mx-auto">
+    <div className="w-full h-full border-t-2">
+      <div className="w-11/12 h-full mx-auto xl:w-4/5">
         <div className="w-full h-1/6">
-          <h1 className="text-center p-4 font-bold text-2xl">
+          <h1 className="text-center p-4 font-bold text-lg md:text-2xl">
             What Students Are Saying About Learnio
           </h1>
-          <p className="text-left">
+          <p className="text-left text-sm xl:text-lg">
             Discover the experiences of our vibrant community! From students
             advancing their skills to teachers sharing their expertise, read
             authentic reviews that showcase the impact of Learnio on learning
@@ -48,7 +48,7 @@ const Reviews = () => {
           </p>
         </div>
         {/* review cards */}
-        <div className="w-full h-5/6">
+        <div className="w-full h-full xl:h-1/2">
           <div className="h-full rounded-md flex flex-col antialiased  items-center justify-center relative overflow-hidden">
             <InfiniteMovingCards
               items={testimonials}

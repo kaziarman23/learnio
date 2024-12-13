@@ -2,20 +2,24 @@ import Headline from "./Headline";
 
 const Hero = () => {
   return (
-    <div className="w-full h-full mx-auto ">
-      <div className="w-4/5 h-full mx-auto flex justify-between items-center mt-2">
-        <div className="w-1/2 h-full space-y-5">
-          <h1 className="text-4xl font-bold text-left">
+    <div className="w-full h-full mx-auto">
+      <div className="w-full h-full mx-auto flex justify-between items-center mt-2 flex-col gap-5 lg:w-4/5 lg:flex-row">
+
+        {/* Text content */}
+        <div className="w-11/12 h-full space-y-5 sm:w-4/5 lg:w-1/2">
+          <h1 className="text-base font-bold text-center sm:text-lg lg:text-xl xl:text-4xl xl:text-left">
             Unlock Your Potential,
             <br /> One Skill at a Time
           </h1>
-          <p className="text-left ">
+          <p className="text-left text-sm sm:text-base lg:text-lg">
             Discover expert-led courses designed to help you master new skills,
             elevate your career, or pursue your passions. Learn at your own pace
             from anywhere in the world.
           </p>
         </div>
-        <div className="w-1/2 flex justify-center items-center flex-col gap-3">
+
+        {/* Image content */}
+        <div className="w-full flex justify-center items-center flex-col gap-3 lg:w-1/2">
           <img
             src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fwww.nea.org%2Fsites%2Fdefault%2Ffiles%2Flegacy%2F2020%2F04%2Fnew_teacher.jpeg&f=1&nofb=1&ipt=0d3e1ea6475419185788530ea3dcd8f08f858cae50f60cddb849f525d99f1678&ipo=images"
             alt=""

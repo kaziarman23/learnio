@@ -15,10 +15,10 @@ const About = () => {
 
   return (
     <div className="w-full h-full bg-[#efeee9] overflow-hidden">
-      <div className="w-4/5 h-screen mx-auto my-10">
-        <div className="flex justify-between items-start">
-          <div className="w-1/2 p-5 text-left space-y-5 ">
-            <h1 className="flex items-center text-5xl">
+      <div className="w-11/12 h-full mx-auto my-10 space-y-5 xl:w-4/5 xl:h-screen">
+        <div className="flex justify-between items-start flex-col gap-4 xl:flex-row xl:gap-0">
+          <div className="w-full text-left space-y-5 xl:w-1/2 xl:p-5">
+            <h1 className="flex items-center text-3xl xl:text-5xl">
               <FaGripfire />
               Learnio
             </h1>
@@ -31,9 +31,9 @@ const About = () => {
               learning experience.
             </p>
           </div>
-          <div className="w-1/2 p-5 space-y-9">
-            <h1 className="text-xl font-bold">With Learnio, you’ll gain:</h1>
-            <ul className="list-disc">
+          <div className="w-full space-y-5 xl:p-5 xl:space-y-7 xl:w-1/2">
+            <h1 className="text-xl font-bold text-left xl:text-3xl">With Learnio, you’ll gain:</h1>
+            <ul className="xl:list-disc">
               <li>
                 <strong>Expert-Led Courses:</strong> Learn directly from
                 experienced professionals and industry leaders.
@@ -50,9 +50,9 @@ const About = () => {
           </div>
         </div>
         {/* card div */}
-        <div className="flex justify-evenly items-center">
+        <div className="flex justify-center items-center flex-col gap-5 sm:flex-row sm:gap-5 xl:justify-evenly">
           {imgContainer.map((item, index) => (
-            <div key={index} className="w-60 h-80">
+            <div key={index} className="w-40 h-52 xl:w-60 xl:h-80">
               <img
                 src={item.img}
                 alt={`about section img ${index}`}

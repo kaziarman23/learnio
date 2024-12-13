@@ -1,5 +1,4 @@
 /* eslint-disable react/prop-types */
-
 import React from "react";
 import { motion, useScroll, useTransform, useSpring } from "framer-motion";
 
@@ -88,11 +87,13 @@ export const HeroParallax = ({ products }) => {
 
 export const Header = () => {
   return (
-    <div className="max-w-7xl relative mx-auto px-4 w-full  left-0 top-0">
-      <h1 className="text-2xl md:text-5xl font-bold text-black">
+    <div className="max-w-7xl  relative mx-auto px-4 w-full  left-0 top-0">
+      {/* <h1 className="text-2xl md:text-5xl font-bold text-black"> */}
+      <h1 className="text-xl md:text-5xl font-bold text-black">
         Insights and Updates <br /> Stay Informed with Learnio.
       </h1>
-      <p className="max-w-2xl text-base md:text-xl mt-8 text-black">
+      {/* <p className="max-w-2xl text-base md:text-xl mt-8 text-black"> */}
+      <p className="max-w-2xl text-sm md:text-xl mt-8 text-black">
         Discover the latest trends, stories, and breakthroughs in education and
         beyond. Explore our curated articles and news, paired with engaging
         visuals, to inspire your learning journey and keep you up to date.
