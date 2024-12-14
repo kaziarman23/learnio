@@ -48,18 +48,20 @@ const TeacherCourses = () => {
   // Handle empty enrollments
   if (courses.length === 0) {
     return (
-      <div className="w-full h-screen bg-[#e0cece] flex justify-center items-center flex-col gap-5">
-        <h1 className="text-2xl font-bold text-center">
-          {userName}, have no courses.
-        </h1>
-        <Link to="/dashboard/addCourse">
-          <button
-            type="button"
-            className="btn hover:bg-blue-500 hover:text-white hover:border-none"
-          >
-            Add Course
-          </button>
-        </Link>
+      <div className="w-full h-screen bg-[#e0cece] flex justify-center items-center">
+        <div className="w-4/5 h-40 rounded-2xl bg-[#c7c1c1] flex justify-center items-center flex-col gap-5 md:w-1/2">
+          <h1 className="text-xl font-bold text-center sm:text-2xl">
+            {userName}, have no courses.
+          </h1>
+          <Link to="/dashboard/addCourse">
+            <button
+              type="button"
+              className="btn hover:bg-blue-500 hover:text-white hover:border-none"
+            >
+              Add Course
+            </button>
+          </Link>
+        </div>
       </div>
     );
   }

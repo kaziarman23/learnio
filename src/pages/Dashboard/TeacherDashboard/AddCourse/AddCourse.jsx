@@ -57,14 +57,14 @@ const AddCourse = () => {
 
   return (
     <div className="w-full min-h-screen flex justify-center items-center bg-[#e0cece]">
-      <div className="w-4/5 h-4/5 mx-auto  bg-[#c7c1c1] rounded-lg">
+      <div className="w-11/12 overflow-hidden my-5 mx-auto bg-[#c7c1c1] rounded-lg lg:w-4/5">
         <h1 className="text-center text-2xl font-bold p-5">Add Course</h1>
         {/* form content */}
         <form onSubmit={handleSubmit(onSubmit)}>
           <div className="w-full h-full p-5 space-y-3">
             {/* name & email input */}
-            <div className="flex justify-between items-center gap-4">
-              <div className="w-1/2 flex justify-center items-start flex-col gap-2">
+            <div className="flex justify-center items-center gap-4 flex-col lg:justify-between lg:flex-row">
+              <div className="w-full flex justify-center items-start flex-col gap-2 lg:w-1/2">
                 <label htmlFor="name" className="font-bold">
                   Teacher Name
                 </label>
@@ -78,7 +78,7 @@ const AddCourse = () => {
                 />
               </div>
 
-              <div className="w-1/2 flex justify-center items-start flex-col gap-2">
+              <div className="w-full flex justify-center items-start flex-col gap-2 lg:w-1/2">
                 <label htmlFor="email" className="font-bold">
                   Teacher Email
                 </label>
@@ -94,7 +94,7 @@ const AddCourse = () => {
             </div>
 
             {/* title & price input */}
-            <div className="flex justify-between items-center gap-4">
+            <div className="flex justify-center items-center gap-4 flex-col lg:justify-between lg:flex-row">
               <div className="w-1/2 flex justify-center items-start flex-col gap-2">
                 <label htmlFor="title" className="font-bold">
                   Course Title
@@ -144,7 +144,7 @@ const AddCourse = () => {
             </div>
 
             {/* category & student-count */}
-            <div className="flex justify-between items-center gap-4">
+            <div className="flex justify-center items-center gap-4 flex-col lg:justify-between lg:flex-row">
               <div className="w-1/2 flex justify-center items-start flex-col gap-2">
                 <label htmlFor="category" className="font-bold">
                   Category
@@ -179,7 +179,7 @@ const AddCourse = () => {
             </div>
 
             {/* image & description */}
-            <div className="flex justify-between items-center gap-4">
+            <div className="flex justify-center items-center gap-4 flex-col lg:justify-between lg:flex-row">
               <div className="w-1/2 flex justify-center items-start flex-col gap-2">
                 <label htmlFor="courseImage" className="font-bold">
                   Course Image URL
