@@ -56,18 +56,20 @@ const StudentEnrollments = () => {
   // Handle empty enrollments
   if (allEnrollments.length === 0) {
     return (
-      <div className="w-full h-screen bg-[#e0cece] flex justify-center items-center flex-col gap-5">
-        <h1 className="text-2xl font-bold text-center">
-          {userName}, you have no enrollments.
-        </h1>
-        <Link to="/courses">
-          <button
-            type="button"
-            className="btn hover:bg-blue-500 hover:text-white hover:border-none"
-          >
-            Browse Courses
-          </button>
-        </Link>
+      <div className="w-full h-screen bg-[#e0cece] flex justify-center items-center">
+        <div className="w-4/5 h-40 rounded-2xl bg-[#c7c1c1] flex justify-center items-center flex-col gap-5 md:w-1/2">
+          <h1 className="text-xl font-bold text-center sm:text-2xl">
+            {userName}, you have no enrollments.
+          </h1>
+          <Link to="/dashboard/interface">
+            <button
+              type="button"
+              className="btn hover:bg-blue-500 hover:text-white hover:border-none"
+            >
+              Interface
+            </button>
+          </Link>
+        </div>
       </div>
     );
   }
@@ -107,9 +109,9 @@ const StudentEnrollments = () => {
   };
 
   return (
-    <div className="w-full h-screen bg-[#e0cece] flex justify-center items-center">
-      <div className="w-11/12 h-4/5 bg-[#c7c1c1] rounded-xl overflow-y-scroll">
-        <h1 className="text-3xl font-bold text-center p-2">My Enrollments</h1>
+    <div className="w-full min-h-screen bg-[#e0cece] flex justify-center items-center">
+      <div className="w-11/12 bg-[#c7c1c1] rounded-xl overflow-hidden">
+        <h1 className="text-xl font-bold text-center p-2 lg:text-3xl">My Enrollments</h1>
         <div className="p-5 overflow-x-auto">
           <table className="table table-zebra">
             <thead>

@@ -101,7 +101,7 @@ const CheckoutForm = ({ id }) => {
       setPaymentError(error.message);
       setIsProcessing(false);
     } else {
-      console.log("[PaymentMethod]", paymentMethod);
+      // console.log("[PaymentMethod]", paymentMethod);
       setPaymentError("");
     }
 
@@ -121,7 +121,7 @@ const CheckoutForm = ({ id }) => {
       console.log("Error when confirming payment: ", confirmError);
       setIsProcessing(false);
     } else {
-      console.log("payment Intent: ", paymentIntent);
+      // console.log("payment Intent: ", paymentIntent);
       if (paymentIntent.status === "succeeded") {
         // seving data in the payment server
         const paymentInfo = {
@@ -161,34 +161,69 @@ const CheckoutForm = ({ id }) => {
     }
   };
   return (
-    <form onSubmit={handleSubmit}>
-      <CardElement
-        options={{
-          style: {
-            base: {
-              fontSize: "26px",
-              color: "black",
-              "::placeholder": {
-                color: "gray",
+    <div className="container mx-auto p-4 max-w-md">
+      <form onSubmit={handleSubmit}>
+        <CardElement
+          className="p-2 w-full rounded-md"
+          options={{
+            style: {
+              base: {
+                fontSize: "1rem", // Responsive font size
+                color: "black",
+                "::placeholder": {
+                  color: "gray",
+                },
+              },
+              invalid: {
+                color: "#9e2146",
               },
             },
-            invalid: {
-              color: "#9e2146",
-            },
-          },
-        }}
-      />
-      <button
-        type="submit"
-        disabled={!stripe || !clientSecret || isProcessing}
-        className="my-5 btn bg-indigo-500 hover:bg-indigo-600"
-      >
-        {isProcessing ? "Processing..." : "Pay"}
-      </button>
-      {paymentError && (
-        <p className="text-xl font-bold text-red-500">{paymentError}</p>
-      )}
-    </form>
+          }}
+        />
+        <button
+          type="submit"
+          disabled={!stripe || !clientSecret || isProcessing}
+          className="my-5 w-full py-2 text-lg btn bg-indigo-500 hover:bg-indigo-600"
+        >
+          {isProcessing ? "Processing..." : "Pay"}
+        </button>
+        {paymentError && (
+          <p className="mt-4 text-sm sm:text-base md:text-lg font-bold text-red-500">
+            {paymentError}
+          </p>
+        )}
+      </form>
+    </div>
+
+    // <form onSubmit={handleSubmit}>
+    //   <CardElement
+    //   className=''
+    //     options={{
+    //       style: {
+    //         base: {
+    //           fontSize: "26px",
+    //           color: "black",
+    //           "::placeholder": {
+    //             color: "gray",
+    //           },
+    //         },
+    //         invalid: {
+    //           color: "#9e2146",
+    //         },
+    //       },
+    //     }}
+    //   />
+    //   <button
+    //     type="submit"
+    //     disabled={!stripe || !clientSecret || isProcessing}
+    //     className="my-5 btn bg-indigo-500 hover:bg-indigo-600"
+    //   >
+    //     {isProcessing ? "Processing..." : "Pay"}
+    //   </button>
+    //   {paymentError && (
+    //     <p className="text-xl font-bold text-red-500">{paymentError}</p>
+    //   )}
+    // </form>
   );
 };
 

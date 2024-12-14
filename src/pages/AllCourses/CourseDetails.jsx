@@ -87,11 +87,9 @@ const CourseDetails = () => {
           paymentStatus: "unpaid",
           enrollmentStatus: "pandding",
         };
-        console.log("enrollment Info: ", enrollmentInfo);
         postEnrollments(enrollmentInfo)
           .unwrap()
           .then((resolveData) => {
-            console.log("resolveData: ", resolveData);
             // navigating the user and showing a success alert
             navigate(-1);
             Swal.fire({

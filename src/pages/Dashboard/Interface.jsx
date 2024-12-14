@@ -41,10 +41,10 @@ const Interface = () => {
   }
 
   return (
-    <div className="w-full h-screen bg-[#e0cece] text-black flex justify-center items-center">
-      <div className="w-4/5 h-4/5 mx-auto">
+    <div className="w-full h-full bg-[#e0cece] text-black flex justify-center items-center sm:h-screen">
+      <div className="w-11/12 h-full mx-auto xl:w-4/5 xl:h-4/5">
         {/* Type writer part */}
-        <div className="text-center p-2 text-4xl font-bold">
+        <div className="text-center p-2 text-base font-bold sm:text-2xl xl:text-4xl">
           <Typewriter
             options={{
               strings: `Welcome to you'r Dashboard ${userName}`,
@@ -53,7 +53,8 @@ const Interface = () => {
           />
         </div>
         {/* text part */}
-        <div className="text-left mt-10 p-5 text-lg space-y-5">
+        {/* <div className="text-left mt-10 p-5 text-lg space-y-5"> */}
+        <div className="text-left mt-5 p-5 text-base space-y-5 xl:text-lg xl:mt-10">
           {user.userRole === "admin" ? (
             <h1 className="font-bold">
               Your Admin Dashboard is your central command center for overseeing
@@ -90,7 +91,7 @@ const Interface = () => {
                 </li>
                 <li>
                   <span className="font-bold">
-                    Track Metrics and Insights:{" "}
+                    Track Metrics and Insights: 
                   </span>
                   View key performance metrics, such as course engagement and
                   user growth, to make informed decisions.
@@ -122,18 +123,18 @@ const Interface = () => {
               // Student access list
               <>
                 <li>
-                  <span className="font-bold">Manage Your Profile:</span> View
+                  <span className="font-bold">Manage Your Profile: </span> View
                   and update your profile information to keep it accurate and
                   up-to-date.
                 </li>
                 <li>
-                  <span className="font-bold">Access Your Courses:</span>
+                  <span className="font-bold">Access Your Courses: </span>
                   Explore all your enrolled courses on Learnio.Seamlessly enroll
                   in new courses and complete payments for enrollment directly
                   through the dashboard
                 </li>
                 <li>
-                  <span className="font-bold">Track Your Payment History:</span>
+                  <span className="font-bold">Track Your Payment History:  </span>
                   Stay informed by reviewing your payment history, ensuring
                   transparency and easy access to your financial records.
                 </li>

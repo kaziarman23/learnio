@@ -31,12 +31,11 @@ const UpdateProfile = () => {
 
   // handle error
   if (isError) {
+    console.log("Error: ", error.error);
+    console.log("Error Message: ", error.data.message);
     Swal.fire({
       title: "Error!",
-      text:
-        error?.data?.message ||
-        error?.error ||
-        "Error when updating the user profile",
+      text: "Error when updating the user profile",
       icon: "error",
       confirmButtonText: "Okey",
     });
@@ -102,13 +101,13 @@ const UpdateProfile = () => {
 
   return (
     <div className="w-full min-h-screen flex justify-center items-center bg-[#e0cece]">
-      <div className="w-2/3 h-1/2 mx-auto bg-[#c7c1c1] rounded-lg p-5">
+      <div className="w-11/12 h-1/2 mx-auto bg-[#c7c1c1] rounded-lg p-5 sm:w-4/5 md:w-1/2">
         <h1 className="text-2xl font-bold text-center mb-5">
           Updating User Profile
         </h1>
         <form onSubmit={handleSubmit(onSubmit)}>
           <div className="flex justify-between items-center flex-col gap-4">
-            <div className="w-1/2 flex justify-center items-start flex-col gap-2">
+            <div className="w-full flex justify-center items-start flex-col gap-2">
               <label htmlFor="name" className="font-bold">
                 Name
               </label>
@@ -120,7 +119,7 @@ const UpdateProfile = () => {
                 {...register("userName")}
               />
             </div>
-            <div className="w-1/2 flex justify-center items-start flex-col gap-2">
+            <div className="w-full flex justify-center items-start flex-col gap-2">
               <label htmlFor="photo" className="font-bold">
                 Photo URL
               </label>
@@ -132,7 +131,7 @@ const UpdateProfile = () => {
                 {...register("userPhoto")}
               />
             </div>
-            <div className="w-1/2 flex justify-end gap-4">
+            <div className="w-full flex justify-end gap-4">
               <button
                 type="button"
                 onClick={handleCancel}

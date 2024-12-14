@@ -12,7 +12,7 @@ const Payment = () => {
   return (
     <div className="w-full h-screen bg-[#e0cece] flex justify-center items-center">
       <div className="w-4/5 h-1/2 bg-[#c7c1c1] space-y-5 rounded-xl">
-        <h1 className="text-2xl font-bold text-center p-2">Make Payment</h1>
+        <h1 className="text-base font-bold text-center p-2 md:text-2xl">Make Payment</h1>
         <div className="p-5">
           <Elements stripe={stripePromise}>
             <CheckoutForm id={id} />

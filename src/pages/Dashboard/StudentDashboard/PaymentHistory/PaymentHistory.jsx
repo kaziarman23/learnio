@@ -49,18 +49,20 @@ const PaymentHistory = () => {
   // Handle empty enrollments
   if (payments.length === 0) {
     return (
-      <div className="w-full h-screen bg-[#e0cece] flex justify-center items-center flex-col gap-5">
-        <h1 className="text-2xl font-bold text-center">
-          {userName}, you have no payment history.
-        </h1>
-        <Link to="/courses">
-          <button
-            type="button"
-            className="btn hover:bg-blue-500 hover:text-white hover:border-none"
-          >
-            Browse Courses
-          </button>
-        </Link>
+      <div className="w-full h-screen bg-[#e0cece] flex justify-center items-center">
+        <div className="w-4/5 h-40 rounded-2xl bg-[#c7c1c1] flex justify-center items-center flex-col gap-5 md:w-1/2">
+          <h1 className="text-base font-bold text-center sm:text-2xl">
+            {userName}, you have no payment history.
+          </h1>
+          <Link to="/dashboard/interface">
+            <button
+              type="button"
+              className="btn hover:bg-blue-500 hover:text-white hover:border-none"
+            >
+              Interface
+            </button>
+          </Link>
+        </div>
       </div>
     );
   }
@@ -100,9 +102,9 @@ const PaymentHistory = () => {
   };
 
   return (
-    <div className="w-full h-screen bg-[#e0cece] flex justify-center items-center">
-      <div className="w-11/12 h-4/5 bg-[#c7c1c1] rounded-xl overflow-y-scroll">
-        <h1 className="text-3xl font-bold text-center p-2">Payment Historys</h1>
+    <div className="w-full min-h-screen bg-[#e0cece] flex justify-center items-center">
+      <div className="w-11/12 overflow-hidden bg-[#c7c1c1] rounded-xl">
+        <h1 className="text-base font-bold text-center p-2 lg:text-3xl">Payment Historys</h1>
         <div className="p-5 overflow-x-auto">
           <table className="table table-zebra">
             <thead>
