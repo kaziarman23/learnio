@@ -73,11 +73,11 @@ const Dashboard = () => {
   };
 
   return (
-    <div className="flex flex-col lg:flex-row">
+    <div className="flex flex-col bg-[#c7c1c1] lg:flex-row">
       {/* side bar content */}
 
       {/* THIS IS FOR SMALL SCREEN VIEW */}
-      <div className="w-full h-14 bg-[#c7c1c1] lg:hidden">
+      <div className="w-full h-14 bg-[#c7c1c1] md:w-4/5 md:mx-auto lg:hidden">
         <div className='flex'>
           {/* dropdown menu */}
           <div className="dropdown">

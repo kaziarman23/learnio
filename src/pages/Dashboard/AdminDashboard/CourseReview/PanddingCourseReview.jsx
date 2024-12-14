@@ -45,7 +45,7 @@ const PanddingCourseReview = () => {
   if (panddingCourses.length === 0) {
     return (
       <div className="w-full h-screen bg-[#e0cece] flex justify-center items-center">
-        <div className="w-1/2 h-40 rounded-2xl bg-[#c7c1c1] flex justify-center items-center flex-col gap-5">
+        <div className="w-4/5 h-40 rounded-2xl bg-[#c7c1c1] flex justify-center items-center flex-col gap-5">
           <h1 className="text-2xl font-bold text-center">
             You have no pandding course !
           </h1>
@@ -121,14 +121,14 @@ const PanddingCourseReview = () => {
         <h1 className="text-center text-2xl font-bold p-5">
           All Pandding Courses
         </h1>
-        <div className="p-5 flex justify-between items-center">
-          <h3 className="text-2xl font-bold">
+        <div className="p-5 flex justify-start items-start flex-col gap-4 sm:flex-row sm:justify-between sm:items-center">
+          <h3 className="text-base font-bold md:text-lg xl:text-2xl">
             Pandding Courses: {panddingCourses.length}
           </h3>
           <button
             onClick={() => navigate(-1)}
             type="button"
-            className="btn hover:bg-blue-500 hover:text-white hover:border-none"
+            className="btn hover:bg-blue-500 hover:text-white hover:border-none "
           >
             Review Other Courses
           </button>

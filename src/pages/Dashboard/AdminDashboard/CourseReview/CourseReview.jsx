@@ -58,22 +58,22 @@ const CourseReview = () => {
 
   return (
     <div className="w-full h-screen flex justify-center items-center bg-[#e0cece]">
-      <div className="w-11/12 h-1/2 overflow-hidden mx-auto my-5 bg-[#c7c1c1] rounded-lg">
+      <div className="w-11/12 p-5 overflow-hidden mx-auto my-5 bg-[#c7c1c1] rounded-lg xl:w-4/5 xl:h-1/2">
         <h1 className="text-center text-2xl font-bold p-5">
           Review Teacher Courses
         </h1>
-        <div className="p-5 flex justify-evenly items-center">
-          <h3 className="text-2xl font-bold">
+        <div className="p-5 font-bold text-sm flex justify-evenly items-center flex-col gap-2 sm:flex-row sm:text-base xl:text-2xl">
+          <h3>
             Pandding Courses: {panddingCourses.length}
           </h3>
-          <h3 className="text-2xl font-bold">
+          <h3>
             Active Courses: {activeCourses.length}
           </h3>
-          <h3 className="text-2xl font-bold">
+          <h3>
             Rejected Courses: {rejectCourses.length}
           </h3>
         </div>
-        <div className="flex justify-evenly items-center">
+        <div className="flex justify-center items-center flex-col gap-3 sm:flex-row sm:justify-evenly">
           <Link to="/dashboard/courseReview/pandding">
             <button
               type="button"
