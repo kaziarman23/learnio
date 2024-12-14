@@ -9,7 +9,7 @@ const AllCourses = () => {
   // state
   const [tabIndex, setTabIndex] = useState(0);
 
-  
+
   // Rtk query hook
   const { data, isLoading, isError, error } = useGetCoursesQuery();
 
@@ -55,8 +55,8 @@ const AllCourses = () => {
 
   return (
     <div className="w-full h-full bg-[#f2f3f3] overflow-hidden">
-      <div className="w-4/5 h-full mx-auto my-10">
-        <h1 className="font-bold text-center text-4xl p-2">All Courses</h1>
+      <div className="w-11/12 h-full mx-auto my-10 lg:w-4/5">
+        <h1 className="font-bold text-center text-xl p-2 sm:text-2xl xl:text-4xl">All Courses</h1>
 
         {/* tabs content */}
         <div className="my-10">
@@ -64,39 +64,71 @@ const AllCourses = () => {
             defaultIndex={tabIndex}
             onSelect={(index) => setTabIndex(index)}
           >
-            <TabList className="tabs rounded-xl bg-black text-white my-10">
+            {/* mobile screen tab */}
+            <TabList className="lg:hidden tabs rounded-xl bg-black text-white my-10">
               <Tab
-                className={`tab focus:outline-none hover:text-green-400 ${
-                  tabIndex === 0 && "text-green-500"
-                }`}
+                className={`tab focus:outline-none hover:text-green-400 text-xs ${tabIndex === 0 && "text-green-500"
+                  }`}
               >
+
+                Web
+              </Tab>
+              <Tab
+                className={`tab focus:outline-none hover:text-green-400 text-xs ${tabIndex === 1 && "text-green-500"
+                  }`}
+              >
+                App
+              </Tab>
+              <Tab
+                className={`tab focus:outline-none hover:text-green-400 text-xs ${tabIndex === 2 && "text-green-500"
+                  }`}
+              >
+                Game
+              </Tab>
+              <Tab
+                className={`tab focus:outline-none hover:text-green-400 text-xs ${tabIndex === 3 && "text-green-500"
+                  }`}
+              >
+                UI/UX
+              </Tab>
+              <Tab
+                className={`tab focus:outline-none hover:text-green-400 text-xs ${tabIndex === 4 && "text-green-500"
+                  }`}
+              >
+                ML
+              </Tab>
+            </TabList>
+
+            {/* large screen tab */}
+            <TabList className="hidden justify-center tabs rounded-xl bg-black text-white my-10 lg:flex lg:justify-evenly lg:items-center">
+              <Tab
+                className={`tab focus:outline-none hover:text-green-400  ${tabIndex === 0 && "text-green-500"
+                  }`}
+              >
+
                 Web Development
               </Tab>
               <Tab
-                className={`tab focus:outline-none hover:text-green-400 ${
-                  tabIndex === 1 && "text-green-500"
-                }`}
+                className={`tab focus:outline-none hover:text-green-400 ${tabIndex === 1 && "text-green-500"
+                  }`}
               >
                 App Development
               </Tab>
               <Tab
-                className={`tab focus:outline-none hover:text-green-400 ${
-                  tabIndex === 2 && "text-green-500"
-                }`}
+                className={`tab focus:outline-none hover:text-green-400 ${tabIndex === 2 && "text-green-500"
+                  }`}
               >
                 Game Development
               </Tab>
               <Tab
-                className={`tab focus:outline-none hover:text-green-400 ${
-                  tabIndex === 3 && "text-green-500"
-                }`}
+                className={`tab focus:outline-none hover:text-green-400 ${tabIndex === 3 && "text-green-500"
+                  }`}
               >
                 UI/UX Design
               </Tab>
               <Tab
-                className={`tab focus:outline-none hover:text-green-400 ${
-                  tabIndex === 4 && "text-green-500"
-                }`}
+                className={`tab focus:outline-none hover:text-green-400 ${tabIndex === 4 && "text-green-500"
+                  }`}
               >
                 Machine Learning
               </Tab>

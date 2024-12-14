@@ -22,8 +22,8 @@ const CourseDetails = () => {
 
   // Rtk query hooks
   const { data: course, isLoading, isError, error } = useGetCourseQuery(id);
-  const [postEnrollments] = usePostEnrollmentsMutation();
   const { data: usersData } = useGetUsersQuery();
+  const [postEnrollments] = usePostEnrollmentsMutation();
 
   // collecting the user data from the database
   const user = useMemo(
@@ -124,35 +124,36 @@ const CourseDetails = () => {
 
   return (
     <div className="w-full min-h-screen overflow-hidden">
-      <div className="w-4/5 h-full mx-auto my-10 flex gap-5 flex-col">
-        <div className="w-full h-80">
+      <div className="w-11/12 h-full mx-auto my-10 flex gap-5 flex-col lg:w-4/5">
+        {/* Image content */}
+        <div className="w-full h-1/3 md:h-72 lg:h-60 xl:h-72">
           <img
             src={course.courseImage}
             alt={course.courseTitle}
             className="w-full h-full object-fill shadow-xl shadow-black/40"
           />
         </div>
-        <div className="w-full h-full p-5">
-          <h1 className="font-bold text-4xl text-center">Course Details</h1>
-          <div className="mt-10 flex gap-5 justify-between items-center">
-            <div className="w-1/2 space-y-3">
-              <h3 className="text-xl font-semibold">
+        <div className="w-full h-2/3 p-5">
+          <h1 className="font-bold text-2xl text-center lg:text-4xl">Course Details</h1>
+          <div className="mt-10 flex gap-5 justify-center items-center flex-col lg:justify-between lg:flex-row">
+            <div className="w-full space-y-3 font-semibold text-sm sm:text-base lg:w-1/2 xl:text-xl">
+              <h3>
                 Course Name: {course.courseTitle}
               </h3>
-              <h1 className="text-xl font-semibold">
+              <h1>
                 Teacher Name: {course.courseTeacherName}
               </h1>
-              <h1 className="text-xl font-semibold">
+              <h1>
                 Email: {course.courseTeacherEmail}
               </h1>
-              <p className="text-xl font-semibold">
-                Course Description: {course.courseDescription}
-              </p>
-              <p className="text-xl font-semibold">
+              <p>
                 Course Price: {course.coursePrice} $
               </p>
-              <p className="text-xl font-semibold flex items-center gap-2">
+              <p className="flex items-center gap-2">
                 Total Student: {course.courseStudentsCount} <FaUsers />
+              </p>
+              <p>
+                Course Description: {course.courseDescription}
               </p>
               <div className="flex gap-3">
                 <button
@@ -169,7 +170,7 @@ const CourseDetails = () => {
                 </button>
               </div>
             </div>
-            <div className="w-1/2 flex justify-center items-center flex-col ">
+            <div className="w-full flex justify-center items-center lg:w-1/2">
               <FaGripfire className="w-1/2 h-1/2 border-2 rounded-2xl shadow-sm shadow-black" />
             </div>
           </div>

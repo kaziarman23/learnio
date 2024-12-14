@@ -8,7 +8,7 @@ import { useGetUsersQuery } from "../../Redux/features/api/usersApi";
 import { useMemo } from "react";
 
 const TeacherEnrollment = () => {
-  // states
+  // States
   const navigate = useNavigate();
 
   // Form hook
@@ -20,11 +20,11 @@ const TeacherEnrollment = () => {
   );
 
   // Rtk query hooks
+  const { data, refetch } = useGetUsersQuery();
   const [postTeachers, { isLoading, isError, error }] =
     usePostTeachersMutation();
-  const { data, refetch } = useGetUsersQuery();
 
-  // fetching the user data
+  // Fetching the user data
   const user = useMemo(
     () => data?.find((user) => user.userEmail === userEmail),
     [data, userEmail]
@@ -32,12 +32,12 @@ const TeacherEnrollment = () => {
   const isTeacher = user?.isTeacher;
   const userRole = user?.userRole;
 
-  // handle Loading
+  // Handle Loading
   if (isLoading) {
     return <Loading />;
   }
 
-  // handle Error
+  // Handle Error
   if (isError) {
     console.log("Error: ", error.error);
     Swal.fire({
@@ -48,58 +48,64 @@ const TeacherEnrollment = () => {
     });
   }
 
+  // Handle teacher state
   if (isTeacher === "pandding") {
     return (
-      <div className="w-full h-screen bg-white flex justify-center items-center flex-col gap-5">
-        <h1 className="text-2xl font-bold text-center">
-          Please wait Admin is reviewing you'r information.
-        </h1>
-        <Link to="/dashboard/interface">
-          <button
-            type="button"
-            className="btn hover:bg-blue-500 hover:text-white hover:border-none"
-          >
-            Interface
-          </button>
-        </Link>
+      <div className="w-full h-screen bg-white flex justify-center items-center">
+        <div className='w-4/5 h-60 rounded-xl flex justify-center items-center flex-col bg-[#c7c1c1] gap-5 lg:w-1/2'>
+          <h1 className="text-sm font-bold text-center sm:text-base lg:text-lg">
+            Please wait Admin is reviewing you'r information.
+          </h1>
+          <Link to="/dashboard/interface">
+            <button
+              type="button"
+              className="btn hover:bg-blue-500 hover:text-white hover:border-none"
+            >
+              Interface
+            </button>
+          </Link>
+        </div>
       </div>
     );
   } else if (isTeacher === true) {
     return (
-      <div className="w-full h-screen bg-white flex justify-center items-center flex-col gap-5">
-        <h1 className="text-2xl font-bold text-center">
-          Congratulation. You are Now a Teacher in Learnio !
-        </h1>
-        <Link to="/dashboard/interface">
-          <button
-            type="button"
-            className="btn hover:bg-blue-500 hover:text-white hover:border-none"
-          >
-            Interface
-          </button>
-        </Link>
+      <div className="w-full h-screen bg-white flex justify-center items-center">
+        <div className='w-4/5 h-60 rounded-xl flex justify-center items-center flex-col bg-[#c7c1c1] gap-5 lg:w-1/2'>
+          <h1 className="text-sm font-bold text-center sm:text-base lg:text-lg">
+            Congratulation. You are Now a Teacher in Learnio !
+          </h1>
+          <Link to="/dashboard/interface">
+            <button
+              type="button"
+              className="btn hover:bg-blue-500 hover:text-white hover:border-none"
+            >
+              Interface
+            </button>
+          </Link>
+        </div>
       </div>
     );
   } else if (isTeacher === false) {
     return (
-      <div className="w-full h-screen flex justify-center items-center flex-col gap-5">
-        <h1 className="text-2xl font-bold text-center">
-          You are Rejected as a Teacher. Plase Try again with more strong skills
-          !
-        </h1>
-        <Link to="/dashboard/interface">
-          <button
-            type="button"
-            className="btn hover:bg-blue-500 hover:text-white hover:border-none"
-          >
-            Interface
-          </button>
-        </Link>
+      <div className="w-full h-screen bg-white flex justify-center items-center">
+        <div className='w-4/5 h-60 rounded-xl flex justify-center items-center flex-col bg-[#c7c1c1] gap-5 lg:w-1/2'>
+          <h1 className="text-xs font-bold text-center sm:text-base lg:text-lg">
+            You are Rejected as a Teacher. <br /> Plase Try again with more strong skills.
+          </h1>
+          <Link to="/dashboard/interface">
+            <button
+              type="button"
+              className="btn hover:bg-blue-500 hover:text-white hover:border-none"
+            >
+              Interface
+            </button>
+          </Link>
+        </div>
       </div>
     );
   }
 
-  // handle form submit
+  // Handle form submit
   const onSubmit = (data) => {
     // checking for the admin
     if (userRole === "admin" || userRole === "teacher") {
@@ -149,11 +155,12 @@ const TeacherEnrollment = () => {
 
   return (
     <div className="w-full h-full">
-      <div className="w-1/2 h-screen mx-auto">
+      {/* <div className="w-1/2 h-screen mx-auto"> */}
+      <div className="w-11/12 h-full mx-auto xl:w-1/2 xl:h-screen">
         <h1 className="text-center text-2xl font-bold p-5">Became A Teacher</h1>
         {/* form card */}
         <form onSubmit={handleSubmit(onSubmit)}>
-          <div className="p-4 border border-black rounded-lg space-y-5">
+          <div className="p-4 border border-black rounded-lg space-y-5 mb-5 xl:mb-0">
             {/* image input */}
             <div className="w-full h-1/2 flex justify-center items-center">
               <img
@@ -164,8 +171,9 @@ const TeacherEnrollment = () => {
             </div>
 
             {/* name & email input */}
-            <div className="flex justify-between items-center gap-4">
-              <div className="w-1/2 flex justify-center items-start flex-col gap-2">
+            <div className="flex justify-center items-center gap-4 flex-col md:flex-row md:justify-between">
+              {/* <div className="w-1/2 flex justify-center items-start flex-col gap-2"> */}
+              <div className="w-full flex justify-center items-start flex-col gap-2 md:w-1/2">
                 <label htmlFor="name" className="font-bold">
                   Name
                 </label>
@@ -179,7 +187,7 @@ const TeacherEnrollment = () => {
                 />
               </div>
 
-              <div className="w-1/2 flex justify-center items-start flex-col gap-2">
+              <div className="w-full flex justify-center items-start flex-col gap-2 md:w-1/2">
                 <label htmlFor="email" className="font-bold">
                   Email
                 </label>
@@ -195,8 +203,8 @@ const TeacherEnrollment = () => {
             </div>
 
             {/* experience & category input */}
-            <div className="flex justify-between items-center gap-4">
-              <div className="w-1/2 flex justify-center items-start flex-col gap-2">
+            <div className="flex justify-center items-center gap-4 flex-col md:flex-row md:justify-between">
+              <div className="w-full flex justify-center items-start flex-col gap-2 md:w-1/2">
                 <label htmlFor="experience" className="font-bold">
                   Experience
                 </label>
@@ -212,7 +220,7 @@ const TeacherEnrollment = () => {
                 </select>
               </div>
 
-              <div className="w-1/2 flex justify-center items-start flex-col gap-2">
+              <div className="w-full flex justify-center items-start flex-col gap-2 md:w-1/2">
                 <label htmlFor="category" className="font-bold">
                   category
                 </label>

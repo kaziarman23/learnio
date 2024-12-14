@@ -99,7 +99,7 @@ const Navbar = () => {
                   </button>
                 </Link>
                 <Link to="/login">
-                  <button className="text-xs font-bold p-2 rounded-xl border border-black hover:bg-black hover:text-white sm:text-sm lg:text-base xl:btn">
+                  <button className="text-xs p-2 font-bold rounded-xl border border-black hover:bg-black hover:text-white sm:text-sm lg:text-base xl:btn">
                     Login
                   </button>
                 </Link>
