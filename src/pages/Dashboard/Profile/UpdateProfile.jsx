@@ -3,7 +3,7 @@ import { useForm } from "react-hook-form";
 import { updateProfile } from "firebase/auth";
 import { useNavigate } from "react-router";
 import { setUser } from "../../../Redux/features/userSlice";
-import { useUpdateUserProfileMutation } from "../../../Redux/features/api/usersApi";
+import { useUpdateUserProfileMutation } from "../../../Redux/features/Api/usersApi";
 import auth from "../../../Firebase/Firebase.Config";
 import Swal from "sweetalert2";
 import Loading from "../../../components/Loading/Loading";

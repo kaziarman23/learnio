@@ -17,8 +17,7 @@ import auth from "../Firebase/Firebase.Config";
 import { HiArchiveBox, HiArchiveBoxArrowDown } from "react-icons/hi2";
 import Loading from "../components/Loading/Loading";
 import { VscOpenPreview } from "react-icons/vsc";
-import { useGetUsersQuery } from "../Redux/features/api/usersApi";
-import { BiSolidLogOutCircle } from "react-icons/bi";
+import { useGetUsersQuery } from "../Redux/features/Api/usersApi";
 
 const Dashboard = () => {
   // states

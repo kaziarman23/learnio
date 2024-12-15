@@ -3,7 +3,7 @@ import { Link, useNavigate } from "react-router";
 import { useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
 import { createUser, googleSignIn } from "../../../Redux/features/userSlice";
-import { useAddUserMutation } from "../../../Redux/features/api/usersApi";
+import { useAddUserMutation } from "../../../Redux/features/Api/usersApi";
 import Swal from "sweetalert2";
 
 const Register = () => {

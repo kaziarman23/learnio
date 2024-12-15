@@ -11,7 +11,7 @@ import {
 import {
   useRejectUserForTeacherMutation,
   useAcceptUserForTeacherMutation,
-} from "../../../../Redux/features/api/usersApi";
+} from "../../../../Redux/features/Api/usersApi";
 import { useSelector } from "react-redux";
 
 const TeacherRequiests = () => {

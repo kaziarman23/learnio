@@ -3,7 +3,7 @@ import Typewriter from "typewriter-effect";
 import Loading from "../../components/Loading/Loading";
 import Swal from "sweetalert2";
 import { useMemo } from "react";
-import { useGetUsersQuery } from "../../Redux/features/api/usersApi";
+import { useGetUsersQuery } from "../../Redux/features/Api/usersApi";
 
 const Interface = () => {
   // states

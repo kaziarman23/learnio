@@ -5,7 +5,7 @@ import { FaGripfire, FaUsers } from "react-icons/fa";
 import { useSelector } from "react-redux";
 import { usePostEnrollmentsMutation } from "../../Redux/features/Api/enrollmentsApi";
 import Swal from "sweetalert2";
-import { useGetUsersQuery } from "../../Redux/features/api/usersApi";
+import { useGetUsersQuery } from "../../Redux/features/Api/usersApi";
 import { useMemo } from "react";
 
 const CourseDetails = () => {
