@@ -4,7 +4,7 @@ import { createRoot } from "react-dom/client";
 import { Provider } from "react-redux";
 import { store } from "./Redux/store";
 import AuthProvider from "./Provider/AuthProvider";
-import Router from "./routers/Route";
+import Router from "./routers/Router";
 
 createRoot(document.getElementById("root")).render(
   <Provider store={store}>
