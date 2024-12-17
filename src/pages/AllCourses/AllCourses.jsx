@@ -9,14 +9,13 @@ const AllCourses = () => {
   // state
   const [tabIndex, setTabIndex] = useState(0);
 
-
   // Rtk query hook
   const { data, isLoading, isError, error } = useGetCoursesQuery();
 
   // fetching data
   const courses = useMemo(
     () => data?.filter((course) => course.courseStatus === "active"),
-    [data]
+    [data],
   );
 
   // Handle Loading
@@ -38,25 +37,27 @@ const AllCourses = () => {
 
   // Filtering Courses
   const webDev = courses?.filter(
-    (course) => course.category === "web-development"
+    (course) => course.category === "web-development",
   );
   const appDev = courses?.filter(
-    (course) => course.category === "app-development"
+    (course) => course.category === "app-development",
   );
   const gameDev = courses?.filter(
-    (course) => course.category === "game-development"
+    (course) => course.category === "game-development",
   );
   const webDes = courses?.filter(
-    (course) => course.category === "uiux-designer"
+    (course) => course.category === "uiux-designer",
   );
   const machine = courses?.filter(
-    (course) => course.category === "mechine-learning"
+    (course) => course.category === "mechine-learning",
   );
 
   return (
-    <div className="w-full h-full bg-[#f2f3f3] overflow-hidden">
-      <div className="w-11/12 h-full mx-auto my-10 lg:w-4/5">
-        <h1 className="font-bold text-center text-xl p-2 sm:text-2xl xl:text-4xl">All Courses</h1>
+    <div className="h-full w-full overflow-hidden bg-[#f2f3f3]">
+      <div className="mx-auto my-10 h-full w-11/12 lg:w-4/5">
+        <h1 className="p-2 text-center text-xl font-bold sm:text-2xl xl:text-4xl">
+          All Courses
+        </h1>
 
         {/* tabs content */}
         <div className="my-10">
@@ -65,70 +66,78 @@ const AllCourses = () => {
             onSelect={(index) => setTabIndex(index)}
           >
             {/* mobile screen tab */}
-            <TabList className="lg:hidden tabs rounded-xl bg-black text-white my-10">
+            <TabList className="tabs my-10 rounded-xl bg-black text-white lg:hidden">
               <Tab
-                className={`tab focus:outline-none hover:text-green-400 text-xs ${tabIndex === 0 && "text-green-500"
-                  }`}
+                className={`tab text-xs hover:text-green-400 focus:outline-none ${
+                  tabIndex === 0 && "text-green-500"
+                }`}
               >
-
                 Web
               </Tab>
               <Tab
-                className={`tab focus:outline-none hover:text-green-400 text-xs ${tabIndex === 1 && "text-green-500"
-                  }`}
+                className={`tab text-xs hover:text-green-400 focus:outline-none ${
+                  tabIndex === 1 && "text-green-500"
+                }`}
               >
                 App
               </Tab>
               <Tab
-                className={`tab focus:outline-none hover:text-green-400 text-xs ${tabIndex === 2 && "text-green-500"
-                  }`}
+                className={`tab text-xs hover:text-green-400 focus:outline-none ${
+                  tabIndex === 2 && "text-green-500"
+                }`}
               >
                 Game
               </Tab>
               <Tab
-                className={`tab focus:outline-none hover:text-green-400 text-xs ${tabIndex === 3 && "text-green-500"
-                  }`}
+                className={`tab text-xs hover:text-green-400 focus:outline-none ${
+                  tabIndex === 3 && "text-green-500"
+                }`}
               >
                 UI/UX
               </Tab>
               <Tab
-                className={`tab focus:outline-none hover:text-green-400 text-xs ${tabIndex === 4 && "text-green-500"
-                  }`}
+                className={`tab text-xs hover:text-green-400 focus:outline-none ${
+                  tabIndex === 4 && "text-green-500"
+                }`}
               >
                 ML
               </Tab>
             </TabList>
 
             {/* large screen tab */}
-            <TabList className="hidden justify-center tabs rounded-xl bg-black text-white my-10 lg:flex lg:justify-evenly lg:items-center">
+            <TabList className="tabs my-10 hidden justify-center rounded-xl bg-black text-white lg:flex lg:items-center lg:justify-evenly">
               <Tab
-                className={`tab focus:outline-none hover:text-green-400  ${tabIndex === 0 && "text-green-500"
-                  }`}
+                className={`tab hover:text-green-400 focus:outline-none ${
+                  tabIndex === 0 && "text-green-500"
+                }`}
               >
-
                 Web Development
               </Tab>
               <Tab
-                className={`tab focus:outline-none hover:text-green-400 ${tabIndex === 1 && "text-green-500"
-                  }`}
+                className={`tab hover:text-green-400 focus:outline-none ${
+                  tabIndex === 1 && "text-green-500"
+                }`}
               >
                 App Development
               </Tab>
               <Tab
-                className={`tab focus:outline-none hover:text-green-400 ${tabIndex === 2 && "text-green-500"
-                  }`}
+                className={`tab hover:text-green-400 focus:outline-none ${
+                  tabIndex === 2 && "text-green-500"
+                }`}
               >
                 Game Development
               </Tab>
               <Tab
-                className={`tab focus:outline-none hover:text-green-400 ${tabIndex === 3 && "text-green-500"
-                  }`}
+                className={`tab hover:text-green-400 focus:outline-none ${
+                  tabIndex === 3 && "text-green-500"
+                }`}
               >
                 UI/UX Design
               </Tab>
               <Tab
-                className={`tab focus:outline-none hover:text-green-400 ${tabIndex === 4 && "text-green-500"
-                  }`}
+                className={`tab hover:text-green-400 focus:outline-none ${
+                  tabIndex === 4 && "text-green-500"
+                }`}
               >
                 Machine Learning
               </Tab>
