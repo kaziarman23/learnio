@@ -4,7 +4,7 @@ import { useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
 import { createUser, googleSignIn } from "../../../Redux/features/userSlice";
 import { useAddUserMutation } from "../../../Redux/features/Api/usersApi";
-import Swal from "sweetalert2";
+import toast from "react-hot-toast";
 
 const Register = () => {
   // states
@@ -39,36 +39,20 @@ const Register = () => {
         };
         addUser(userInfo);
 
-        // navigating the user and clearing the inputs
-        navigate("/");
+        // clearing the form
         reset();
 
-        // showing successfull alert
-        const Toast = Swal.mixin({
-          toast: true,
-          position: "top-end",
-          showConfirmButton: false,
-          timer: 3000,
-          timerProgressBar: true,
-          didOpen: (toast) => {
-            toast.onmouseenter = Swal.stopTimer;
-            toast.onmouseleave = Swal.resumeTimer;
-          },
-        });
-        Toast.fire({
-          icon: "success",
-          title: "Registetion Successfull",
-        });
+        // navigating the user
+        navigate("/");
+
+        // showing an alert
+        toast.success("Registetion Successfull");
       })
       .catch((error) => {
-        Swal.fire({
-          icon: "error",
-          title: "Register Failed",
-          text: error.message || "Something went wrong. Please try again.",
-          confirmButtonText: "Retry",
-          background: "black",
-          color: "white",
-        });
+        console.log("Error :", error);
+
+        // showing an alert
+        toast.error(error);
       });
   };
 
@@ -88,55 +72,41 @@ const Register = () => {
         };
         addUser(userInfo);
 
-        // navigating the user and clearing the inputs
-        navigate("/");
+        // clearing the form
         reset();
 
-        // showing successfull alert
-        const Toast = Swal.mixin({
-          toast: true,
-          position: "top-end",
-          showConfirmButton: false,
-          timer: 3000,
-          timerProgressBar: true,
-          didOpen: (toast) => {
-            toast.onmouseenter = Swal.stopTimer;
-            toast.onmouseleave = Swal.resumeTimer;
-          },
-        });
-        Toast.fire({
-          icon: "success",
-          title: "Registetion Successfull",
-        });
+        // navigating the user
+        navigate("/");
+
+        // showing an alert
+        toast.success("Registetion Successfull");
       })
       .catch((error) => {
-        Swal.fire({
-          icon: "error",
-          title: "Google Sign-In Failed",
-          text: error.message || "Please try again.",
-        });
-
-        // clearing all inputs
+        // clearing the form
         reset();
+        console.log("Error :", error);
+
+        // showing an alert
+        toast.error(error);
       });
   };
 
   return (
-    <div className="w-full min-h-full">
-      <div className="w-2/6 min-h-screen mx-auto">
+    <div className="min-h-full w-full">
+      <div className="mx-auto min-h-screen w-2/6">
         <form onSubmit={handleSubmit(onSubmit)}>
-          <div className="mt-10 border-2 p-4 rounded-md space-y-3">
-            <h1 className="text-center font-bold text-2xl">Register Now</h1>
+          <div className="mt-10 space-y-3 rounded-md border-2 p-4">
+            <h1 className="text-center text-2xl font-bold">Register Now</h1>
 
             {/* All inputs */}
             <div className="space-y-3">
-              <div className="w-full flex flex-col gap-2">
+              <div className="flex w-full flex-col gap-2">
                 <label htmlFor="name">Name</label>
                 <input
                   id="name"
                   type="text"
                   placeholder="Name"
-                  className="w-full rounded-md p-2 border border-black/50"
+                  className="w-full rounded-md border border-black/50 p-2"
                   {...register("userName", {
                     required: "Name is Required",
                     maxLength: {
@@ -149,13 +119,13 @@ const Register = () => {
                   <p className="text-red-500">{errors.userName.message}</p>
                 )}
               </div>
-              <div className="w-full flex flex-col gap-2">
+              <div className="flex w-full flex-col gap-2">
                 <label htmlFor="photo">Photo URL</label>
                 <input
                   id="photo"
                   type="text"
                   placeholder="Photo URL"
-                  className="w-full rounded-md p-2 border border-black/50"
+                  className="w-full rounded-md border border-black/50 p-2"
                   {...register("userPhoto", {
                     required: "PhotoURL is required",
                   })}
@@ -164,13 +134,13 @@ const Register = () => {
                   <p className="text-red-500">{errors.userPhoto.message}</p>
                 )}
               </div>
-              <div className="w-full flex flex-col gap-2">
+              <div className="flex w-full flex-col gap-2">
                 <label htmlFor="email">Email</label>
                 <input
                   id="email"
                   type="email"
                   placeholder="Email"
-                  className="w-full rounded-md p-2 border border-black/50"
+                  className="w-full rounded-md border border-black/50 p-2"
                   {...register("userEmail", {
                     required: "Email is required",
                   })}
@@ -179,13 +149,13 @@ const Register = () => {
                   <p className="text-red-500">{errors.userEmail.message}</p>
                 )}
               </div>
-              <div className="w-full flex flex-col gap-2">
+              <div className="flex w-full flex-col gap-2">
                 <label htmlFor="Password">Password</label>
                 <input
                   id="Password"
                   type="password"
                   placeholder="Password"
-                  className="w-full rounded-md p-2 border border-black/50"
+                  className="w-full rounded-md border border-black/50 p-2"
                   {...register("userPassword", {
                     required: "Password is required",
                     maxLength: {
@@ -210,13 +180,13 @@ const Register = () => {
               </div>
             </div>
 
-            <button className="w-full btn hover:bg-black hover:text-white">
+            <button className="btn w-full hover:bg-black hover:text-white">
               Register
             </button>
             <p>
               Already have an Account ? Please
               <Link to="/login">
-                <span className="text-blue-500 font-bold ml-2 hover:underline">
+                <span className="ml-2 font-bold text-blue-500 hover:underline">
                   Login
                 </span>
               </Link>
@@ -224,7 +194,7 @@ const Register = () => {
 
             <button
               onClick={handleGoogleRegister}
-              className="w-full btn hover:bg-black hover:text-white"
+              className="btn w-full hover:bg-black hover:text-white"
             >
               <FaGoogle /> Register with Google
             </button>

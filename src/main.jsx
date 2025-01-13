@@ -5,11 +5,15 @@ import { Provider } from "react-redux";
 import { store } from "./Redux/store";
 import AuthProvider from "./Provider/AuthProvider";
 import Router from "./routers/Router";
+import { Toaster } from "react-hot-toast";
 
 createRoot(document.getElementById("root")).render(
-  <Provider store={store}>
-    <AuthProvider>
-      <RouterProvider router={Router} />
-    </AuthProvider>
-  </Provider>
+  <>
+    <Toaster />
+    <Provider store={store}>
+      <AuthProvider>
+        <RouterProvider router={Router} />
+      </AuthProvider>
+    </Provider>
+  </>,
 );

@@ -3,7 +3,7 @@ import { Link, useLocation, useNavigate } from "react-router";
 import { useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
 import { googleSignIn, loginUser } from "../../../Redux/features/userSlice";
-import Swal from "sweetalert2";
+import toast from "react-hot-toast";
 
 const Login = () => {
   // states
@@ -22,92 +22,62 @@ const Login = () => {
     dispatch(loginUser(data))
       .unwrap()
       .then(() => {
-        // navigating the user and clearing the inputs
-        navigate(location?.state?.from || "/");
+        // clearing the form
         reset();
 
-        // showing successfull alert
-        const Toast = Swal.mixin({
-          toast: true,
-          position: "top-end",
-          showConfirmButton: false,
-          timer: 3000,
-          timerProgressBar: true,
-          didOpen: (toast) => {
-            toast.onmouseenter = Swal.stopTimer;
-            toast.onmouseleave = Swal.resumeTimer;
-          },
-        });
-        Toast.fire({
-          icon: "success",
-          title: "Registetion Successfull",
-        });
+        // navigating the user
+        navigate(location?.state?.from || "/");
+
+        // showing an alert
+        toast.success("login Successfull");
       })
       .catch((error) => {
-        Swal.fire({
-          icon: "error",
-          title: "Register Failed",
-          text: error.message || "Something went wrong. Please try again.",
-          confirmButtonText: "Retry",
-          background: "black",
-          color: "white",
-        });
+        console.log("Error :", error);
+
+        // showing an alert
+        toast.error(error);
       });
   };
 
   const handleGoogleRegister = () => {
     dispatch(googleSignIn())
       .unwrap()
-      .then((data) => {
-        // navigating the user and clearing the inputs
-        navigate(location?.state?.from || "/");
+      .then(() => {
+        // clearing the form
         reset();
 
-        // showing successfull alert
-        const Toast = Swal.mixin({
-          toast: true,
-          position: "top-end",
-          showConfirmButton: false,
-          timer: 3000,
-          timerProgressBar: true,
-          didOpen: (toast) => {
-            toast.onmouseenter = Swal.stopTimer;
-            toast.onmouseleave = Swal.resumeTimer;
-          },
-        });
-        Toast.fire({
-          icon: "success",
-          title: "Login Successfull",
-          text: `Welcome Back ${data.userName}`,
-        });
+        // navigating the user
+        navigate(location?.state?.from || "/");
+
+        // showing an alert
+        toast.success("Login Successfull");
       })
       .catch((error) => {
-        Swal.fire({
-          icon: "error",
-          title: "Google Sign-In Failed",
-          text: error.message || "Please try again.",
-        });
+        console.log("Error :", error);
+
+        // showing an alert
+        toast.error(error);
 
         // clearing all inputs
         reset();
       });
   };
   return (
-    <div className="w-full h-full">
-      <div className="w-2/6 min-h-screen mx-auto">
+    <div className="h-full w-full">
+      <div className="mx-auto min-h-screen w-2/6">
         <form onSubmit={handleSubmit(onSubmit)}>
-          <div className="mt-10 border-2 p-4 rounded-md space-y-3">
-            <h1 className="text-center font-bold text-2xl">Please Login</h1>
+          <div className="mt-10 space-y-3 rounded-md border-2 p-4">
+            <h1 className="text-center text-2xl font-bold">Please Login</h1>
 
             {/* All inputs */}
             <div className="space-y-3">
-              <div className="w-full flex flex-col gap-2">
+              <div className="flex w-full flex-col gap-2">
                 <label htmlFor="email">Email</label>
                 <input
                   id="email"
                   type="email"
                   placeholder="Email"
-                  className="w-full rounded-md p-2 border border-black/50"
+                  className="w-full rounded-md border border-black/50 p-2"
                   {...register("userEmail", {
                     required: "Email is required",
                   })}
@@ -116,13 +86,13 @@ const Login = () => {
                   <p className="text-red-500">{errors.userEmail.message}</p>
                 )}
               </div>
-              <div className="w-full flex flex-col gap-2">
+              <div className="flex w-full flex-col gap-2">
                 <label htmlFor="Password">Password</label>
                 <input
                   id="Password"
                   type="password"
                   placeholder="Password"
-                  className="w-full rounded-md p-2 border border-black/50"
+                  className="w-full rounded-md border border-black/50 p-2"
                   {...register("userPassword", {
                     required: "Password is required",
                     maxLength: {
@@ -147,13 +117,13 @@ const Login = () => {
               </div>
             </div>
 
-            <button className="w-full btn hover:bg-black hover:text-white">
+            <button className="btn w-full hover:bg-black hover:text-white">
               Login
             </button>
             <p>
               Did&#39;t have an Account ? Please
               <Link to="/register">
-                <span className="text-blue-500 font-bold ml-2 hover:underline">
+                <span className="ml-2 font-bold text-blue-500 hover:underline">
                   Register
                 </span>
               </Link>
@@ -161,7 +131,7 @@ const Login = () => {
 
             <button
               onClick={handleGoogleRegister}
-              className="w-full btn hover:bg-black hover:text-white"
+              className="btn w-full hover:bg-black hover:text-white"
             >
               <FaGoogle /> Login with Google
             </button>
