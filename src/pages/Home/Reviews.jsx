@@ -1,43 +1,53 @@
-import { InfiniteMovingCards } from "../../components/ui/infinite-moving-cards";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Pagination, Navigation, Autoplay } from "swiper/modules";
+import "swiper/css";
+import "swiper/css/pagination";
+import "swiper/css/navigation";
 
 const Reviews = () => {
   const testimonials = [
     {
-      quote:
-        "It was the best of times, it was the worst of times, it was the age of wisdom, it was the age of foolishness, it was the epoch of belief, it was the epoch of incredulity, it was the season of Light, it was the season of Darkness, it was the spring of hope, it was the winter of despair.",
-      name: "Charles Dickens",
-      title: "A Tale of Two Cities",
+      img: "https://i.pinimg.com/736x/46/88/12/468812df30ab33d9c66397e40be563af.jpg",
+      name: "John Doe",
+      joinTime: "2023-01-15",
+      reviewLocation: "New York, USA",
+      comment: "Amazing service and great support!",
     },
     {
-      quote:
-        "To be, or not to be, that is the question: Whether 'tis nobler in the mind to suffer The slings and arrows of outrageous fortune, Or to take Arms against a Sea of troubles, And by opposing end them: to die, to sleep.",
-      name: "William Shakespeare",
-      title: "Hamlet",
+      img: "https://i.pinimg.com/736x/97/d8/64/97d86404b6d706e6e4799840199467f2.jpg",
+      name: "Jane Smith",
+      joinTime: "2022-12-10",
+      reviewLocation: "London, UK",
+      comment: "Highly recommend this product. It exceeded my expectations!",
     },
     {
-      quote: "All that we see or seem is but a dream within a dream.",
-      name: "Edgar Allan Poe",
-      title: "A Dream Within a Dream",
+      img: "https://i.pinimg.com/736x/ad/59/98/ad59984bfb3a864083f43a8c4aef8d6d.jpg",
+      name: "Emily Johnson",
+      joinTime: "2023-02-08",
+      reviewLocation: "Sydney, Australia",
+      comment: "The team was super helpful and the product works perfectly.",
     },
     {
-      quote:
-        "It is a truth universally acknowledged, that a single man in possession of a good fortune, must be in want of a wife.",
-      name: "Jane Austen",
-      title: "Pride and Prejudice",
+      img: "https://i.pinimg.com/736x/8e/de/5a/8ede5a56196bb6bde599b6d323a11be4.jpg",
+      name: "Michael Brown",
+      joinTime: "2023-03-20",
+      reviewLocation: "Toronto, Canada",
+      comment: "Fantastic experience! I’m very happy with my purchase.",
     },
     {
-      quote:
-        "Call me Ishmael. Some years ago—never mind how long precisely—having little or no money in my purse, and nothing particular to interest me on shore, I thought I would sail about a little and see the watery part of the world.",
-      name: "Herman Melville",
-      title: "Moby-Dick",
+      img: "https://i.pinimg.com/736x/4f/85/1b/4f851b58822313381aed56008626401e.jpg",
+      name: "Sarah Lee",
+      joinTime: "2023-04-05",
+      reviewLocation: "Singapore",
+      comment: "Wonderful customer service and fast delivery.",
     },
   ];
 
   return (
-    <div className="w-full h-full border-t-2">
-      <div className="w-11/12 h-full mx-auto xl:w-4/5">
-        <div className="w-full h-1/6">
-          <h1 className="text-center p-4 font-bold text-lg md:text-2xl">
+    <div className="h-full w-full border-t-2">
+      <div className="mx-auto h-full w-11/12 xl:w-4/5">
+        <div className="h-1/6 w-full">
+          <h1 className="p-4 text-center text-lg font-bold md:text-2xl">
             What Students Are Saying About Learnio
           </h1>
           <p className="text-left text-sm xl:text-lg">
@@ -48,13 +58,54 @@ const Reviews = () => {
           </p>
         </div>
         {/* review cards */}
-        <div className="w-full h-full xl:h-1/2">
-          <div className="h-full rounded-md flex flex-col antialiased  items-center justify-center relative overflow-hidden">
-            <InfiniteMovingCards
-              items={testimonials}
-              direction="right"
-              speed="slow"
-            />
+        <div className="h-full w-full xl:h-1/2">
+          <div className="h-full w-full text-black p-5">
+            <Swiper
+              slidesPerView={1}
+              spaceBetween={20}
+              pagination={{
+                clickable: true,
+              }}
+              loop={testimonials.length > 1}
+              autoplay={{
+                delay: 4000,
+                disableOnInteraction: true,
+              }}
+              navigation={true}
+              modules={[Pagination, Navigation, Autoplay]}
+              className="mySwiper"
+            >
+              {testimonials.map((review, index) => (
+                <SwiperSlide key={index}>
+                  <article className="mx-4 bg-[#c7c1c1] p-5 rounded-2xl sm:mx-8 md:mx-14">
+                    <div className="mb-4 flex items-center">
+                      <img
+                        className="mr-3 h-8 w-8 rounded-full sm:h-10 sm:w-10"
+                        src={review.img}
+                        alt={review.name}
+                      />
+                      <div className="font-medium">
+                        <p className="text-sm sm:text-base">
+                          <span>{review.name}</span>
+                          <time
+                            dateTime={review.joinTime}
+                            className="block text-xs text-gray-500 sm:text-sm"
+                          >
+                            {review.joinTime}
+                          </time>
+                        </p>
+                      </div>
+                    </div>
+                    <footer className="mb-3 text-xs sm:mb-5 sm:text-sm">
+                      <p>{review.reviewLocation}</p>
+                    </footer>
+                    <p className="mb-2 text-xs sm:text-base">
+                      {review.comment}
+                    </p>
+                  </article>
+                </SwiperSlide>
+              ))}
+            </Swiper>
           </div>
         </div>
       </div>
