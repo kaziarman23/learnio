@@ -1,4 +1,3 @@
-import Swal from "sweetalert2";
 import { useMemo } from "react";
 import { Link, useNavigate } from "react-router";
 import Loading from "../../../../components/Loading/Loading";
@@ -9,6 +8,7 @@ import {
 } from "../../../../Redux/features/Api/coursesApi";
 import { FaRegCheckCircle } from "react-icons/fa";
 import { IoMdCloseCircle } from "react-icons/io";
+import toast from "react-hot-toast";
 
 const PanddingCourseReview = () => {
   //states
@@ -20,8 +20,9 @@ const PanddingCourseReview = () => {
   const [UpdateRejectCourse] = useUpdateRejectCourseMutation();
 
   // fetching active courses data
-  const panddingCourses = useMemo(() =>
-    data?.filter((course) => course.courseStatus === "pandding")
+  const panddingCourses = useMemo(
+    () => data?.filter((course) => course.courseStatus === "pandding"),
+    [data],
   );
 
   // Handle Loading
@@ -31,28 +32,26 @@ const PanddingCourseReview = () => {
 
   // Handle error
   if (isError) {
-    console.log("Error : ", error.error);
-    // showing an error alert
-    Swal.fire({
-      title: "Error!",
-      text: "Error while fetching courses data from the database",
-      icon: "error",
-      confirmButtonText: "Okey",
-    });
+    console.log(
+      "Error while fetching the courses data from the database : ",
+      error.error,
+    );
+    // showing an alert
+    toast.error(error);
   }
 
   // Handle empty courses
   if (panddingCourses.length === 0) {
     return (
-      <div className="w-full h-screen bg-[#e0cece] flex justify-center items-center">
-        <div className="w-4/5 h-40 rounded-2xl bg-[#c7c1c1] flex justify-center items-center flex-col gap-5">
-          <h1 className="text-2xl font-bold text-center">
+      <div className="flex h-screen w-full items-center justify-center bg-[#e0cece]">
+        <div className="flex h-40 w-4/5 flex-col items-center justify-center gap-5 rounded-2xl bg-[#c7c1c1]">
+          <h1 className="text-center text-2xl font-bold">
             You have no pandding course !
           </h1>
           <Link to="/dashboard/courseReview">
             <button
               type="button"
-              className="btn hover:bg-blue-500 hover:text-white hover:border-none"
+              className="btn hover:border-none hover:bg-blue-500 hover:text-white"
             >
               Review Other Courses
             </button>
@@ -67,25 +66,18 @@ const PanddingCourseReview = () => {
     UpdateActiveCourse(id)
       .unwrap()
       .then(() => {
-        // showing success alert
-        Swal.fire({
-          title: "Success!",
-          text: "successfully updated course status",
-          icon: "success",
-          confirmButtonText: "Okey",
-        });
+        // showing an alert
+        toast.success("successfully updated course status");
       })
       .catch((error) => {
         console.log("Error :", error);
-        console.log("Error Message:", error.message);
+        console.log(
+          "Error while changing course data from the courses database: ",
+          error.message,
+        );
 
-        // showing a error alert
-        Swal.fire({
-          title: "Error!",
-          text: "Error while changing course data from the courses database",
-          icon: "error",
-          confirmButtonText: "Okey",
-        });
+        // showing an alert
+        toast.error(error);
       });
   };
 
@@ -93,42 +85,35 @@ const PanddingCourseReview = () => {
     UpdateRejectCourse(id)
       .unwrap()
       .then(() => {
-        // showing success alert
-        Swal.fire({
-          title: "Success!",
-          text: "successfully updated course status",
-          icon: "success",
-          confirmButtonText: "Okey",
-        });
+        // showing an alert
+        toast.success("successfully updated course status");
       })
       .catch((error) => {
         console.log("Error :", error);
-        console.log("Error Message:", error.message);
+        console.log(
+          "Error while changing course data from the courses database: ",
+          error.message,
+        );
 
-        // showing a error alert
-        Swal.fire({
-          title: "Error!",
-          text: "Error while changing course data from the courses database",
-          icon: "error",
-          confirmButtonText: "Okey",
-        });
+        // showing an alert
+        toast.error(error);
       });
   };
 
   return (
-    <div className="w-full min-h-screen flex justify-center items-center bg-[#e0cece]">
-      <div className="w-11/12 overflow-hidden mx-auto my-5 bg-[#c7c1c1] rounded-lg">
-        <h1 className="text-center text-2xl font-bold p-5">
+    <div className="flex min-h-screen w-full items-center justify-center bg-[#e0cece]">
+      <div className="mx-auto my-5 w-11/12 overflow-hidden rounded-lg bg-[#c7c1c1]">
+        <h1 className="p-5 text-center text-2xl font-bold">
           All Pandding Courses
         </h1>
-        <div className="p-5 flex justify-start items-start flex-col gap-4 sm:flex-row sm:justify-between sm:items-center">
+        <div className="flex flex-col items-start justify-start gap-4 p-5 sm:flex-row sm:items-center sm:justify-between">
           <h3 className="text-base font-bold md:text-lg xl:text-2xl">
             Pandding Courses: {panddingCourses.length}
           </h3>
           <button
             onClick={() => navigate(-1)}
             type="button"
-            className="btn hover:bg-blue-500 hover:text-white hover:border-none "
+            className="btn hover:border-none hover:bg-blue-500 hover:text-white"
           >
             Review Other Courses
           </button>
@@ -153,11 +138,11 @@ const PanddingCourseReview = () => {
                 <tr key={index}>
                   <th>{index + 1}</th>
                   <td>
-                    <div className="w-24 h-16">
+                    <div className="h-16 w-24">
                       <img
                         src={course.courseImage}
                         alt={course.courseTitle}
-                        className="w-full h-full object-cover rounded-lg"
+                        className="h-full w-full rounded-lg object-cover"
                       />
                     </div>
                   </td>
@@ -165,18 +150,18 @@ const PanddingCourseReview = () => {
                   <td>{course.coursePrice} $</td>
                   <td>{course.courseTeacherName}</td>
                   <td>{course.courseTeacherEmail}</td>
-                  <th className="flex justify-center items-center">
+                  <th className="flex items-center justify-center">
                     <button
                       onClick={() => handleAccept(course._id)}
-                      className="w-1/2 h-1/2 p-2 hover:text-blue-500"
+                      className="h-1/2 w-1/2 p-2 hover:text-blue-500"
                     >
-                      <FaRegCheckCircle className="w-8 h-8 mx-auto" />
+                      <FaRegCheckCircle className="mx-auto h-8 w-8" />
                     </button>
                     <button
                       onClick={() => handleReject(course._id)}
-                      className="w-1/2 h-1/2 p-2 hover:text-red-500"
+                      className="h-1/2 w-1/2 p-2 hover:text-red-500"
                     >
-                      <IoMdCloseCircle className="w-8 h-8 mx-auto" />
+                      <IoMdCloseCircle className="mx-auto h-8 w-8" />
                     </button>
                   </th>
                 </tr>

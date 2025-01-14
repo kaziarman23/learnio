@@ -1,7 +1,7 @@
-import Swal from "sweetalert2";
 import { useGetCoursesQuery } from "../../../../Redux/features/Api/coursesApi";
 import Loading from "../../../../components/Loading/Loading";
 import { Link } from "react-router";
+import toast from "react-hot-toast";
 
 const CourseReview = () => {
   // Rtk query hook
@@ -25,14 +25,12 @@ const CourseReview = () => {
 
   // Handle error
   if (isError) {
-    console.log("Error : ", error.error);
-    // showing an error alert
-    Swal.fire({
-      title: "Error!",
-      text: "Error while courses data from the database",
-      icon: "error",
-      confirmButtonText: "Okey",
-    });
+    console.log(
+      "Error while fetching the courses data from the database : ",
+      error.error,
+    );
+    // showing an alert
+    toast.error(error);
   }
 
   // Handle empty courses

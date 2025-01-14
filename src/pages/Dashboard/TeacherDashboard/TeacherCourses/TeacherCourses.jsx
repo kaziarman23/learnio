@@ -8,6 +8,7 @@ import Swal from "sweetalert2";
 import { useMemo } from "react";
 import { Link } from "react-router";
 import { FaRegTrashAlt } from "react-icons/fa";
+import toast from "react-hot-toast";
 
 const TeacherCourses = () => {
   // Redux state
@@ -21,7 +22,7 @@ const TeacherCourses = () => {
   const courses = useMemo(
     () =>
       data?.filter((course) => course.courseTeacherEmail === userEmail) || [],
-    [data]
+    [data, userEmail],
   );
 
   // Handle loadin
@@ -33,30 +34,26 @@ const TeacherCourses = () => {
   if (isError) {
     console.log(
       "Error when fetching the data from getCoursesQuery",
-      error.error
+      error.error,
     );
-    // showing an error alert
-    Swal.fire({
-      title: "Error!",
-      text: "Error when fetching getCoursesQuery data",
-      icon: "error",
-      confirmButtonText: "OK",
-    });
+
+    // showing an alert
+    toast.error(error);
     return null;
   }
 
   // Handle empty enrollments
   if (courses.length === 0) {
     return (
-      <div className="w-full h-screen bg-[#e0cece] flex justify-center items-center">
-        <div className="w-4/5 h-40 rounded-2xl bg-[#c7c1c1] flex justify-center items-center flex-col gap-5 md:w-1/2">
-          <h1 className="text-xl font-bold text-center sm:text-2xl">
+      <div className="flex h-screen w-full items-center justify-center bg-[#e0cece]">
+        <div className="flex h-40 w-4/5 flex-col items-center justify-center gap-5 rounded-2xl bg-[#c7c1c1] md:w-1/2">
+          <h1 className="text-center text-xl font-bold sm:text-2xl">
             {userName}, have no courses.
           </h1>
           <Link to="/dashboard/addCourse">
             <button
               type="button"
-              className="btn hover:bg-blue-500 hover:text-white hover:border-none"
+              className="btn hover:border-none hover:bg-blue-500 hover:text-white"
             >
               Add Course
             </button>
@@ -81,29 +78,23 @@ const TeacherCourses = () => {
         deleteCourse(id)
           .unwrap()
           .then(() => {
-            Swal.fire({
-              title: "Success",
-              text: "Course Deleted Successfully",
-              icon: "success",
-              confirmButtonText: "OK",
-            });
+            // showing an alert
+            toast.success("Course Deleted Successfully");
           })
           .catch((err) => {
-            Swal.fire({
-              title: "Error!",
-              text: err.message || "Failed to delete course",
-              icon: "error",
-              confirmButtonText: "OK",
-            });
+            console.log("Error: ");
+
+            // showing an alert
+            toast.error(err);
           });
       }
     });
   };
 
   return (
-    <div className="w-full min-h-screen flex justify-center items-center bg-[#e0cece]">
-      <div className="w-4/5 overflow-hidden mx-auto my-5 bg-[#c7c1c1] rounded-lg">
-        <h1 className="text-center text-2xl font-bold p-5">All Courses</h1>
+    <div className="flex min-h-screen w-full items-center justify-center bg-[#e0cece]">
+      <div className="mx-auto my-5 w-4/5 overflow-hidden rounded-lg bg-[#c7c1c1]">
+        <h1 className="p-5 text-center text-2xl font-bold">All Courses</h1>
         {/* form content */}
         <div className="overflow-x-auto p-5">
           <table className="table">
@@ -124,11 +115,11 @@ const TeacherCourses = () => {
                 <tr key={index}>
                   <th>{index + 1}</th>
                   <td>
-                    <div className="w-28 h-14">
+                    <div className="h-14 w-28">
                       <img
                         src={course.courseImage}
                         alt={course.courseTitle}
-                        className="w-full h-full object-cover"
+                        className="h-full w-full object-cover"
                       />
                     </div>
                   </td>
@@ -137,11 +128,11 @@ const TeacherCourses = () => {
                   <td>{course.courseStudentsCount}</td>
                   <td className="uppercase">
                     {course.courseStatus === "pandding" ? (
-                      <h1 className="font-bold text-2xl uppercase border-black border text-center bg-yellow-500 rounded-sm">
+                      <h1 className="rounded-sm border border-black bg-yellow-500 text-center text-2xl font-bold uppercase">
                         Pendding
                       </h1>
                     ) : (
-                      <h1 className="font-bold text-2xl uppercase rounded-sm border-black border text-center bg-green-500">
+                      <h1 className="rounded-sm border border-black bg-green-500 text-center text-2xl font-bold uppercase">
                         Active
                       </h1>
                     )}
@@ -149,7 +140,7 @@ const TeacherCourses = () => {
                   <th>
                     <button
                       onClick={() => handleDelete(course._id)}
-                      className="btn bg-red-500 text-black border-black hover:bg-red-600 hover:text-white"
+                      className="btn border-black bg-red-500 text-black hover:bg-red-600 hover:text-white"
                     >
                       <FaRegTrashAlt />
                     </button>

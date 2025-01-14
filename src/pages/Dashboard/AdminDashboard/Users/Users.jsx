@@ -8,6 +8,8 @@ import {
 } from "../../../../Redux/features/Api/usersApi";
 import { FaAnglesDown, FaAnglesUp } from "react-icons/fa6";
 import { FaTrash } from "react-icons/fa";
+import toast from "react-hot-toast";
+import { Link } from "react-router";
 
 const Users = () => {
   // Rtk query hooks
@@ -24,28 +26,25 @@ const Users = () => {
   // Handle error
   if (isError) {
     console.log("Error when fetching the data from users", error.error);
-    // showing an error alert
-    Swal.fire({
-      title: "Error!",
-      text: "Error when fetching users data",
-      icon: "error",
-      confirmButtonText: "OK",
-    });
+
+    // showing an alert
+    toast.error(error);
+
     return null;
   }
 
   // Handle empty teachers
   if (data.length === 0) {
     return (
-      <div className="w-full h-screen bg-[#e0cece] flex justify-center items-center">
-        <div className="w-1/2 h-40 rounded-2xl bg-[#c7c1c1] flex justify-center items-center flex-col gap-5">
-          <h1 className="text-2xl font-bold text-center">
+      <div className="flex h-screen w-full items-center justify-center bg-[#e0cece]">
+        <div className="flex h-40 w-1/2 flex-col items-center justify-center gap-5 rounded-2xl bg-[#c7c1c1]">
+          <h1 className="text-center text-2xl font-bold">
             {data.length}, users found !
           </h1>
           <Link to="/dashboard/interface">
             <button
               type="button"
-              className="btn hover:bg-blue-500 hover:text-white hover:border-none"
+              className="btn hover:border-none hover:bg-blue-500 hover:text-white"
             >
               Interface
             </button>
@@ -70,25 +69,18 @@ const Users = () => {
         promoteUserRole(id)
           .unwrap()
           .then(() => {
-            // showing an error alert
-            Swal.fire({
-              title: "Success!",
-              text: "user role updated successfully",
-              icon: "success",
-              confirmButtonText: "okey",
-            });
+            // showing an alert
+            toast.success("user role updated successfully");
           })
           .catch((error) => {
             console.log("Error: ", error.error);
-            console.log("Error Message: ", error.message);
+            console.log(
+              "Error when saving data in the database: ",
+              error.message,
+            );
 
-            // showing an error alert
-            Swal.fire({
-              title: "Error!",
-              text: "Error when saving data in the database",
-              icon: "error",
-              confirmButtonText: "okey",
-            });
+            /// showing an alert
+            toast.error(error);
             return null;
           });
       }
@@ -110,25 +102,18 @@ const Users = () => {
         demoteUserRole(id)
           .unwrap()
           .then(() => {
-            // showing an success alert
-            Swal.fire({
-              title: "Success!",
-              text: "user role updated successfully",
-              icon: "success",
-              confirmButtonText: "okey",
-            });
+            // showing an alert
+            toast.success("user role updated successfully");
           })
           .catch((error) => {
             console.log("Error: ", error.error);
-            console.log("Error Message: ", error.message);
+            console.log(
+              "Error when saving data in the database: ",
+              error.message,
+            );
 
-            // showing an error alert
-            Swal.fire({
-              title: "Error!",
-              text: "Error when saving data in the database",
-              icon: "error",
-              confirmButtonText: "okey",
-            });
+            /// showing an alert
+            toast.error(error);
             return null;
           });
       }
@@ -149,25 +134,18 @@ const Users = () => {
         deleteUser(id)
           .unwrap()
           .then(() => {
-            // showing an success alert
-            Swal.fire({
-              title: "Success!",
-              text: "user deleted successfully",
-              icon: "success",
-              confirmButtonText: "okey",
-            });
+            // showing an alert
+            toast.success("user deleted successfully");
           })
           .catch(() => {
             console.log("Error: ", error.error);
-            console.log("Error Message: ", error.message);
+            console.log(
+              "Error when deleting a data in the database: ",
+              error.message,
+            );
 
-            // showing an error alert
-            Swal.fire({
-              title: "Error!",
-              text: "Error when deleting the user data in the database",
-              icon: "error",
-              confirmButtonText: "okey",
-            });
+            /// showing an alert
+            toast.error(error);
             return null;
           });
       }
@@ -175,9 +153,9 @@ const Users = () => {
   };
 
   return (
-    <div className="w-full min-h-screen flex justify-center items-center bg-[#e0cece]">
-      <div className="w-11/12 overflow-hidden mx-auto my-5 bg-[#c7c1c1] rounded-lg">
-        <h1 className="text-center text-2xl font-bold p-5">All Users</h1>
+    <div className="flex min-h-screen w-full items-center justify-center bg-[#e0cece]">
+      <div className="mx-auto my-5 w-11/12 overflow-hidden rounded-lg bg-[#c7c1c1]">
+        <h1 className="p-5 text-center text-2xl font-bold">All Users</h1>
         {/* form content */}
         <div className="overflow-x-auto p-5">
           <table className="table">
@@ -197,23 +175,23 @@ const Users = () => {
                 <tr key={index}>
                   <th>{index + 1}</th>
                   <td>
-                    <div className="w-16 h-16">
+                    <div className="h-16 w-16">
                       <img
                         src={user.userPhoto}
                         alt={user.userName}
-                        className="w-full h-full object-cover rounded-full"
+                        className="h-full w-full rounded-full object-cover"
                       />
                     </div>
                   </td>
                   <td>{user.userName}</td>
                   <td>{user.userEmail}</td>
-                  <td className="uppercase font-bold">{user.userRole}</td>
-                  <th className="flex justify-center items-center">
+                  <td className="font-bold uppercase">{user.userRole}</td>
+                  <th className="flex items-center justify-center">
                     {user.userRole === "admin" ? (
                       <button
                         type="button"
                         onClick={() => handleDemotion(user._id)}
-                        className="rounded-xl flex items-center p-2 gap-2 mt-3 bg-red-500 hover:bg-red-600"
+                        className="mt-3 flex items-center gap-2 rounded-xl bg-red-500 p-2 hover:bg-red-600"
                       >
                         Demote To Student <FaAnglesDown />
                       </button>
@@ -221,7 +199,7 @@ const Users = () => {
                       <button
                         type="button"
                         onClick={() => handlePromotion(user._id)}
-                        className="rounded-xl flex items-center p-2 gap-2 mt-3 bg-blue-500 hover:bg-blue-600"
+                        className="mt-3 flex items-center gap-2 rounded-xl bg-blue-500 p-2 hover:bg-blue-600"
                       >
                         Promote To Admin <FaAnglesUp />
                       </button>
@@ -231,7 +209,7 @@ const Users = () => {
                     <button
                       type="button"
                       onClick={() => handleDelete(user._id)}
-                      className="flex items-center gap-2 p-2 rounded-xl bg-red-500 hover:bg-red-600"
+                      className="flex items-center gap-2 rounded-xl bg-red-500 p-2 hover:bg-red-600"
                     >
                       Delete
                       <FaTrash />

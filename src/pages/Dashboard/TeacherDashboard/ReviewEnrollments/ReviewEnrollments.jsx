@@ -1,6 +1,5 @@
 import { useSelector } from "react-redux";
 import Loading from "../../../../components/Loading/Loading";
-import Swal from "sweetalert2";
 import {
   useGetEnrollmentsQuery,
   useUpdateActiveEnrollmentsMutation,
@@ -11,6 +10,7 @@ import { FaRegCheckCircle } from "react-icons/fa";
 import { MdAttachMoney, MdOutlineMoneyOff } from "react-icons/md";
 import { IoMdCloseCircle } from "react-icons/io";
 import { Link } from "react-router";
+import toast from "react-hot-toast";
 
 const ReviewEnrollments = () => {
   // Redux state
@@ -25,9 +25,9 @@ const ReviewEnrollments = () => {
   const enrollments = useMemo(
     () =>
       data?.filter(
-        (enrollment) => enrollment.courseTeacherEmail === userEmail
+        (enrollment) => enrollment.courseTeacherEmail === userEmail,
       ) || [],
-    [data]
+    [data, userEmail],
   );
 
   // Handle loadin
@@ -39,15 +39,11 @@ const ReviewEnrollments = () => {
   if (isError) {
     console.log(
       "Error when fetching the data from getCoursesQuery",
-      error.error
+      error.error,
     );
-    // showing an error alert
-    Swal.fire({
-      title: "Error!",
-      text: "Error when fetching getCoursesQuery data",
-      icon: "error",
-      confirmButtonText: "OK",
-    });
+
+    // showing an alert
+    toast.error(error);
     return null;
   }
 
@@ -55,20 +51,14 @@ const ReviewEnrollments = () => {
     updateActiveEnrollments(id)
       .unwrap()
       .then(() => {
-        Swal.fire({
-          title: "Success",
-          text: "Enrollment status change successfully",
-          icon: "success",
-          confirmButtonText: "OK",
-        });
+        // showing an alert
+        toast.success("Enrollment status change successfully");
       })
       .catch((error) => {
-        Swal.fire({
-          title: "Error!",
-          text: error.message || "Failed to change the enrollment status",
-          icon: "error",
-          confirmButtonText: "OK",
-        });
+        console.log("Failed to change the enrollment status");
+
+        // showing an alert
+        toast.error(error);
       });
   };
 
@@ -76,35 +66,29 @@ const ReviewEnrollments = () => {
     updateRejectEnrollments(id)
       .unwrap()
       .then(() => {
-        Swal.fire({
-          title: "Success",
-          text: "Enrollment status change successfully",
-          icon: "success",
-          confirmButtonText: "OK",
-        });
+        // showing an alert
+        toast.success("Enrollment status change successfully");
       })
       .catch((error) => {
-        Swal.fire({
-          title: "Error!",
-          text: error.message,
-          icon: "error",
-          confirmButtonText: "OK",
-        });
+        console.log("Failed to change the enrollment status");
+
+        // showing an alert
+        toast.error(error);
       });
   };
 
   // Handle empty enrollments
   if (enrollments.length === 0) {
     return (
-      <div className="w-full h-screen bg-[#e0cece] flex justify-center items-center">
-        <div className="w-4/5 h-40 rounded-2xl bg-[#c7c1c1] flex justify-center items-center flex-col gap-5 md:w-1/2">
-          <h1 className="text-base font-bold text-center sm:text-2xl">
+      <div className="flex h-screen w-full items-center justify-center bg-[#e0cece]">
+        <div className="flex h-40 w-4/5 flex-col items-center justify-center gap-5 rounded-2xl bg-[#c7c1c1] md:w-1/2">
+          <h1 className="text-center text-base font-bold sm:text-2xl">
             {userName}, have no enrollments for review.
           </h1>
           <Link to="/dashboard/interface">
             <button
               type="button"
-              className="btn hover:bg-blue-500 hover:text-white hover:border-none"
+              className="btn hover:border-none hover:bg-blue-500 hover:text-white"
             >
               Interface
             </button>
@@ -115,9 +99,9 @@ const ReviewEnrollments = () => {
   }
 
   return (
-    <div className="w-full min-h-screen flex justify-center items-center bg-[#e0cece]">
-      <div className="w-11/12 overflow-hidden mx-auto my-5 bg-[#c7c1c1] rounded-lg">
-        <h1 className="text-center text-2xl font-bold p-5">
+    <div className="flex min-h-screen w-full items-center justify-center bg-[#e0cece]">
+      <div className="mx-auto my-5 w-11/12 overflow-hidden rounded-lg bg-[#c7c1c1]">
+        <h1 className="p-5 text-center text-2xl font-bold">
           Review Enrollments
         </h1>
         {/* form content */}
@@ -140,11 +124,11 @@ const ReviewEnrollments = () => {
                 <tr key={index}>
                   <th>{index + 1}</th>
                   <td>
-                    <div className="w-28 h-14">
+                    <div className="h-14 w-28">
                       <img
                         src={enrollment.courseImage}
                         alt={enrollment.courseTitle}
-                        className="w-full h-full object-cover"
+                        className="h-full w-full object-cover"
                       />
                     </div>
                   </td>
@@ -154,37 +138,37 @@ const ReviewEnrollments = () => {
                   <td>{enrollment.userEmail}</td>
                   <th>
                     {enrollment.paymentStatus === "unpaid" ? (
-                      <h1 className="flex justify-center items-center gap-2 font-bold text-center text-base bg-orange-500 p-3 uppercase rounded-xl">
+                      <h1 className="flex items-center justify-center gap-2 rounded-xl bg-orange-500 p-3 text-center text-base font-bold uppercase">
                         unpaid <MdOutlineMoneyOff />
                       </h1>
                     ) : (
-                      <h1 className="flex justify-center items-center gap-3 font-bold text-center text-base bg-blue-500 p-3 uppercase rounded-xl">
+                      <h1 className="flex items-center justify-center gap-3 rounded-xl bg-blue-500 p-3 text-center text-base font-bold uppercase">
                         Paid <MdAttachMoney />
                       </h1>
                     )}
                   </th>
-                  <th className="flex justify-center items-center">
+                  <th className="flex items-center justify-center">
                     {enrollment.enrollmentStatus === "pandding" ? (
                       <>
                         <button
                           onClick={() => handleActive(enrollment._id)}
-                          className="w-1/2 h-1/2 p-2 hover:text-blue-500"
+                          className="h-1/2 w-1/2 p-2 hover:text-blue-500"
                         >
-                          <FaRegCheckCircle className="w-8 h-8 mx-auto" />
+                          <FaRegCheckCircle className="mx-auto h-8 w-8" />
                         </button>
                         <button
                           onClick={() => handleReject(enrollment._id)}
-                          className="w-1/2 h-1/2 p-2 hover:text-red-500"
+                          className="h-1/2 w-1/2 p-2 hover:text-red-500"
                         >
-                          <IoMdCloseCircle className="w-8 h-8 mx-auto" />
+                          <IoMdCloseCircle className="mx-auto h-8 w-8" />
                         </button>
                       </>
                     ) : enrollment.enrollmentStatus === "active" ? (
-                      <h1 className="flex justify-center items-center gap-3 font-bold text-center text-base bg-blue-500 p-3 uppercase rounded-xl">
+                      <h1 className="flex items-center justify-center gap-3 rounded-xl bg-blue-500 p-3 text-center text-base font-bold uppercase">
                         Actived
                       </h1>
                     ) : (
-                      <h1 className="flex justify-center items-center gap-3 font-bold text-center text-base bg-red-500 p-3 mt-1 uppercase rounded-xl">
+                      <h1 className="mt-1 flex items-center justify-center gap-3 rounded-xl bg-red-500 p-3 text-center text-base font-bold uppercase">
                         Rejected
                       </h1>
                     )}

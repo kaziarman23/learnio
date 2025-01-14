@@ -1,8 +1,8 @@
-import Swal from "sweetalert2";
 import { useMemo } from "react";
 import { Link, useNavigate } from "react-router";
 import Loading from "../../../../components/Loading/Loading";
 import { useGetCoursesQuery } from "../../../../Redux/features/Api/coursesApi";
+import toast from "react-hot-toast";
 
 const ActiveCourseReview = () => {
   //states
@@ -12,8 +12,9 @@ const ActiveCourseReview = () => {
   const { data, isLoading, isError, error } = useGetCoursesQuery();
 
   // fetching active courses data
-  const activeCourses = useMemo(() =>
-    data?.filter((course) => course.courseStatus === "active")
+  const activeCourses = useMemo(
+    () => data?.filter((course) => course.courseStatus === "active"),
+    [data],
   );
 
   // Handle Loading
@@ -23,28 +24,26 @@ const ActiveCourseReview = () => {
 
   // Handle error
   if (isError) {
-    console.log("Error : ", error.error);
-    // showing an error alert
-    Swal.fire({
-      title: "Error!",
-      text: "Error while fetching the courses data from the database",
-      icon: "error",
-      confirmButtonText: "Okey",
-    });
+    console.log(
+      "Error while fetching the courses data from the database : ",
+      error.error,
+    );
+    // showing an alert
+    toast.error(error);
   }
 
   // Handle empty courses
   if (activeCourses.length === 0) {
     return (
-      <div className="w-full h-screen bg-[#e0cece] flex justify-center items-center">
-        <div className="w-4/5 h-40 rounded-2xl bg-[#c7c1c1] flex justify-center items-center flex-col gap-5">
-          <h1 className="text-2xl font-bold text-center">
+      <div className="flex h-screen w-full items-center justify-center bg-[#e0cece]">
+        <div className="flex h-40 w-4/5 flex-col items-center justify-center gap-5 rounded-2xl bg-[#c7c1c1]">
+          <h1 className="text-center text-2xl font-bold">
             You have no active course !
           </h1>
           <Link to="/dashboard/courseReview">
             <button
               type="button"
-              className="btn hover:bg-blue-500 hover:text-white hover:border-none"
+              className="btn hover:border-none hover:bg-blue-500 hover:text-white"
             >
               Review Other Courses
             </button>
@@ -55,19 +54,19 @@ const ActiveCourseReview = () => {
   }
 
   return (
-    <div className="w-full min-h-screen flex justify-center items-center bg-[#e0cece]">
-      <div className="w-11/12  overflow-hidden mx-auto my-5 bg-[#c7c1c1] rounded-lg">
-        <h1 className="text-center text-2xl font-bold p-5">
+    <div className="flex min-h-screen w-full items-center justify-center bg-[#e0cece]">
+      <div className="mx-auto my-5 w-11/12 overflow-hidden rounded-lg bg-[#c7c1c1]">
+        <h1 className="p-5 text-center text-2xl font-bold">
           All Active Courses
         </h1>
-        <div className="p-5 flex justify-start items-start flex-col gap-4 sm:flex-row sm:justify-between sm:items-center">
+        <div className="flex flex-col items-start justify-start gap-4 p-5 sm:flex-row sm:items-center sm:justify-between">
           <h3 className="text-base font-bold md:text-lg xl:text-2xl">
             Active Courses: {activeCourses.length}
           </h3>
           <button
             onClick={() => navigate(-1)}
             type="button"
-            className="btn hover:bg-blue-500 hover:text-white hover:border-none"
+            className="btn hover:border-none hover:bg-blue-500 hover:text-white"
           >
             Review Other Courses
           </button>
@@ -92,11 +91,11 @@ const ActiveCourseReview = () => {
                 <tr key={index}>
                   <th>{index + 1}</th>
                   <td>
-                    <div className="w-24 h-16">
+                    <div className="h-16 w-24">
                       <img
                         src={course.courseImage}
                         alt={course.courseTitle}
-                        className="w-full h-full object-cover rounded-lg"
+                        className="h-full w-full rounded-lg object-cover"
                       />
                     </div>
                   </td>
@@ -105,13 +104,13 @@ const ActiveCourseReview = () => {
                   <td>{course.courseTeacherName}</td>
                   <td>{course.courseTeacherEmail}</td>
 
-                  <th className="flex justify-center items-center">
+                  <th className="flex items-center justify-center">
                     {course.courseStatus === "active" ? (
-                      <h1 className="flex justify-center items-center gap-3 font-bold text-center text-base bg-blue-500 p-3 uppercase rounded-xl">
+                      <h1 className="flex items-center justify-center gap-3 rounded-xl bg-blue-500 p-3 text-center text-base font-bold uppercase">
                         Accepted
                       </h1>
                     ) : (
-                      <h1 className="flex justify-center items-center gap-3 font-bold text-center text-base bg-red-500 p-3 mt-1 uppercase rounded-xl">
+                      <h1 className="mt-1 flex items-center justify-center gap-3 rounded-xl bg-red-500 p-3 text-center text-base font-bold uppercase">
                         Rejected
                       </h1>
                     )}
