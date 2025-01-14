@@ -3,7 +3,7 @@ import { Tab, TabList, TabPanel, Tabs } from "react-tabs";
 import TabItem from "./TabItem";
 import { useGetCoursesQuery } from "../../Redux/features/Api/coursesApi";
 import Loading from "../../components/Loading/Loading";
-import Swal from "sweetalert2";
+import toast from "react-hot-toast";
 
 const AllCourses = () => {
   // state
@@ -26,13 +26,9 @@ const AllCourses = () => {
   // Handle error
   if (isError) {
     console.log("Error : ", error.error);
-    // showing an error alert
-    Swal.fire({
-      title: "Error!",
-      text: "Error while sending teacher data in the database",
-      icon: "error",
-      confirmButtonText: "Okey",
-    });
+
+    // showing an alert
+    toast.error(error);
   }
 
   // Filtering Courses

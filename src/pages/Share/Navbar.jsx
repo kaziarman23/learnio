@@ -4,13 +4,13 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link, NavLink, useNavigate } from "react-router";
 import auth from "../../Firebase/Firebase.Config";
 import { logoutUser } from "../../Redux/features/userSlice";
-import Swal from "sweetalert2";
+import toast from "react-hot-toast";
 
 const Navbar = () => {
   // states
   const { userEmail } = useSelector((state) => state.userSlice);
   const dispatch = useDispatch();
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const navlinks = (
     <>
@@ -34,20 +34,16 @@ const Navbar = () => {
     signOut(auth);
     dispatch(logoutUser());
 
-    // navigating the user and showing a success alert
+    // navigating the user
     navigate(-1);
-    Swal.fire({
-      position: "top-end",
-      icon: "success",
-      title: "Logout SuccessFull",
-      showConfirmButton: false,
-      timer: 1500,
-    });
+
+    // showing an alert Logout SuccessFull
+    toast.error("Logout Successfully");
   };
 
   return (
-    <div className="w-full h-full border-b-2">
-      <div className="navbar w-full h-full mx-auto justify-between sm:w-4/5">
+    <div className="h-full w-full border-b-2">
+      <div className="navbar mx-auto h-full w-full justify-between sm:w-4/5">
         <div className="justify-start">
           <div className="dropdown">
             <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
@@ -68,22 +64,22 @@ const Navbar = () => {
             </div>
             <ul
               tabIndex={0}
-              className="menu menu-sm dropdown-content rounded-box z-[1] mt-3 w-52 p-2 shadow bg-white"
+              className="menu dropdown-content menu-sm z-[1] mt-3 w-52 rounded-box bg-white p-2 shadow"
             >
               {navlinks}
             </ul>
           </div>
           {/* <h1 className="text-2xl font-bold flex items-center"> */}
-          <h1 className="text-sm font-bold flex items-center sm:text-lg xl:text-2xl">
+          <h1 className="flex items-center text-sm font-bold sm:text-lg xl:text-2xl">
             <FaGripfire />
             Learnio
           </h1>
         </div>
         <div className="flex sm:gap-2">
-          <div className="justify-start hidden lg:flex">
+          <div className="hidden justify-start lg:flex">
             <ul className="menu menu-horizontal px-1">{navlinks}</ul>
           </div>
-          <div className="flex justify-end items-center gap-2">
+          <div className="flex items-center justify-end gap-2">
             {userEmail ? (
               <button
                 onClick={handleLogout}
@@ -94,12 +90,12 @@ const Navbar = () => {
             ) : (
               <>
                 <Link to="/register">
-                  <button className="text-xs p-2 font-bold rounded-xl border border-black hover:bg-black hover:text-white sm:text-sm lg:text-base xl:btn">
+                  <button className="rounded-xl border border-black p-2 text-xs font-bold xl:btn hover:bg-black hover:text-white sm:text-sm lg:text-base">
                     Register
                   </button>
                 </Link>
                 <Link to="/login">
-                  <button className="text-xs p-2 font-bold rounded-xl border border-black hover:bg-black hover:text-white sm:text-sm lg:text-base xl:btn">
+                  <button className="rounded-xl border border-black p-2 text-xs font-bold xl:btn hover:bg-black hover:text-white sm:text-sm lg:text-base">
                     Login
                   </button>
                 </Link>

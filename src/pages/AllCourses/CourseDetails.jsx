@@ -7,6 +7,7 @@ import { usePostEnrollmentsMutation } from "../../Redux/features/Api/enrollments
 import Swal from "sweetalert2";
 import { useGetUsersQuery } from "../../Redux/features/Api/usersApi";
 import { useMemo } from "react";
+import toast from "react-hot-toast";
 
 const CourseDetails = () => {
   // states
@@ -17,7 +18,7 @@ const CourseDetails = () => {
 
   // Redux state
   const { userName, userEmail, userPhoto } = useSelector(
-    (state) => state.userSlice
+    (state) => state.userSlice,
   );
 
   // Rtk query hooks
@@ -28,7 +29,7 @@ const CourseDetails = () => {
   // collecting the user data from the database
   const user = useMemo(
     () => usersData?.find((user) => user.userEmail === userEmail),
-    [usersData, userEmail]
+    [usersData, userEmail],
   );
   const userRole = user?.userRole;
 
@@ -41,25 +42,20 @@ const CourseDetails = () => {
   if (isError) {
     console.log("Error: ", error);
     console.log("Error message: ", error.error);
-    Swal.fire({
-      title: "Error!",
-      text: "Error when fetching the courses data from the database",
-      icon: "error",
-      confirmButtonText: "Okey",
-    });
+
+    // showing an alert
+    toast.error(error);
+
     return;
   }
 
   // handling Enrollments
   const handleEnrollmentBtn = (data) => {
-    // checking for the admin
+    // checking for the admin and the teacher
     if (userRole === "admin" || userRole === "teacher") {
-      Swal.fire({
-        title: "Error!",
-        text: "You are not a student",
-        icon: "error",
-        confirmButtonText: "Okey",
-      });
+      
+      // showing an alert
+      toast.error("You are not a student.");
       return;
     }
 
@@ -89,27 +85,20 @@ const CourseDetails = () => {
         };
         postEnrollments(enrollmentInfo)
           .unwrap()
-          .then((resolveData) => {
-            // navigating the user and showing a success alert
+          .then(() => {
+            // navigating the user
             navigate(-1);
-            Swal.fire({
-              position: "top-end",
-              icon: "success",
-              title: "Enrollment Successfull",
-              showConfirmButton: false,
-              timer: 1500,
-            });
+
+            // showing an alert
+            toast.success("Enrollment Successfull");
           })
           .catch((error) => {
             console.log("Error: ", error);
             console.log("Error Message: ", error.message);
-            // showing an error alert
-            Swal.fire({
-              title: "Error!",
-              text: "Error when saving the enrollments data in the server",
-              icon: "error",
-              confirmButtonText: "Okey",
-            });
+            console.log("Error when saving the enrollments data in the server");
+
+            // showing an alert
+            toast.error(error);
           });
       }
     });
@@ -121,38 +110,30 @@ const CourseDetails = () => {
   };
 
   return (
-    <div className="w-full min-h-screen overflow-hidden">
-      <div className="w-11/12 h-full mx-auto my-10 flex gap-5 flex-col lg:w-4/5">
+    <div className="min-h-screen w-full overflow-hidden">
+      <div className="mx-auto my-10 flex h-full w-11/12 flex-col gap-5 lg:w-4/5">
         {/* Image content */}
-        <div className="w-full h-1/3 md:h-72 lg:h-60 xl:h-72">
+        <div className="h-1/3 w-full md:h-72 lg:h-60 xl:h-72">
           <img
             src={course.courseImage}
             alt={course.courseTitle}
-            className="w-full h-full object-fill shadow-xl shadow-black/40"
+            className="h-full w-full object-fill shadow-xl shadow-black/40"
           />
         </div>
-        <div className="w-full h-2/3 p-5">
-          <h1 className="font-bold text-2xl text-center lg:text-4xl">Course Details</h1>
-          <div className="mt-10 flex gap-5 justify-center items-center flex-col lg:justify-between lg:flex-row">
-            <div className="w-full space-y-3 font-semibold text-sm sm:text-base lg:w-1/2 xl:text-xl">
-              <h3>
-                Course Name: {course.courseTitle}
-              </h3>
-              <h1>
-                Teacher Name: {course.courseTeacherName}
-              </h1>
-              <h1>
-                Email: {course.courseTeacherEmail}
-              </h1>
-              <p>
-                Course Price: {course.coursePrice} $
-              </p>
+        <div className="h-2/3 w-full p-5">
+          <h1 className="text-center text-2xl font-bold lg:text-4xl">
+            Course Details
+          </h1>
+          <div className="mt-10 flex flex-col items-center justify-center gap-5 lg:flex-row lg:justify-between">
+            <div className="w-full space-y-3 text-sm font-semibold sm:text-base lg:w-1/2 xl:text-xl">
+              <h3>Course Name: {course.courseTitle}</h3>
+              <h1>Teacher Name: {course.courseTeacherName}</h1>
+              <h1>Email: {course.courseTeacherEmail}</h1>
+              <p>Course Price: {course.coursePrice} $</p>
               <p className="flex items-center gap-2">
                 Total Student: {course.courseStudentsCount} <FaUsers />
               </p>
-              <p>
-                Course Description: {course.courseDescription}
-              </p>
+              <p>Course Description: {course.courseDescription}</p>
               <div className="flex gap-3">
                 <button
                   onClick={() => handleEnrollmentBtn(course)}
@@ -168,8 +149,8 @@ const CourseDetails = () => {
                 </button>
               </div>
             </div>
-            <div className="w-full flex justify-center items-center lg:w-1/2">
-              <FaGripfire className="w-1/2 h-1/2 border-2 rounded-2xl shadow-sm shadow-black" />
+            <div className="flex w-full items-center justify-center lg:w-1/2">
+              <FaGripfire className="h-1/2 w-1/2 rounded-2xl border-2 shadow-sm shadow-black" />
             </div>
           </div>
         </div>

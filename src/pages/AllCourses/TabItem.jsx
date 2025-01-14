@@ -1,5 +1,3 @@
-/* eslint-disable react/prop-types */
-
 import { Link, useLocation } from "react-router";
 
 const TabItem = ({ Course }) => {
