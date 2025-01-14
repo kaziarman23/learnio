@@ -5,8 +5,8 @@ import { useNavigate } from "react-router";
 import { setUser } from "../../../Redux/features/userSlice";
 import { useUpdateUserProfileMutation } from "../../../Redux/features/Api/usersApi";
 import auth from "../../../Firebase/Firebase.Config";
-import Swal from "sweetalert2";
 import Loading from "../../../components/Loading/Loading";
+import toast from "react-hot-toast";
 
 const UpdateProfile = () => {
   // States
@@ -15,11 +15,12 @@ const UpdateProfile = () => {
   // Redux states
   const dispatch = useDispatch();
   const { userName, userPhoto, userEmail } = useSelector(
-    (state) => state.userSlice
+    (state) => state.userSlice,
   );
 
   // Rtk query
-  const [updateUserProfile, { isLoading, isError, error }] = useUpdateUserProfileMutation();
+  const [updateUserProfile, { isLoading, isError, error }] =
+    useUpdateUserProfileMutation();
 
   // Use form hook
   const { handleSubmit, register, reset } = useForm();
@@ -32,13 +33,10 @@ const UpdateProfile = () => {
   // handle error
   if (isError) {
     console.log("Error: ", error.error);
-    console.log("Error Message: ", error.data.message);
-    Swal.fire({
-      title: "Error!",
-      text: "Error when updating the user profile",
-      icon: "error",
-      confirmButtonText: "Okey",
-    });
+    console.log("Error when updating the user profile: ", error.data.message);
+
+    // showing an alert
+    toast.error(error);
   }
 
   // handle submit
@@ -57,7 +55,6 @@ const UpdateProfile = () => {
           displayName: data.userName,
           photoURL: data.userPhoto,
         });
-        console.log("Firebase profile updated!");
       } else {
         throw new Error("No authenticated user.");
       }
@@ -71,25 +68,20 @@ const UpdateProfile = () => {
           userName: data.userName,
           userPhoto: data.userPhoto,
           userEmail: userEmail, // Usually unchanged
-        })
+        }),
       );
 
-      // navigation and Success alert
+      // navigating the user
       navigate(-1);
 
-      Swal.fire({
-        title: "Success",
-        text: "Profile Updated Successfully",
-        icon: "success",
-        confirmButtonText: "Okey",
-      });
+      // showing an alert
+      toast.success("Profile Updated Successfully");
+
     } catch (error) {
-      Swal.fire({
-        title: "Error!",
-        text: error.message,
-        icon: "error",
-        confirmButtonText: "Okey",
-      });
+      console.log(error);
+
+      // showing an alert
+      toast.error(error);
     }
   };
 
@@ -100,38 +92,38 @@ const UpdateProfile = () => {
   };
 
   return (
-    <div className="w-full min-h-screen flex justify-center items-center bg-[#e0cece]">
-      <div className="w-11/12 h-1/2 mx-auto bg-[#c7c1c1] rounded-lg p-5 sm:w-4/5 md:w-1/2">
-        <h1 className="text-2xl font-bold text-center mb-5">
+    <div className="flex min-h-screen w-full items-center justify-center bg-[#e0cece]">
+      <div className="mx-auto h-1/2 w-11/12 rounded-lg bg-[#c7c1c1] p-5 sm:w-4/5 md:w-1/2">
+        <h1 className="mb-5 text-center text-2xl font-bold">
           Updating User Profile
         </h1>
         <form onSubmit={handleSubmit(onSubmit)}>
-          <div className="flex justify-between items-center flex-col gap-4">
-            <div className="w-full flex justify-center items-start flex-col gap-2">
+          <div className="flex flex-col items-center justify-between gap-4">
+            <div className="flex w-full flex-col items-start justify-center gap-2">
               <label htmlFor="name" className="font-bold">
                 Name
               </label>
               <input
                 id="name"
                 type="text"
-                className="w-full rounded-md border-2 p-2 border-black"
+                className="w-full rounded-md border-2 border-black p-2"
                 defaultValue={userName}
                 {...register("userName")}
               />
             </div>
-            <div className="w-full flex justify-center items-start flex-col gap-2">
+            <div className="flex w-full flex-col items-start justify-center gap-2">
               <label htmlFor="photo" className="font-bold">
                 Photo URL
               </label>
               <input
                 id="photo"
                 type="text"
-                className="w-full rounded-md border-2 p-2 border-black"
+                className="w-full rounded-md border-2 border-black p-2"
                 defaultValue={userPhoto}
                 {...register("userPhoto")}
               />
             </div>
-            <div className="w-full flex justify-end gap-4">
+            <div className="flex w-full justify-end gap-4">
               <button
                 type="button"
                 onClick={handleCancel}

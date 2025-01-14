@@ -1,9 +1,9 @@
 import { useSelector } from "react-redux";
 import Typewriter from "typewriter-effect";
 import Loading from "../../components/Loading/Loading";
-import Swal from "sweetalert2";
 import { useMemo } from "react";
 import { useGetUsersQuery } from "../../Redux/features/Api/usersApi";
+import toast from "react-hot-toast";
 
 const Interface = () => {
   // states
@@ -15,7 +15,7 @@ const Interface = () => {
   // Fetching user data
   const user = useMemo(
     () => data?.find((user) => user.userEmail === userEmail) || [],
-    [data]
+    [data, userEmail],
   );
 
   // Handle loading
@@ -25,26 +25,19 @@ const Interface = () => {
 
   // Handle error
   if (isError) {
-    console.log(
-      "Error when fetching data from getusersQuery because/ ",
-      error.error
-    );
+    console.log("Error when fetching data from getusersQuery: ", error.error);
 
-    // showing an error alert
-    Swal.fire({
-      title: "Error!",
-      text: "Error when fetching users data",
-      icon: "error",
-      confirmButtonText: "OK",
-    });
+    // showing an alert
+    toast.error(error);
+
     return null;
   }
 
   return (
-    <div className="w-full h-full bg-[#e0cece] text-black flex justify-center items-center sm:h-screen">
-      <div className="w-11/12 h-full mx-auto xl:w-4/5 xl:h-4/5">
+    <div className="flex h-full w-full items-center justify-center bg-[#e0cece] text-black sm:h-screen">
+      <div className="mx-auto h-full w-11/12 xl:h-4/5 xl:w-4/5">
         {/* Type writer part */}
-        <div className="text-center p-2 text-base font-bold sm:text-2xl xl:text-4xl">
+        <div className="p-2 text-center text-base font-bold sm:text-2xl xl:text-4xl">
           <Typewriter
             options={{
               strings: `Welcome to you'r Dashboard ${userName}`,
@@ -53,23 +46,22 @@ const Interface = () => {
           />
         </div>
         {/* text part */}
-        {/* <div className="text-left mt-10 p-5 text-lg space-y-5"> */}
-        <div className="text-left mt-5 p-5 text-base space-y-5 xl:text-lg xl:mt-10">
+        <div className="mt-5 space-y-5 p-5 text-left text-base xl:mt-10 xl:text-lg">
           {user.userRole === "admin" ? (
             <h1 className="font-bold">
               Your Admin Dashboard is your central command center for overseeing
-              and optimizing the platform's operations. <br /> Here's what you
-              can do:
+              and optimizing the platform&#39;s operations. <br /> Here&#39;s
+              what you can do:
             </h1>
           ) : user.userRole === "teacher" ? (
             <h1 className="font-bold">
               As a teacher, your Learnio Dashboard is your dedicated hub for
-              managing your teaching journey. <br /> Here's what you can do:
+              managing your teaching journey. <br /> Here&#39;s what you can do:
             </h1>
           ) : (
             <h1 className="font-bold">
               As a student, your Learnio Dashboard is your personal hub for
-              managing your learning journey. <br /> Here's what you can do:
+              managing your learning journey. <br /> Here&#39;s what you can do:
             </h1>
           )}
 
@@ -90,9 +82,7 @@ const Interface = () => {
                   quality and relevance before they go live.
                 </li>
                 <li>
-                  <span className="font-bold">
-                    Track Metrics and Insights: 
-                  </span>
+                  <span className="font-bold">Track Metrics and Insights:</span>
                   View key performance metrics, such as course engagement and
                   user growth, to make informed decisions.
                 </li>
@@ -103,8 +93,8 @@ const Interface = () => {
                 <li>
                   <span className="font-bold">Manage Your Courses:</span> Create
                   and add new courses to share your expertise. Edit and update
-                  course content effortlessly to ensure it's always relevant and
-                  engaging.
+                  course content effortlessly to ensure it&#39;s always relevant
+                  and engaging.
                 </li>
                 <li>
                   <span className="font-bold">Monitor Enrollments: </span>
@@ -134,7 +124,9 @@ const Interface = () => {
                   through the dashboard
                 </li>
                 <li>
-                  <span className="font-bold">Track Your Payment History:  </span>
+                  <span className="font-bold">
+                    Track Your Payment History:{" "}
+                  </span>
                   Stay informed by reviewing your payment history, ensuring
                   transparency and easy access to your financial records.
                 </li>

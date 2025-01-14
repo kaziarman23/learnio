@@ -6,8 +6,8 @@ import {
   usePostPaymentsMutation,
 } from "../../../../Redux/features/Api/paymentApi";
 import Loading from "../../../../components/Loading/Loading";
-import Swal from "sweetalert2";
 import { useNavigate } from "react-router";
+import toast from "react-hot-toast";
 
 const CheckoutForm = ({ id }) => {
   // States
@@ -32,15 +32,8 @@ const CheckoutForm = ({ id }) => {
 
   // handle error
   if (isError) {
-    Swal.fire({
-      title: "Error!",
-      text:
-        error?.data?.message ||
-        error?.error ||
-        "Error when updating the user profile",
-      icon: "error",
-      confirmButtonText: "Okey",
-    });
+    // showing an alert
+    toast.error(error);
   }
 
   // finding the course data
@@ -59,12 +52,9 @@ const CheckoutForm = ({ id }) => {
       } catch (error) {
         console.error("Error in fetching clientSecret:", error);
         setClientSecret("");
-        Swal.fire({
-          title: "Error!",
-          text: error.message || "useEffect error",
-          icon: "error",
-          confirmButtonText: "Okey",
-        });
+
+        // showing an alert
+        toast.error(error);
       }
     };
 
@@ -101,7 +91,7 @@ const CheckoutForm = ({ id }) => {
       setPaymentError(error.message);
       setIsProcessing(false);
     } else {
-      // console.log("[PaymentMethod]", paymentMethod);
+      console.log("[PaymentMethod]", paymentMethod);
       setPaymentError("");
     }
 
@@ -138,21 +128,15 @@ const CheckoutForm = ({ id }) => {
           .then(() => {
             // navigating the user and showing a success alret
             navigate("/dashboard/studentEnrollments");
-            // success alert
-            Swal.fire({
-              title: "Success",
-              text: "Payment Successfull",
-              icon: "success",
-              confirmButtonText: "Okey",
-            });
+
+            // showing an alert
+            toast.success("Payment Successfull");
           })
           .catch((error) => {
-            Swal.fire({
-              title: "Success",
-              text: error.message || "Error when saving the payment data",
-              icon: "success",
-              confirmButtonText: "Okey",
-            });
+            console.log("Error when saving the payment data: ", error);
+            
+            // showing an alert
+            toast.error(error);
           })
           .finally(() => {
             setIsProcessing(false);
@@ -161,10 +145,10 @@ const CheckoutForm = ({ id }) => {
     }
   };
   return (
-    <div className="container mx-auto p-4 max-w-md">
+    <div className="container mx-auto max-w-md p-4">
       <form onSubmit={handleSubmit}>
         <CardElement
-          className="p-2 w-full rounded-md"
+          className="w-full rounded-md p-2"
           options={{
             style: {
               base: {
@@ -183,12 +167,12 @@ const CheckoutForm = ({ id }) => {
         <button
           type="submit"
           disabled={!stripe || !clientSecret || isProcessing}
-          className="my-5 w-full py-2 text-lg btn bg-indigo-500 hover:bg-indigo-600"
+          className="btn my-5 w-full bg-indigo-500 py-2 text-lg hover:bg-indigo-600"
         >
           {isProcessing ? "Processing..." : "Pay"}
         </button>
         {paymentError && (
-          <p className="mt-4 text-sm sm:text-base md:text-lg font-bold text-red-500">
+          <p className="mt-4 text-sm font-bold text-red-500 sm:text-base md:text-lg">
             {paymentError}
           </p>
         )}

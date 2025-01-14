@@ -2,10 +2,10 @@ import { useForm } from "react-hook-form";
 import { useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router";
 import { usePostTeachersMutation } from "../../Redux/features/Api/teachersApi";
-import Swal from "sweetalert2";
 import Loading from "../../components/Loading/Loading";
 import { useGetUsersQuery } from "../../Redux/features/Api/usersApi";
 import { useMemo } from "react";
+import toast from "react-hot-toast";
 
 const TeacherEnrollment = () => {
   // States
@@ -16,7 +16,7 @@ const TeacherEnrollment = () => {
 
   // Redux state
   const { userName, userPhoto, userEmail } = useSelector(
-    (state) => state.userSlice
+    (state) => state.userSlice,
   );
 
   // Rtk query hooks
@@ -27,7 +27,7 @@ const TeacherEnrollment = () => {
   // Fetching the user data
   const user = useMemo(
     () => data?.find((user) => user.userEmail === userEmail),
-    [data, userEmail]
+    [data, userEmail],
   );
   const isTeacher = user?.isTeacher;
   const userRole = user?.userRole;
@@ -40,26 +40,24 @@ const TeacherEnrollment = () => {
   // Handle Error
   if (isError) {
     console.log("Error: ", error.error);
-    Swal.fire({
-      title: "Error!",
-      text: "Error in teacher enrollment component",
-      icon: "error",
-      confirmButtonText: "Okey",
-    });
+    console.log("Error in teacher enrollment component");
+
+    // showing an alert
+    toast.error(error);
   }
 
   // Handle teacher state
   if (isTeacher === "pandding") {
     return (
-      <div className="w-full h-screen bg-white flex justify-center items-center">
-        <div className='w-4/5 h-60 rounded-xl flex justify-center items-center flex-col bg-[#c7c1c1] gap-5 lg:w-1/2'>
-          <h1 className="text-sm font-bold text-center sm:text-base lg:text-lg">
+      <div className="flex h-screen w-full items-center justify-center bg-white">
+        <div className="flex h-60 w-4/5 flex-col items-center justify-center gap-5 rounded-xl bg-[#c7c1c1] lg:w-1/2">
+          <h1 className="text-center text-sm font-bold sm:text-base lg:text-lg">
             Please wait Admin is reviewing you'r information.
           </h1>
           <Link to="/dashboard/interface">
             <button
               type="button"
-              className="btn hover:bg-blue-500 hover:text-white hover:border-none"
+              className="btn hover:border-none hover:bg-blue-500 hover:text-white"
             >
               Interface
             </button>
@@ -69,15 +67,15 @@ const TeacherEnrollment = () => {
     );
   } else if (isTeacher === true) {
     return (
-      <div className="w-full h-screen bg-white flex justify-center items-center">
-        <div className='w-4/5 h-60 rounded-xl flex justify-center items-center flex-col bg-[#c7c1c1] gap-5 lg:w-1/2'>
-          <h1 className="text-sm font-bold text-center sm:text-base lg:text-lg">
+      <div className="flex h-screen w-full items-center justify-center bg-white">
+        <div className="flex h-60 w-4/5 flex-col items-center justify-center gap-5 rounded-xl bg-[#c7c1c1] lg:w-1/2">
+          <h1 className="text-center text-sm font-bold sm:text-base lg:text-lg">
             Congratulation. You are Now a Teacher in Learnio !
           </h1>
           <Link to="/dashboard/interface">
             <button
               type="button"
-              className="btn hover:bg-blue-500 hover:text-white hover:border-none"
+              className="btn hover:border-none hover:bg-blue-500 hover:text-white"
             >
               Interface
             </button>
@@ -87,15 +85,16 @@ const TeacherEnrollment = () => {
     );
   } else if (isTeacher === false) {
     return (
-      <div className="w-full h-screen bg-white flex justify-center items-center">
-        <div className='w-4/5 h-60 rounded-xl flex justify-center items-center flex-col bg-[#c7c1c1] gap-5 lg:w-1/2'>
-          <h1 className="text-xs font-bold text-center sm:text-base lg:text-lg">
-            You are Rejected as a Teacher. <br /> Plase Try again with more strong skills.
+      <div className="flex h-screen w-full items-center justify-center bg-white">
+        <div className="flex h-60 w-4/5 flex-col items-center justify-center gap-5 rounded-xl bg-[#c7c1c1] lg:w-1/2">
+          <h1 className="text-center text-xs font-bold sm:text-base lg:text-lg">
+            You are Rejected as a Teacher. <br /> Plase Try again with more
+            strong skills.
           </h1>
           <Link to="/dashboard/interface">
             <button
               type="button"
-              className="btn hover:bg-blue-500 hover:text-white hover:border-none"
+              className="btn hover:border-none hover:bg-blue-500 hover:text-white"
             >
               Interface
             </button>
@@ -109,12 +108,8 @@ const TeacherEnrollment = () => {
   const onSubmit = (data) => {
     // checking for the admin
     if (userRole === "admin" || userRole === "teacher") {
-      Swal.fire({
-        title: "Error!",
-        text: "You are not a student",
-        icon: "error",
-        confirmButtonText: "Okey",
-      });
+      // showing an alert
+      toast.error("You are not a student");
       return;
     }
 
@@ -133,47 +128,39 @@ const TeacherEnrollment = () => {
         // navigating the user
         navigate(-1);
 
-        // showing a success alert
-        Swal.fire({
-          title: "Success",
-          text: "Requiest send successfully",
-          icon: "success",
-          confirmButtonText: "Okey",
-        });
+        // showing an alert
+        toast.success("Requiest send successfully");
       })
       .catch((error) => {
-        // showing an error alert
-        console.log(error);
-        Swal.fire({
-          title: "Error!",
-          text: "Error while sending teacher data in the database",
-          icon: "error",
-          confirmButtonText: "Okey",
-        });
+        console.log(
+          "Error while sending teacher data in the database: ",
+          error,
+        );
+
+        // showing an alert
+        toast.error(error);
       });
   };
 
   return (
-    <div className="w-full h-full">
-      {/* <div className="w-1/2 h-screen mx-auto"> */}
-      <div className="w-11/12 h-full mx-auto xl:w-1/2 xl:h-screen">
-        <h1 className="text-center text-2xl font-bold p-5">Became A Teacher</h1>
+    <div className="h-full w-full">
+      <div className="mx-auto h-full w-11/12 xl:h-screen xl:w-1/2">
+        <h1 className="p-5 text-center text-2xl font-bold">Became A Teacher</h1>
         {/* form card */}
         <form onSubmit={handleSubmit(onSubmit)}>
-          <div className="p-4 border border-black rounded-lg space-y-5 mb-5 xl:mb-0">
+          <div className="mb-5 space-y-5 rounded-lg border border-black p-4 xl:mb-0">
             {/* image input */}
-            <div className="w-full h-1/2 flex justify-center items-center">
+            <div className="flex h-1/2 w-full items-center justify-center">
               <img
                 src={userPhoto}
                 alt="user profile picture"
-                className="w-40 h-40 rounded-full"
+                className="h-40 w-40 rounded-full"
               />
             </div>
 
             {/* name & email input */}
-            <div className="flex justify-center items-center gap-4 flex-col md:flex-row md:justify-between">
-              {/* <div className="w-1/2 flex justify-center items-start flex-col gap-2"> */}
-              <div className="w-full flex justify-center items-start flex-col gap-2 md:w-1/2">
+            <div className="flex flex-col items-center justify-center gap-4 md:flex-row md:justify-between">
+              <div className="flex w-full flex-col items-start justify-center gap-2 md:w-1/2">
                 <label htmlFor="name" className="font-bold">
                   Name
                 </label>
@@ -181,13 +168,13 @@ const TeacherEnrollment = () => {
                   id="name"
                   type="text"
                   readOnly
-                  className="w-full rounded-md border-2 p-2 border-black"
+                  className="w-full rounded-md border-2 border-black p-2"
                   defaultValue={userName}
                   {...register("userName")}
                 />
               </div>
 
-              <div className="w-full flex justify-center items-start flex-col gap-2 md:w-1/2">
+              <div className="flex w-full flex-col items-start justify-center gap-2 md:w-1/2">
                 <label htmlFor="email" className="font-bold">
                   Email
                 </label>
@@ -195,7 +182,7 @@ const TeacherEnrollment = () => {
                   id="email"
                   type="email"
                   readOnly
-                  className="w-full rounded-md border-2 p-2 border-black"
+                  className="w-full rounded-md border-2 border-black p-2"
                   defaultValue={userEmail}
                   {...register("userEmail")}
                 />
@@ -203,8 +190,8 @@ const TeacherEnrollment = () => {
             </div>
 
             {/* experience & category input */}
-            <div className="flex justify-center items-center gap-4 flex-col md:flex-row md:justify-between">
-              <div className="w-full flex justify-center items-start flex-col gap-2 md:w-1/2">
+            <div className="flex flex-col items-center justify-center gap-4 md:flex-row md:justify-between">
+              <div className="flex w-full flex-col items-start justify-center gap-2 md:w-1/2">
                 <label htmlFor="experience" className="font-bold">
                   Experience
                 </label>
@@ -220,7 +207,7 @@ const TeacherEnrollment = () => {
                 </select>
               </div>
 
-              <div className="w-full flex justify-center items-start flex-col gap-2 md:w-1/2">
+              <div className="flex w-full flex-col items-start justify-center gap-2 md:w-1/2">
                 <label htmlFor="category" className="font-bold">
                   category
                 </label>
@@ -242,7 +229,7 @@ const TeacherEnrollment = () => {
             <div>
               <button
                 type="submit"
-                className="w-full btn border-2 hover:bg-blue-500 hover:text-white"
+                className="btn w-full border-2 hover:bg-blue-500 hover:text-white"
               >
                 Submit For Review
               </button>

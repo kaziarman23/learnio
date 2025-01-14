@@ -1,4 +1,4 @@
-import { useEffect, useMemo } from "react";
+import { useMemo } from "react";
 import { useSelector } from "react-redux";
 import Swal from "sweetalert2";
 import {
@@ -8,6 +8,7 @@ import {
 import Loading from "../../../../components/Loading/Loading";
 import { FaRegTrashAlt } from "react-icons/fa";
 import { Link } from "react-router";
+import toast from "react-hot-toast";
 
 const PaymentHistory = () => {
   // Redux state
@@ -21,9 +22,9 @@ const PaymentHistory = () => {
   const payments = useMemo(
     () =>
       data?.filter(
-        (paymentHistory) => paymentHistory.userEmail === userEmail
+        (paymentHistory) => paymentHistory.userEmail === userEmail,
       ) || [],
-    [data, userEmail]
+    [data, userEmail],
   );
 
   // Handle loading
@@ -35,29 +36,24 @@ const PaymentHistory = () => {
   if (isError) {
     console.log("Error in fetching data from getPaymentquery: ", error.error);
     console.log(error.message);
-    // showing an error alert
-    Swal.fire({
-      title: "Error!",
-      text:
-        error?.data?.message || error?.error || "Error when fetching payments",
-      icon: "error",
-      confirmButtonText: "OK",
-    });
+
+    // showing an alert
+    toast.error(error);
     return null;
   }
 
   // Handle empty enrollments
   if (payments.length === 0) {
     return (
-      <div className="w-full h-screen bg-[#e0cece] flex justify-center items-center">
-        <div className="w-4/5 h-40 rounded-2xl bg-[#c7c1c1] flex justify-center items-center flex-col gap-5 md:w-1/2">
-          <h1 className="text-base font-bold text-center sm:text-2xl">
+      <div className="flex h-screen w-full items-center justify-center bg-[#e0cece]">
+        <div className="flex h-40 w-4/5 flex-col items-center justify-center gap-5 rounded-2xl bg-[#c7c1c1] md:w-1/2">
+          <h1 className="text-center text-base font-bold sm:text-2xl">
             {userName}, you have no payment history.
           </h1>
           <Link to="/dashboard/interface">
             <button
               type="button"
-              className="btn hover:bg-blue-500 hover:text-white hover:border-none"
+              className="btn hover:border-none hover:bg-blue-500 hover:text-white"
             >
               Interface
             </button>
@@ -82,33 +78,29 @@ const PaymentHistory = () => {
         deletePayments(id)
           .unwrap()
           .then(() => {
-            Swal.fire({
-              title: "Success",
-              text: "Payment history deleted successfully",
-              icon: "success",
-              confirmButtonText: "OK",
-            });
+            // showing an alert
+            toast.success("Payment history deleted successfully");
           })
           .catch((err) => {
-            Swal.fire({
-              title: "Error!",
-              text: err.message || "Failed to delete payment history",
-              icon: "error",
-              confirmButtonText: "OK",
-            });
+            console.log("Failed to delete payment history: ", err);
+
+            // showing an alert
+            toast.error(err);
           });
       }
     });
   };
 
   return (
-    <div className="w-full min-h-screen bg-[#e0cece] flex justify-center items-center">
-      <div className="w-11/12 overflow-hidden bg-[#c7c1c1] rounded-xl">
-        <h1 className="text-base font-bold text-center p-2 lg:text-3xl">Payment Historys</h1>
-        <div className="p-5 overflow-x-auto">
+    <div className="flex min-h-screen w-full items-center justify-center bg-[#e0cece]">
+      <div className="w-11/12 overflow-hidden rounded-xl bg-[#c7c1c1]">
+        <h1 className="p-2 text-center text-base font-bold lg:text-3xl">
+          Payment Historys
+        </h1>
+        <div className="overflow-x-auto p-5">
           <table className="table table-zebra">
             <thead>
-              <tr className="uppercase border-y-2 border-black text-base">
+              <tr className="border-y-2 border-black text-base uppercase">
                 <th>SL</th>
                 <th>Course Name</th>
                 <th>Teacher Name</th>
@@ -129,7 +121,7 @@ const PaymentHistory = () => {
                     <button
                       onClick={() => handleDelete(payment._id)}
                       type="button"
-                      className="btn bg-red-500 text-white border-black hover:bg-red-600"
+                      className="btn border-black bg-red-500 text-white hover:bg-red-600"
                     >
                       <FaRegTrashAlt />
                     </button>
