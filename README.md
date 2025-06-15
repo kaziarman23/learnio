@@ -122,13 +122,4 @@ The goal of this project is to create a learning management platform where users
 - Minimal re-renders via memoization.
 
 
-
-## 📜 **License**
-
-This project is licensed under the **MIT License**.  
-You are free to use, modify, and distribute this project under the terms of the license.
-
-### 📄 **MIT License**
-[Include standard MIT license text or link here]
-
 ---
