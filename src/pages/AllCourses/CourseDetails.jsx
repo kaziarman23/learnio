@@ -1,11 +1,11 @@
 import { useLocation, useNavigate, useParams } from "react-router";
-import { useGetCourseQuery } from "../../Redux/features/Api/coursesApi";
+import { useGetCourseQuery } from "../../Redux/features/api/coursesApi";
 import Loading from "../../components/Loading/Loading";
 import { FaGripfire, FaUsers } from "react-icons/fa";
 import { useSelector } from "react-redux";
-import { usePostEnrollmentsMutation } from "../../Redux/features/Api/enrollmentsApi";
+import { usePostEnrollmentsMutation } from "../../Redux/features/api/enrollmentsApi";
 import Swal from "sweetalert2";
-import { useGetUsersQuery } from "../../Redux/features/Api/usersApi";
+import { useGetUsersQuery } from "../../Redux/features/api/usersApi";
 import { useMemo } from "react";
 import toast from "react-hot-toast";
 

@@ -4,7 +4,7 @@ import Swal from "sweetalert2";
 import {
   useDeletePaymentsMutation,
   useGetPaymentsQuery,
-} from "../../../../Redux/features/Api/paymentApi";
+} from "../../../../Redux/features/api/paymentApi";
 import Loading from "../../../../components/Loading/Loading";
 import { FaRegTrashAlt } from "react-icons/fa";
 import { Link } from "react-router";

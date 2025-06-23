@@ -1,7 +1,7 @@
 import { useMemo, useState } from "react";
 import { Tab, TabList, TabPanel, Tabs } from "react-tabs";
 import TabItem from "./TabItem";
-import { useGetCoursesQuery } from "../../Redux/features/Api/coursesApi";
+import { useGetCoursesQuery } from "../../Redux/features/api/coursesApi";
 import Loading from "../../components/Loading/Loading";
 import toast from "react-hot-toast";
 

@@ -1,4 +1,4 @@
-import { useGetCoursesQuery } from "../../../../Redux/features/Api/coursesApi";
+import { useGetCoursesQuery } from "../../../../Redux/features/api/coursesApi";
 import Loading from "../../../../components/Loading/Loading";
 import { Link } from "react-router";
 import toast from "react-hot-toast";

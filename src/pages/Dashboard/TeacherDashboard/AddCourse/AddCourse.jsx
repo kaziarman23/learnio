@@ -1,6 +1,6 @@
 import { useForm } from "react-hook-form";
 import { useSelector } from "react-redux";
-import { useAddCourseMutation } from "../../../../Redux/features/Api/coursesApi";
+import { useAddCourseMutation } from "../../../../Redux/features/api/coursesApi";
 import toast from "react-hot-toast";
 
 const AddCourse = () => {

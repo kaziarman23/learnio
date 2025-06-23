@@ -2,7 +2,7 @@ import { useSelector } from "react-redux";
 import {
   useDeleteCourseMutation,
   useGetCoursesQuery,
-} from "../../../../Redux/features/Api/coursesApi";
+} from "../../../../Redux/features/api/coursesApi";
 import Loading from "../../../../components/Loading/Loading";
 import Swal from "sweetalert2";
 import { useMemo } from "react";

@@ -2,7 +2,7 @@ import { useSelector } from "react-redux";
 import {
   useDeleteEnrollmentsMutation,
   useGetEnrollmentsQuery,
-} from "../../../../Redux/features/Api/enrollmentsApi";
+} from "../../../../Redux/features/api/enrollmentsApi";
 import Loading from "../../../../components/Loading/Loading";
 import { Link } from "react-router-dom";
 import Swal from "sweetalert2";

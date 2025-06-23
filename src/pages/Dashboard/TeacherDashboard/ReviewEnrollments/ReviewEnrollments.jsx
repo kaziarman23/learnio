@@ -4,7 +4,7 @@ import {
   useGetEnrollmentsQuery,
   useUpdateActiveEnrollmentsMutation,
   useUpdateRejectEnrollmentsMutation,
-} from "../../../../Redux/features/Api/enrollmentsApi";
+} from "../../../../Redux/features/api/enrollmentsApi";
 import { useMemo } from "react";
 import { FaRegCheckCircle } from "react-icons/fa";
 import { MdAttachMoney, MdOutlineMoneyOff } from "react-icons/md";

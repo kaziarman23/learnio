@@ -5,7 +5,7 @@ import {
   useGetCoursesQuery,
   useUpdateActiveCourseMutation,
   useUpdateRejectCourseMutation,
-} from "../../../../Redux/features/Api/coursesApi";
+} from "../../../../Redux/features/api/coursesApi";
 import { FaRegCheckCircle } from "react-icons/fa";
 import { IoMdCloseCircle } from "react-icons/io";
 import toast from "react-hot-toast";

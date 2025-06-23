@@ -5,7 +5,7 @@ import {
   useDemoteUserRoleMutation,
   useGetUsersQuery,
   usePromoteUserRoleMutation,
-} from "../../../../Redux/features/Api/usersApi";
+} from "../../../../Redux/features/api/usersApi.js";
 import { FaAnglesDown, FaAnglesUp } from "react-icons/fa6";
 import { FaTrash } from "react-icons/fa";
 import toast from "react-hot-toast";

@@ -1,9 +1,9 @@
 import { useForm } from "react-hook-form";
 import { useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router";
-import { usePostTeachersMutation } from "../../Redux/features/Api/teachersApi";
+import { usePostTeachersMutation } from "../../Redux/features/api/teachersApi";
 import Loading from "../../components/Loading/Loading";
-import { useGetUsersQuery } from "../../Redux/features/Api/usersApi";
+import { useGetUsersQuery } from "../../Redux/features/api/usersApi";
 import { useMemo } from "react";
 import toast from "react-hot-toast";
 

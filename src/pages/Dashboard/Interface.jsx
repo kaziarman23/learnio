@@ -2,7 +2,7 @@ import { useSelector } from "react-redux";
 import Typewriter from "typewriter-effect";
 import Loading from "../../components/Loading/Loading";
 import { useMemo } from "react";
-import { useGetUsersQuery } from "../../Redux/features/Api/usersApi";
+import { useGetUsersQuery } from "../../Redux/features/api/usersApi";
 import toast from "react-hot-toast";
 
 const Interface = () => {

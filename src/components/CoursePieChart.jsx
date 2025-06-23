@@ -2,7 +2,7 @@ import { PieChart } from "react-minimal-pie-chart";
 import { useMemo } from "react";
 import Swal from "sweetalert2";
 import Loading from "./Loading/Loading";
-import { useGetCoursesQuery } from "../Redux/features/Api/coursesApi";
+import { useGetCoursesQuery } from "../Redux/features/api/coursesApi";
 
 
 const CoursePieChart = () => {

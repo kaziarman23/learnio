@@ -31,7 +31,7 @@ export const createUser = createAsyncThunk(
       displayName: userName,
       photoURL: userPhoto,
     });
-    console.log(data);
+    // console.log(data);
 
     return {
       userName: data.user.displayName,

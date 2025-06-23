@@ -1,10 +1,10 @@
 import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
 import { useEffect, useState } from "react";
-import { useGetEnrollmentsQuery } from "../../../../Redux/features/Api/enrollmentsApi";
+import { useGetEnrollmentsQuery } from "../../../../Redux/features/api/enrollmentsApi";
 import {
   usePostPaymentIntentMutation,
   usePostPaymentsMutation,
-} from "../../../../Redux/features/Api/paymentApi";
+} from "../../../../Redux/features/api/paymentApi";
 import Loading from "../../../../components/Loading/Loading";
 import { useNavigate } from "react-router";
 import toast from "react-hot-toast";

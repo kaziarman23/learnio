@@ -1,5 +1,5 @@
 import { Link, useNavigate } from "react-router";
-import { useGetCoursesQuery } from "../../../../Redux/features/Api/coursesApi";
+import { useGetCoursesQuery } from "../../../../Redux/features/api/coursesApi";
 import { useMemo } from "react";
 import Loading from "../../../../components/Loading/Loading";
 import toast from "react-hot-toast";

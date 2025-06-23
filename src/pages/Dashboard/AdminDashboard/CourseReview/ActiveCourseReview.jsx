@@ -1,7 +1,7 @@
 import { useMemo } from "react";
 import { Link, useNavigate } from "react-router";
 import Loading from "../../../../components/Loading/Loading";
-import { useGetCoursesQuery } from "../../../../Redux/features/Api/coursesApi";
+import { useGetCoursesQuery } from "../../../../Redux/features/api/coursesApi";
 import toast from "react-hot-toast";
 
 const ActiveCourseReview = () => {

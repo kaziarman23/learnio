@@ -6,11 +6,11 @@ import {
   useGetTeachersQuery,
   useUpdateAcceptTeachersMutation,
   useUpdateRejectTeachersMutation,
-} from "../../../../Redux/features/Api/teachersApi";
+} from "../../../../Redux/features/api/teachersApi";
 import {
   useRejectUserForTeacherMutation,
   useAcceptUserForTeacherMutation,
-} from "../../../../Redux/features/Api/usersApi";
+} from "../../../../Redux/features/api/usersApi";
 import { useSelector } from "react-redux";
 import toast from "react-hot-toast";
 
