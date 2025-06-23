@@ -11,46 +11,49 @@ const Footer = () => {
     });
   };
   return (
-    <footer className="footer p-5 bg-black text-white sm:grid-cols-3 xl:p-10">
-      <nav>
-        <h6 className="footer-title">Services</h6>
-        <p onClick={handleClick} className="link link-hover">
-          Web Development
-        </p>
-        <p onClick={handleClick} className="link link-hover">
-          App Development
-        </p>
-        <p onClick={handleClick} className="link link-hover">
-          Game Development
-        </p>
-      </nav>
-      <nav>
-        <h6 className="footer-title">Company</h6>
-        <p onClick={handleClick} className="link link-hover">
-          About us
-        </p>
-        <p onClick={handleClick} className="link link-hover">
-          Contact
-        </p>
-        <p onClick={handleClick} className="link link-hover">
-          Teach on Learnio
-        </p>
-      </nav>
-      <nav>
-        <h6 className="footer-title">Social</h6>
-        <div className="grid grid-flow-col gap-4">
-          <FaFacebook
-            onClick={handleClick}
-            className="w-8 h-8 cursor-pointer"
-          />
-          <FaInstagram
-            onClick={handleClick}
-            className="w-8 h-8 cursor-pointer"
-          />
-          <FaTwitter onClick={handleClick} className="w-8 h-8 cursor-pointer" />
-        </div>
-      </nav>
-    </footer>
+      <footer className="footer bg-[#e9dfad] p-5 text-black sm:grid-cols-3 xl:p-10">
+        <nav>
+          <h6 className="footer-title">Services</h6>
+          <p onClick={handleClick} className="link-hover link">
+            Web Development
+          </p>
+          <p onClick={handleClick} className="link-hover link">
+            App Development
+          </p>
+          <p onClick={handleClick} className="link-hover link">
+            Game Development
+          </p>
+        </nav>
+        <nav>
+          <h6 className="footer-title">Company</h6>
+          <p onClick={handleClick} className="link-hover link">
+            About us
+          </p>
+          <p onClick={handleClick} className="link-hover link">
+            Contact
+          </p>
+          <p onClick={handleClick} className="link-hover link">
+            Teach on Learnio
+          </p>
+        </nav>
+        <nav>
+          <h6 className="footer-title">Social</h6>
+          <div className="grid grid-flow-col gap-4">
+            <FaFacebook
+              onClick={handleClick}
+              className="h-8 w-8 cursor-pointer"
+            />
+            <FaInstagram
+              onClick={handleClick}
+              className="h-8 w-8 cursor-pointer"
+            />
+            <FaTwitter
+              onClick={handleClick}
+              className="h-8 w-8 cursor-pointer"
+            />
+          </div>
+        </nav>
+      </footer>
   );
 };
 

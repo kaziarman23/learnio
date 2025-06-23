@@ -16,7 +16,6 @@ const Register = () => {
   } = useForm();
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
   const [addUser] = useAddUserMutation();
 
   // handle form submit
@@ -93,7 +92,7 @@ const Register = () => {
 
   return (
     <div className="min-h-full w-full">
-      <div className="mx-auto min-h-screen w-2/6">
+      <div className="mx-auto mb-10 h-full w-4/5 lg:w-1/2 xl:min-h-screen xl:mb-0 xl:w-2/6">
         <form onSubmit={handleSubmit(onSubmit)}>
           <div className="mt-10 space-y-3 rounded-md border-2 p-4">
             <h1 className="text-center text-2xl font-bold">Register Now</h1>

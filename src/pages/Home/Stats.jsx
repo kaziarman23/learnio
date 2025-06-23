@@ -4,7 +4,7 @@ import { SiGoogleclassroom } from "react-icons/si";
 
 const Stats = () => {
   return (
-    <div className="w-full h-full bg-[#d1cecb] lg:h-screen">
+    <div className="w-full h-full bg-[#e9dfad] lg:h-screen">
       <div className="w-11/12 h-full mx-auto py-5 xl:w-4/5">
         <div className="w-full h-full flex justify-center items-center flex-col gap-5 lg:justify-between lg:flex-row lg:h-2/3">
           <div className="w-full space-y-5 xl:w-1/2">
