@@ -59,7 +59,7 @@ const Reviews = () => {
         </div>
         {/* review cards */}
         <div className="h-full w-full xl:h-1/2">
-          <div className="h-full w-full p-3 text-black sm:p-2 md:p-3 xl:p-5">
+          <div className="h-full w-full p-3 text-white sm:p-2 md:p-3 xl:p-5">
             <Swiper
               slidesPerView={1}
               spaceBetween={20}
@@ -77,7 +77,8 @@ const Reviews = () => {
             >
               {testimonials.map((review, index) => (
                 <SwiperSlide key={index}>
-                  <article className="mx-4 rounded-2xl bg-[#c7c1c1] p-5 sm:mx-8 md:mx-14">
+                  {/* <article className="mx-4 rounded-2xl bg-[#c7c1c1] p-5 sm:mx-8 md:mx-14"> */}
+                  <article className="mx-4 rounded-2xl bg-black p-5 sm:mx-8 md:mx-14">
                     <div className="mb-4 flex items-center">
                       <img
                         className="mr-3 h-8 w-8 rounded-full sm:h-10 sm:w-10"

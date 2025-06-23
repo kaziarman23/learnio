@@ -11,7 +11,7 @@ const Footer = () => {
     });
   };
   return (
-    <footer className="footer p-5 bg-[#c7c1c1] text-black sm:grid-cols-3 xl:p-10">
+    <footer className="footer p-5 bg-black text-white sm:grid-cols-3 xl:p-10">
       <nav>
         <h6 className="footer-title">Services</h6>
         <p onClick={handleClick} className="link link-hover">

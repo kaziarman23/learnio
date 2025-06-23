@@ -14,7 +14,7 @@ const About = () => {
   ];
 
   return (
-    <div className="w-full h-full bg-[#efeee9] overflow-hidden">
+    <div className="w-full h-full bg-[#c4a61154] overflow-hidden">
       <div className="w-11/12 h-full mx-auto my-10 space-y-5 xl:w-4/5 xl:h-screen">
         <div className="flex justify-between items-start flex-col gap-4 xl:flex-row xl:gap-0">
           <div className="w-full text-left space-y-5 xl:w-1/2 xl:p-5">
