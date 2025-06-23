@@ -12,12 +12,12 @@ import { useDispatch, useSelector } from "react-redux";
 import { NavLink, Outlet, useNavigate } from "react-router-dom";
 import { logoutUser } from "../Redux/features/userSlice";
 import { MdAnalytics, MdDashboard, MdPreview } from "react-icons/md";
-import Swal from "sweetalert2";
 import auth from "../Firebase/Firebase.Config";
 import { HiArchiveBox, HiArchiveBoxArrowDown } from "react-icons/hi2";
 import Loading from "../components/Loading/Loading";
 import { VscOpenPreview } from "react-icons/vsc";
 import { useGetUsersQuery } from "../Redux/features/api/usersApi";
+import toast from "react-hot-toast";
 
 const Dashboard = () => {
   // states
@@ -40,18 +40,13 @@ const Dashboard = () => {
     console.log("Error When fetching user data: ", error.error);
 
     // showing an error alert
-    Swal.fire({
-      title: "Error!",
-      text: "Error When fetching user data",
-      icon: "error",
-      confirmButtonText: "OK",
-    });
+    toast.error("Error When fetching user data");
     return null;
   }
 
   // finding the data
   const userInfo = data.find(
-    (user) => user.userEmail.toLowerCase() === userEmail.toLowerCase()
+    (user) => user.userEmail.toLowerCase() === userEmail.toLowerCase(),
   );
   const user = userInfo?.userRole;
 
@@ -62,13 +57,7 @@ const Dashboard = () => {
 
     // navigating the user and showing a success alert
     navigate("/");
-    Swal.fire({
-      position: "top-end",
-      icon: "success",
-      title: "Logout SuccessFull",
-      showConfirmButton: false,
-      timer: 1500,
-    });
+    toast.success("Logout Successfully");
   };
 
   return (
@@ -76,8 +65,8 @@ const Dashboard = () => {
       {/* side bar content */}
 
       {/* THIS IS FOR SMALL SCREEN VIEW */}
-      <div className="w-full h-14 bg-[#c7c1c1] md:w-4/5 md:mx-auto lg:hidden">
-        <div className='flex'>
+      <div className="h-14 w-full bg-[#c7c1c1] md:mx-auto md:w-4/5 lg:hidden">
+        <div className="flex">
           {/* dropdown menu */}
           <div className="dropdown">
             <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
@@ -98,7 +87,7 @@ const Dashboard = () => {
             </div>
             <ul
               tabIndex={0}
-              className="menu menu-sm dropdown-content rounded-box z-[1] mt-3 w-52 p-2 shadow bg-[#c7c1c1]"
+              className="menu dropdown-content menu-sm z-[1] mt-3 w-52 rounded-box bg-[#c7c1c1] p-2 shadow"
             >
               {user === "admin" ? (
                 // Admin dashboard
@@ -106,7 +95,8 @@ const Dashboard = () => {
                   <NavLink
                     to="/dashboard/interface"
                     className={({ isActive }) =>
-                      `p-2 text-lg font-bold flex items-center gap-2 ${isActive ? "bg-black text-white rounded-2xl" : ""
+                      `flex items-center gap-2 p-2 text-lg font-bold ${
+                        isActive ? "rounded-2xl bg-black text-white" : ""
                       }`
                     }
                   >
@@ -116,7 +106,8 @@ const Dashboard = () => {
                   <NavLink
                     to="/dashboard/analytics"
                     className={({ isActive }) =>
-                      `p-2 text-lg font-bold flex items-center gap-2 ${isActive ? "bg-black text-white rounded-2xl" : ""
+                      `flex items-center gap-2 p-2 text-lg font-bold ${
+                        isActive ? "rounded-2xl bg-black text-white" : ""
                       }`
                     }
                   >
@@ -126,7 +117,8 @@ const Dashboard = () => {
                   <NavLink
                     to="/dashboard/profile"
                     className={({ isActive }) =>
-                      `p-2 text-lg font-bold flex items-center gap-2 ${isActive ? "bg-black text-white rounded-2xl" : ""
+                      `flex items-center gap-2 p-2 text-lg font-bold ${
+                        isActive ? "rounded-2xl bg-black text-white" : ""
                       }`
                     }
                   >
@@ -136,7 +128,8 @@ const Dashboard = () => {
                   <NavLink
                     to="/dashboard/teacherRequiests"
                     className={({ isActive }) =>
-                      `p-2 text-lg font-bold flex items-center gap-2 ${isActive ? "bg-black text-white rounded-2xl" : ""
+                      `flex items-center gap-2 p-2 text-lg font-bold ${
+                        isActive ? "rounded-2xl bg-black text-white" : ""
                       }`
                     }
                   >
@@ -147,7 +140,8 @@ const Dashboard = () => {
                   <NavLink
                     to="/dashboard/courseReview"
                     className={({ isActive }) =>
-                      `p-2 text-lg font-bold flex items-center gap-2 ${isActive ? "bg-black text-white rounded-2xl" : ""
+                      `flex items-center gap-2 p-2 text-lg font-bold ${
+                        isActive ? "rounded-2xl bg-black text-white" : ""
                       }`
                     }
                   >
@@ -158,7 +152,8 @@ const Dashboard = () => {
                   <NavLink
                     to="/dashboard/users"
                     className={({ isActive }) =>
-                      `p-2 text-lg font-bold flex items-center gap-2 ${isActive ? "bg-black text-white rounded-2xl" : ""
+                      `flex items-center gap-2 p-2 text-lg font-bold ${
+                        isActive ? "rounded-2xl bg-black text-white" : ""
                       }`
                     }
                   >
@@ -172,7 +167,8 @@ const Dashboard = () => {
                   <NavLink
                     to="/dashboard/interface"
                     className={({ isActive }) =>
-                      `p-2 text-lg font-bold flex items-center gap-2 ${isActive ? "bg-black text-white rounded-2xl" : ""
+                      `flex items-center gap-2 p-2 text-lg font-bold ${
+                        isActive ? "rounded-2xl bg-black text-white" : ""
                       }`
                     }
                   >
@@ -182,7 +178,8 @@ const Dashboard = () => {
                   <NavLink
                     to="/dashboard/profile"
                     className={({ isActive }) =>
-                      `p-2 text-lg font-bold flex items-center gap-2 ${isActive ? "bg-black text-white rounded-2xl" : ""
+                      `flex items-center gap-2 p-2 text-lg font-bold ${
+                        isActive ? "rounded-2xl bg-black text-white" : ""
                       }`
                     }
                   >
@@ -192,7 +189,8 @@ const Dashboard = () => {
                   <NavLink
                     to="/dashboard/addCourse"
                     className={({ isActive }) =>
-                      `p-2 text-lg font-bold flex items-center gap-2 ${isActive ? "bg-black text-white rounded-2xl" : ""
+                      `flex items-center gap-2 p-2 text-lg font-bold ${
+                        isActive ? "rounded-2xl bg-black text-white" : ""
                       }`
                     }
                   >
@@ -202,7 +200,8 @@ const Dashboard = () => {
                   <NavLink
                     to="/dashboard/teacherCourses"
                     className={({ isActive }) =>
-                      `p-2 text-lg font-bold flex items-center gap-2 ${isActive ? "bg-black text-white rounded-2xl" : ""
+                      `flex items-center gap-2 p-2 text-lg font-bold ${
+                        isActive ? "rounded-2xl bg-black text-white" : ""
                       }`
                     }
                   >
@@ -212,7 +211,8 @@ const Dashboard = () => {
                   <NavLink
                     to="/dashboard/ReviewEnrollments"
                     className={({ isActive }) =>
-                      `p-2 text-lg font-bold flex items-center gap-2 ${isActive ? "bg-black text-white rounded-2xl" : ""
+                      `flex items-center gap-2 p-2 text-lg font-bold ${
+                        isActive ? "rounded-2xl bg-black text-white" : ""
                       }`
                     }
                   >
@@ -226,7 +226,8 @@ const Dashboard = () => {
                   <NavLink
                     to="/dashboard/interface"
                     className={({ isActive }) =>
-                      `p-2 text-lg font-bold flex items-center gap-2 ${isActive ? "bg-black text-white rounded-2xl" : ""
+                      `flex items-center gap-2 p-2 text-lg font-bold ${
+                        isActive ? "rounded-2xl bg-black text-white" : ""
                       }`
                     }
                   >
@@ -236,7 +237,8 @@ const Dashboard = () => {
                   <NavLink
                     to="/dashboard/profile"
                     className={({ isActive }) =>
-                      `p-2 text-lg font-bold flex items-center gap-2 ${isActive ? "bg-black text-white rounded-2xl" : ""
+                      `flex items-center gap-2 p-2 text-lg font-bold ${
+                        isActive ? "rounded-2xl bg-black text-white" : ""
                       }`
                     }
                   >
@@ -246,7 +248,8 @@ const Dashboard = () => {
                   <NavLink
                     to="/dashboard/studentEnrollments"
                     className={({ isActive }) =>
-                      `p-2 text-lg font-bold flex items-center gap-2 ${isActive ? "bg-black text-white rounded-2xl" : ""
+                      `flex items-center gap-2 p-2 text-lg font-bold ${
+                        isActive ? "rounded-2xl bg-black text-white" : ""
                       }`
                     }
                   >
@@ -256,7 +259,8 @@ const Dashboard = () => {
                   <NavLink
                     to="/dashboard/studentPaymentHistory"
                     className={({ isActive }) =>
-                      `p-2 text-lg font-bold flex items-center gap-2 ${isActive ? "bg-black text-white rounded-2xl" : ""
+                      `flex items-center gap-2 p-2 text-lg font-bold ${
+                        isActive ? "rounded-2xl bg-black text-white" : ""
                       }`
                     }
                   >
@@ -268,21 +272,21 @@ const Dashboard = () => {
 
               <NavLink
                 to="/"
-                className="p-2 text-lg font-bold flex items-center gap-2"
+                className="flex items-center gap-2 p-2 text-lg font-bold"
               >
                 <FaHome />
                 Home
               </NavLink>
               <NavLink
                 to="/courses"
-                className="p-2 text-lg font-bold flex items-center gap-2"
+                className="flex items-center gap-2 p-2 text-lg font-bold"
               >
                 <SiCoursera />
                 All Courses
               </NavLink>
               <button
                 onClick={handleLogout}
-                className="p-2 text-lg font-bold flex items-center gap-2"
+                className="flex items-center gap-2 p-2 text-lg font-bold"
               >
                 <CgLogOut />
                 Logout
@@ -290,7 +294,7 @@ const Dashboard = () => {
             </ul>
           </div>
           {/* logo */}
-          <h1 className="text-xl font-bold flex justify-start items-center">
+          <h1 className="flex items-center justify-start text-xl font-bold">
             <FaGripfire />
             Learnio
           </h1>
@@ -298,10 +302,10 @@ const Dashboard = () => {
       </div>
 
       {/* THIS IS FOR LARGE SCREEN VIEW */}
-      <div className="hidden lg:block w-64 min-h-screen bg-[#c7c1c1]">
+      <div className="hidden min-h-screen w-64 bg-[#c7c1c1] lg:block">
         <div>
           {/* logo section  */}
-          <h1 className="text-4xl font-bold flex justify-center items-center mt-5">
+          <h1 className="mt-5 flex items-center justify-center text-4xl font-bold">
             <FaGripfire />
             Learnio
           </h1>
@@ -314,7 +318,8 @@ const Dashboard = () => {
                   <NavLink
                     to="/dashboard/interface"
                     className={({ isActive }) =>
-                      `p-2 text-lg font-bold flex items-center gap-2 ${isActive ? "bg-black text-white rounded-2xl" : ""
+                      `flex items-center gap-2 p-2 text-lg font-bold ${
+                        isActive ? "rounded-2xl bg-black text-white" : ""
                       }`
                     }
                   >
@@ -324,7 +329,8 @@ const Dashboard = () => {
                   <NavLink
                     to="/dashboard/analytics"
                     className={({ isActive }) =>
-                      `p-2 text-lg font-bold flex items-center gap-2 ${isActive ? "bg-black text-white rounded-2xl" : ""
+                      `flex items-center gap-2 p-2 text-lg font-bold ${
+                        isActive ? "rounded-2xl bg-black text-white" : ""
                       }`
                     }
                   >
@@ -334,7 +340,8 @@ const Dashboard = () => {
                   <NavLink
                     to="/dashboard/profile"
                     className={({ isActive }) =>
-                      `p-2 text-lg font-bold flex items-center gap-2 ${isActive ? "bg-black text-white rounded-2xl" : ""
+                      `flex items-center gap-2 p-2 text-lg font-bold ${
+                        isActive ? "rounded-2xl bg-black text-white" : ""
                       }`
                     }
                   >
@@ -344,7 +351,8 @@ const Dashboard = () => {
                   <NavLink
                     to="/dashboard/teacherRequiests"
                     className={({ isActive }) =>
-                      `p-2 text-lg font-bold flex items-center gap-2 ${isActive ? "bg-black text-white rounded-2xl" : ""
+                      `flex items-center gap-2 p-2 text-lg font-bold ${
+                        isActive ? "rounded-2xl bg-black text-white" : ""
                       }`
                     }
                   >
@@ -355,7 +363,8 @@ const Dashboard = () => {
                   <NavLink
                     to="/dashboard/courseReview"
                     className={({ isActive }) =>
-                      `p-2 text-lg font-bold flex items-center gap-2 ${isActive ? "bg-black text-white rounded-2xl" : ""
+                      `flex items-center gap-2 p-2 text-lg font-bold ${
+                        isActive ? "rounded-2xl bg-black text-white" : ""
                       }`
                     }
                   >
@@ -366,7 +375,8 @@ const Dashboard = () => {
                   <NavLink
                     to="/dashboard/users"
                     className={({ isActive }) =>
-                      `p-2 text-lg font-bold flex items-center gap-2 ${isActive ? "bg-black text-white rounded-2xl" : ""
+                      `flex items-center gap-2 p-2 text-lg font-bold ${
+                        isActive ? "rounded-2xl bg-black text-white" : ""
                       }`
                     }
                   >
@@ -380,7 +390,8 @@ const Dashboard = () => {
                   <NavLink
                     to="/dashboard/interface"
                     className={({ isActive }) =>
-                      `p-2 text-lg font-bold flex items-center gap-2 ${isActive ? "bg-black text-white rounded-2xl" : ""
+                      `flex items-center gap-2 p-2 text-lg font-bold ${
+                        isActive ? "rounded-2xl bg-black text-white" : ""
                       }`
                     }
                   >
@@ -390,7 +401,8 @@ const Dashboard = () => {
                   <NavLink
                     to="/dashboard/profile"
                     className={({ isActive }) =>
-                      `p-2 text-lg font-bold flex items-center gap-2 ${isActive ? "bg-black text-white rounded-2xl" : ""
+                      `flex items-center gap-2 p-2 text-lg font-bold ${
+                        isActive ? "rounded-2xl bg-black text-white" : ""
                       }`
                     }
                   >
@@ -400,7 +412,8 @@ const Dashboard = () => {
                   <NavLink
                     to="/dashboard/addCourse"
                     className={({ isActive }) =>
-                      `p-2 text-lg font-bold flex items-center gap-2 ${isActive ? "bg-black text-white rounded-2xl" : ""
+                      `flex items-center gap-2 p-2 text-lg font-bold ${
+                        isActive ? "rounded-2xl bg-black text-white" : ""
                       }`
                     }
                   >
@@ -410,7 +423,8 @@ const Dashboard = () => {
                   <NavLink
                     to="/dashboard/teacherCourses"
                     className={({ isActive }) =>
-                      `p-2 text-lg font-bold flex items-center gap-2 ${isActive ? "bg-black text-white rounded-2xl" : ""
+                      `flex items-center gap-2 p-2 text-lg font-bold ${
+                        isActive ? "rounded-2xl bg-black text-white" : ""
                       }`
                     }
                   >
@@ -420,7 +434,8 @@ const Dashboard = () => {
                   <NavLink
                     to="/dashboard/ReviewEnrollments"
                     className={({ isActive }) =>
-                      `p-2 text-lg font-bold flex items-center gap-2 ${isActive ? "bg-black text-white rounded-2xl" : ""
+                      `flex items-center gap-2 p-2 text-lg font-bold ${
+                        isActive ? "rounded-2xl bg-black text-white" : ""
                       }`
                     }
                   >
@@ -434,7 +449,8 @@ const Dashboard = () => {
                   <NavLink
                     to="/dashboard/interface"
                     className={({ isActive }) =>
-                      `p-2 text-lg font-bold flex items-center gap-2 ${isActive ? "bg-black text-white rounded-2xl" : ""
+                      `flex items-center gap-2 p-2 text-lg font-bold ${
+                        isActive ? "rounded-2xl bg-black text-white" : ""
                       }`
                     }
                   >
@@ -444,7 +460,8 @@ const Dashboard = () => {
                   <NavLink
                     to="/dashboard/profile"
                     className={({ isActive }) =>
-                      `p-2 text-lg font-bold flex items-center gap-2 ${isActive ? "bg-black text-white rounded-2xl" : ""
+                      `flex items-center gap-2 p-2 text-lg font-bold ${
+                        isActive ? "rounded-2xl bg-black text-white" : ""
                       }`
                     }
                   >
@@ -454,7 +471,8 @@ const Dashboard = () => {
                   <NavLink
                     to="/dashboard/studentEnrollments"
                     className={({ isActive }) =>
-                      `p-2 text-lg font-bold flex items-center gap-2 ${isActive ? "bg-black text-white rounded-2xl" : ""
+                      `flex items-center gap-2 p-2 text-lg font-bold ${
+                        isActive ? "rounded-2xl bg-black text-white" : ""
                       }`
                     }
                   >
@@ -464,7 +482,8 @@ const Dashboard = () => {
                   <NavLink
                     to="/dashboard/studentPaymentHistory"
                     className={({ isActive }) =>
-                      `p-2 text-lg font-bold flex items-center gap-2 ${isActive ? "bg-black text-white rounded-2xl" : ""
+                      `flex items-center gap-2 p-2 text-lg font-bold ${
+                        isActive ? "rounded-2xl bg-black text-white" : ""
                       }`
                     }
                   >
@@ -478,14 +497,14 @@ const Dashboard = () => {
 
               <NavLink
                 to="/"
-                className="p-2 text-lg font-bold flex items-center gap-2"
+                className="flex items-center gap-2 p-2 text-lg font-bold"
               >
                 <FaHome />
                 Home
               </NavLink>
               <NavLink
                 to="/courses"
-                className="p-2 text-lg font-bold flex items-center gap-2"
+                className="flex items-center gap-2 p-2 text-lg font-bold"
               >
                 <SiCoursera />
                 All Courses
@@ -493,7 +512,7 @@ const Dashboard = () => {
 
               <button
                 onClick={handleLogout}
-                className="p-2 text-lg font-bold flex items-center gap-2"
+                className="flex items-center gap-2 p-2 text-lg font-bold"
               >
                 <CgLogOut />
                 Logout

@@ -38,7 +38,7 @@ const Navbar = () => {
     navigate(-1);
 
     // showing an alert Logout SuccessFull
-    toast.error("Logout Successfully");
+    toast.success("Logout Successfully");
   };
 
   return (
