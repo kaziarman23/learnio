@@ -33,7 +33,8 @@ const About = () => {
           </div>
           <div className="w-full space-y-5 xl:w-1/2 xl:space-y-7 xl:p-5">
             <h1 className="text-left text-xl font-bold xl:text-3xl">
-              With Learnio, you’ll gain:
+              With Learnio, you’ll <span className="text-orange-500">gain</span>
+              :
             </h1>
             <ul className="xl:list-disc">
               <li>
