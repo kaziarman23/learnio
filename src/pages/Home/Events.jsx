@@ -21,16 +21,15 @@ const Events = () => {
   ];
 
   return (
-    <div className="w-full h-full">
-      <div className="w-full h-full mx-auto p-4 lg:w-11/12 xl:w-4/5">
+    <div className="min-h-screen w-full">
+      <div className="mx-auto h-full w-full py-10 lg:w-11/12 xl:w-4/5">
         {/* benner part */}
-        <div className="flex justify-center items-center mb-5 flex-col gap-5 lg:justify-between lg:flex-row">
-          <div className="w-11/12 h-full space-y-5 lg:w-1/2">
-            {/* <h1 className="text-2xl font-bold"> */}
-            <h1 className="text-base mt-5 font-bold sm:text-2xl">
+        <div className="flex flex-col items-center justify-center gap-5 lg:flex-row lg:justify-between">
+          <div className="h-full w-11/12 space-y-5 lg:w-1/2">
+            <h1 className="mt-5 text-base font-bold sm:text-2xl">
               Learnio Events – Learn, Connect, and Grow!
             </h1>
-            <p className='text-sm md:text-lg'>
+            <p className="text-sm md:text-lg">
               At Learnio, we believe that education is more than just courses.
               It&#39;s about building a vibrant learning community. That&#39;s
               why we organize exclusive <strong>Learnio Events</strong> to bring
@@ -41,21 +40,32 @@ const Events = () => {
               empower.
             </p>
           </div>
-          <div className="w-11/12 h-full lg:w-1/2">
+          <div className="h-full w-11/12 lg:w-1/2">
             <img
               src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fit.unm.edu%2Fassets%2Fimg%2Fstudents-image.jpg&f=1&nofb=1&ipt=af3adddbb6e8724356270c135404070190c008cf5a626f008749c5125d5fe06c&ipo=images"
               alt="Event page"
-              className="w-full h-full object-cover rounded-2xl rounded-bl-[200px]"
+              className="h-full w-full rounded-2xl rounded-bl-[200px] object-cover"
             />
           </div>
         </div>
         {/* event cards */}
-        <div className="flex justify-center items-center flex-col gap-5 mb-5  p-5 md:flex-row">
+        <div className="mt-16 px-5 flex flex-col items-center justify-center gap-5 md:flex-row">
           {eventCards.map((item, index) => (
-            <div key={index} className="w-72 h-72 border-2 rounded-xl p-5 sm:w-96 sm:h-80 md:h-72 lg:h-80">
-              <img src={item.img} alt={item.title} className='w-full h-1/2 object-cover rounded-2xl' />
-              <h4 className='text-left font-bold my-2 text-sm sm:text-2xl md:text-xs lg:text-base'>{item.title}</h4>
-              <p className='h-24 text-sm sm:text-lg md:text-sm md:h-20  lg:h-24 lg:text-base'>{item.decription}</p>
+            <div
+              key={index}
+              className="h-72 w-72 rounded-xl border-2 border-white bg-white p-5 shadow-md transition-shadow duration-300 hover:shadow-2xl sm:h-80 sm:w-96 md:h-72 lg:h-80"
+            >
+              <img
+                src={item.img}
+                alt={item.title}
+                className="h-1/2 w-full rounded-2xl object-cover"
+              />
+              <h4 className="my-2 text-left text-sm font-bold sm:text-2xl md:text-xs lg:text-base">
+                {item.title}
+              </h4>
+              <p className="h-24 text-sm sm:text-lg md:h-20 md:text-sm lg:h-24 lg:text-base">
+                {item.decription}
+              </p>
             </div>
           ))}
         </div>

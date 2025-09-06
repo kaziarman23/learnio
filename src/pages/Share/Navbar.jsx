@@ -42,7 +42,7 @@ const Navbar = () => {
   };
 
   return (
-    <div className="h-full w-full border-b-2">
+    <div className="h-full w-full">
       <div className="navbar mx-auto h-full w-full justify-between sm:w-4/5">
         <div className="justify-start">
           <div className="dropdown">
