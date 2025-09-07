@@ -27,7 +27,8 @@ const Events = () => {
         <div className="flex flex-col items-center justify-center gap-5 lg:flex-row lg:justify-between">
           <div className="h-full w-11/12 space-y-5 lg:w-1/2">
             <h1 className="mt-5 text-base font-bold sm:text-2xl">
-              Learnio Events – Learn, Connect, and Grow!
+              <span className="text-orange-500">Learnio Events</span> – Learn,
+              Connect, and Grow!
             </h1>
             <p className="text-sm md:text-lg">
               At Learnio, we believe that education is more than just courses.
@@ -49,7 +50,7 @@ const Events = () => {
           </div>
         </div>
         {/* event cards */}
-        <div className="mt-16 px-5 flex flex-col items-center justify-center gap-5 md:flex-row">
+        <div className="mt-16 flex flex-col items-center justify-center gap-5 px-5 md:flex-row">
           {eventCards.map((item, index) => (
             <div
               key={index}

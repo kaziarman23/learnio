@@ -8,7 +8,7 @@ const Footer = () => {
   return (
     <footer className="bg-gray-300 text-black">
       {/* Top Section */}
-      <div className="mx-auto max-w-7xl px-6 py-12 lg:flex lg:justify-between lg:px-12">
+      <div className="mx-auto max-w-6xl px-6 py-12 lg:flex lg:justify-between lg:px-12">
         {/* Brand / About */}
         <div className="mb-10 max-w-sm lg:mb-0">
           <h2 className="text-2xl font-bold text-black">Learnio</h2>

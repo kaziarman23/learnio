@@ -1,11 +1,11 @@
 import Hero from "./Hero";
 import About from "./About";
 import Events from "./Events";
-// import Stats from "./Stats";
+import Explore from "./Explore";
 import HighLights from "./HighLights";
-import Reviews from "./Reviews";
+import Contact from "./Contact";
 import Overview from "./Overview";
-import Service from './Service';
+import Service from "./Service";
 
 const Home = () => {
   return (
@@ -14,10 +14,10 @@ const Home = () => {
       <About />
       <Overview />
       <Service />
+      <Explore />
       <Events />
-      {/* <Stats /> */}
       <HighLights />
-      <Reviews />
+      <Contact />
     </div>
   );
 };

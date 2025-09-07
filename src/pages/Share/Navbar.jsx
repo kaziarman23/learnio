@@ -15,16 +15,22 @@ const Navbar = () => {
   const navlinks = (
     <>
       <NavLink to="/">
-        <li className="p-2 font-bold text-black">Home</li>
+        <li className="p-2 font-bold text-black hover:text-orange-500">Home</li>
       </NavLink>
       <NavLink to="/courses">
-        <li className="p-2 font-bold text-black">All Courses</li>
+        <li className="p-2 font-bold text-black hover:text-orange-500">
+          All Courses
+        </li>
       </NavLink>
       <NavLink to="/teacher">
-        <li className="p-2 font-bold text-black">Teacher Enrollment</li>
+        <li className="p-2 font-bold text-black hover:text-orange-500">
+          Teacher Enrollment
+        </li>
       </NavLink>
       <NavLink to="/dashboard/interface">
-        <li className="p-2 font-bold text-black">Dashboard</li>
+        <li className="p-2 font-bold text-black hover:text-orange-500">
+          Dashboard
+        </li>
       </NavLink>
     </>
   );
@@ -69,10 +75,10 @@ const Navbar = () => {
               {navlinks}
             </ul>
           </div>
-          {/* <h1 className="text-2xl font-bold flex items-center"> */}
+
           <h1 className="flex items-center text-sm font-bold sm:text-lg xl:text-2xl">
             <FaGripfire />
-            Learnio
+            <span className="text-black hover:text-orange-500">Learnio</span>
           </h1>
         </div>
         <div className="flex sm:gap-2">
