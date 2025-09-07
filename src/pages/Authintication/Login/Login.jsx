@@ -62,84 +62,122 @@ const Login = () => {
         reset();
       });
   };
-  return (
-    <div className="h-full w-full">
-      <div className="mx-auto mb-10 h-full w-4/5 lg:w-1/2 xl:mb-0 xl:min-h-screen xl:w-2/6">
-        <form
-          onSubmit={handleSubmit(onSubmit)}
-          className="rounded-2xl bg-white"
-        >
-          <div className="mt-10 space-y-3 rounded-md border-2 p-4">
-            <h1 className="text-center text-2xl font-bold">Please Login</h1>
 
-            {/* All inputs */}
-            <div className="space-y-3">
-              <div className="flex w-full flex-col gap-2">
-                <label htmlFor="email">Email</label>
+  return (
+    <div className="flex min-h-screen w-full items-center justify-center p-4 font-sans sm:p-6 lg:p-8">
+      <div className="container mx-auto max-w-6xl">
+        <div className="overflow-hidden rounded-2xl bg-white shadow-lg md:grid md:grid-cols-2">
+          {/* Left side: Illustration and Welcome Text */}
+          <div className="hidden flex-col items-center justify-center bg-gray-50/50 p-6 text-center sm:p-8 md:flex lg:p-12">
+            <h2 className="mt-6 text-2xl font-bold text-gray-800 sm:mt-8 sm:text-3xl lg:text-4xl">
+              Welcome Back!
+            </h2>
+            <p className="mt-3 text-sm text-gray-600 sm:mt-4 sm:text-base lg:text-lg">
+              Login to access your courses and continue your learning journey.
+            </p>
+          </div>
+
+          {/* Right side: Login Form */}
+          <div className="p-6 sm:p-8 lg:p-12">
+            <h1 className="text-2xl font-bold text-gray-800 sm:text-3xl lg:text-4xl">
+              Login to Your Account
+            </h1>
+
+            <form
+              onSubmit={handleSubmit(onSubmit)}
+              className="mt-6 space-y-5 sm:mt-8 sm:space-y-6"
+            >
+              {/* Email Input */}
+              <div>
+                <label
+                  htmlFor="email"
+                  className="mb-2 block text-sm font-medium text-gray-700 sm:text-base"
+                >
+                  Email Address
+                </label>
                 <input
                   id="email"
                   type="email"
                   placeholder="Email"
-                  className="w-full rounded-md border border-black/50 p-2"
-                  {...register("userEmail", {
-                    required: "Email is required",
-                  })}
+                  className="w-full rounded-lg border border-black px-4 py-3 text-sm transition duration-300 sm:text-base"
+                  {...register("userEmail", { required: "Email is required" })}
                 />
                 {errors.userEmail && (
-                  <p className="text-red-500">{errors.userEmail.message}</p>
+                  <p className="mt-2 text-sm text-red-600">
+                    {errors.userEmail.message}
+                  </p>
                 )}
               </div>
-              <div className="flex w-full flex-col gap-2">
-                <label htmlFor="Password">Password</label>
+
+              {/* Password Input */}
+              <div>
+                <label
+                  htmlFor="Password"
+                  className="mb-2 block text-sm font-medium text-gray-700 sm:text-base"
+                >
+                  Password
+                </label>
                 <input
                   id="Password"
                   type="password"
-                  placeholder="Password"
-                  className="w-full rounded-md border border-black/50 p-2"
+                  placeholder="••••••••"
+                  className="w-full rounded-lg border border-black px-4 py-3 text-sm transition duration-300 sm:text-base"
                   {...register("userPassword", {
                     required: "Password is required",
-                    maxLength: {
-                      value: 30,
-                      message: "Password must be lower then 30 characters",
-                    },
                     minLength: {
                       value: 7,
-                      message: "Password must be grater then 7 characters",
-                    },
-                    pattern: {
-                      value:
-                        /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/,
-                      message:
-                        "Password must contain at least one uppercase letter, one lowercase letter, one number, and one special character.",
+                      message: "Password must be at least 7 characters",
                     },
                   })}
-                />{" "}
+                />
                 {errors.userPassword && (
-                  <p className="text-red-500">{errors.userPassword.message}</p>
+                  <p className="mt-2 text-sm text-red-600">
+                    {errors.userPassword.message}
+                  </p>
                 )}
               </div>
-            </div>
 
-            <button className="btn w-full hover:bg-black hover:text-white">
-              Login
-            </button>
-            <p>
-              Did&#39;t have an Account ? Please
-              <Link to="/register">
-                <span className="ml-2 font-bold text-blue-500 hover:underline">
-                  Register
-                </span>
-              </Link>
-            </p>
+              {/* Login Button */}
+              <button
+                type="submit"
+                className="w-full transform rounded-lg bg-orange-500 px-6 py-3 text-sm font-bold text-white shadow-lg transition-all duration-300 hover:scale-105 hover:bg-orange-600 sm:px-8 sm:text-base"
+              >
+                Login
+              </button>
 
-            <button
-              onClick={handleGoogleRegister}
-              className="btn w-full hover:bg-black hover:text-white"
-            >
-              <FaGoogle /> Login with Google
-            </button>
+              {/* Divider */}
+              <div className="relative flex items-center justify-center">
+                <div className="absolute inset-0 flex items-center">
+                  <div className="w-full border-t border-gray-300"></div>
+                </div>
+                <div className="relative bg-white px-2 text-xs text-gray-500 sm:px-4 sm:text-sm">
+                  Or continue with
+                </div>
+              </div>
+
+              {/* Google Login Button */}
+              <button
+                onClick={handleGoogleRegister}
+                type="button"
+                className="flex w-full transform items-center justify-center gap-2 rounded-lg border border-gray-300 bg-orange-500 px-6 py-3 text-sm font-semibold text-white shadow-sm transition-all duration-300 hover:scale-105 hover:bg-orange-600 sm:px-8 sm:text-base"
+              >
+                <FaGoogle className="text-lg sm:text-xl" />
+                Login with Google
+              </button>
+
+              {/* Link to Register */}
+              <p className="text-center text-xs text-gray-600 sm:text-sm">
+                Don&#39;t have an account?{" "}
+                <Link
+                  to="/register"
+                  className="font-medium text-orange-600 hover:text-orange-500 hover:underline"
+                >
+                  Register here
+                </Link>
+              </p>
+            </form>
           </div>
-        </form>
+        </div>
       </div>
     </div>
   );
