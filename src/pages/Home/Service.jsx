@@ -24,7 +24,7 @@ const Service = () => {
 
   return (
     <section className="min-h-screen w-full">
-      <div className="mx-auto w-4/5">
+      <div className="mx-auto w-11/12 xl:w-4/5">
         {/* Section Header */}
         <div className="mb-12 text-center">
           <h3 className="text-sm font-bold uppercase tracking-wider text-orange-500">
@@ -42,7 +42,7 @@ const Service = () => {
               key={index}
               className="flex transform flex-col items-start rounded-lg border-b-4 border-orange-500 bg-white p-8 shadow-lg transition-transform duration-300 hover:-translate-y-2"
             >
-              <h3 className="mb-4 flex items-center gap-2 text-2xl font-bold text-gray-800">
+              <h3 className="mb-4 flex items-center gap-2 text-sm xl:text-2xl font-bold text-gray-800">
                 {service.icon} {service.title}
               </h3>
               <p className="mb-6 flex-grow leading-relaxed text-gray-600">

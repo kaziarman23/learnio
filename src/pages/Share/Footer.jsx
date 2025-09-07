@@ -12,7 +12,7 @@ const Footer = () => {
         {/* Brand / About */}
         <div className="mb-10 max-w-sm lg:mb-0">
           <h2 className="text-2xl font-bold text-black">Learnio</h2>
-          <p className="mt-4 text-sm leading-6 text-black">
+          <p className="mt-4 text-sm leading-6 text-black lg:pr-4 xl:pr-0">
             Unlock your potential with expert-led courses. Learn new skills,
             boost your career, and pursue your passions — all in one place.
           </p>

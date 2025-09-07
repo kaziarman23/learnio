@@ -1,4 +1,3 @@
-/* eslint-disable react/prop-types */
 import React from "react";
 import { motion, useScroll, useTransform, useSpring } from "framer-motion";
 
@@ -88,8 +87,7 @@ export const HeroParallax = ({ products }) => {
 export const Header = () => {
   return (
     <div className="relative left-0 top-0 mx-auto w-full max-w-7xl px-4">
-      {/* <h1 className="text-2xl md:text-5xl font-bold text-black"> */}
-      <h1 className="text-xl font-bold text-black md:text-5xl">
+      <h1 className="text-xl font-bold text-black md:text-center lg:text-left xl:text-4xl">
         Insights and Updates <br /> Stay Informed with{" "}
         <span className="text-orange-500">Learnio.</span>
       </h1>

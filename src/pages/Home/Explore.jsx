@@ -2,27 +2,27 @@ import { FaCheck } from "react-icons/fa";
 
 const Explore = () => {
   return (
-    <div className="flex min-h-screen items-center justify-center p-4 font-sans">
-      <div className="container mx-auto max-w-6xl">
+    <div className="flex min-h-screen w-full items-center justify-center">
+      <div className="mx-auto w-11/12 xl:w-4/5">
         <div className="items-center overflow-hidden rounded-2xl md:grid md:grid-cols-2 md:gap-8">
-          <div className="p-8 md:p-12">
+          <div className="sm:p-12">
             <img
               src="https://i.pinimg.com/736x/14/76/0a/14760a486f3c746fc6e1148f6d06db68.jpg"
               alt="Explore Section image"
               className="rounded-xl"
             />
           </div>
-          <div className="p-8 md:p-0 md:pr-12">
-            <h1 className="text-4xl font-bold leading-tight text-gray-800 md:text-5xl xl:text-3xl">
+          <div className="p-2 md:p-0 md:pr-12">
+            <h1 className="text-xl font-bold leading-tight text-gray-800 md:text-xl xl:text-3xl">
               Unlock your potential with our{" "}
               <span className="text-orange-500">online courses.</span>
             </h1>
-            <p className="mt-6 text-lg text-gray-600">
+            <p className="mt-6 text-lg text-gray-600 md:mt-2 md:text-sm">
               Our platform provides you with the best resources to learn new
               skills, advance your career, and pursue your passions. Get started
               today and join a community of learners.
             </p>
-            <ul className="mt-6 space-y-3 text-gray-600">
+            <ul className="mt-6 space-y-3 text-gray-600 md:text-sm">
               <li className="flex items-center gap-3">
                 <FaCheck className="h-6 w-6 text-orange-500" />
                 <span>

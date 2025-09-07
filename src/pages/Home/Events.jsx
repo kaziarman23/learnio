@@ -23,7 +23,7 @@ const Events = () => {
   return (
     <div className="min-h-screen w-full">
       <div className="mx-auto h-full w-full py-10 lg:w-11/12 xl:w-4/5">
-        {/* benner part */}
+        {/* Benner part */}
         <div className="flex flex-col items-center justify-center gap-5 lg:flex-row lg:justify-between">
           <div className="h-full w-11/12 space-y-5 lg:w-1/2">
             <h1 className="mt-5 text-base font-bold sm:text-2xl">

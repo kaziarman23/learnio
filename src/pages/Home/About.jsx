@@ -15,7 +15,7 @@ const About = () => {
 
   return (
     <div className="min-h-screen w-full">
-      <div className="mx-auto w-11/12 space-y-5 xl:w-4/5">
+      <div className="mx-auto w-11/12 space-y-5 xl:w-4/5 py-10">
         <div className="flex flex-col items-start justify-between gap-4 xl:flex-row xl:gap-0">
           <div className="w-full space-y-5 text-left xl:w-1/2 xl:p-5">
             <h1 className="flex items-center text-3xl xl:text-5xl">

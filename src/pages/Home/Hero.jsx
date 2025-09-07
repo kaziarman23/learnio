@@ -1,12 +1,12 @@
 const Hero = () => {
   return (
-    <section className="flex h-screen w-full items-center justify-center">
+    <section className="flex min-h-screen w-full items-center justify-center">
       <div className="flex h-full w-full items-center justify-center lg:w-4/5">
         <div className="flex h-full w-full flex-col items-center justify-between gap-5 lg:flex-row">
           {/* Text content */}
-          <div className="flex h-full w-11/12 flex-col items-start justify-center space-y-5 sm:w-4/5 lg:w-1/2">
+          <div className="flex h-full w-11/12 flex-col items-center justify-center space-y-5 sm:w-4/5 lg:w-1/2 lg:items-start">
             <h1 className="text-center text-base font-bold sm:text-lg lg:text-xl xl:text-left xl:text-4xl">
-              Unlock Your <span className='text-orange-500'>Potential</span>
+              Unlock Your <span className="text-orange-500">Potential</span>
               <br /> One Skill at a Time
             </h1>
             <p className="text-left text-sm sm:text-base lg:text-lg">

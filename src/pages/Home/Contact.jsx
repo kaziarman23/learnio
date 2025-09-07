@@ -8,7 +8,7 @@ function Contact() {
         {/* Contact Form Section */}
         <div className="mt-12 overflow-hidden rounded-2xl bg-white shadow-lg md:mt-20 md:grid md:grid-cols-2">
           {/* Left side info */}
-          <div className="p-6 sm:p-8 md:p-12">
+          <div className="p-6 sm:p-8 xl:p-12">
             <h2 className="text-3xl font-bold text-gray-800 sm:text-4xl lg:text-5xl">
               Let&#39;s Connect!
             </h2>
