@@ -52,7 +52,7 @@ const TeacherEnrollment = () => {
       <div className="flex h-screen w-full items-center justify-center bg-white">
         <div className="flex h-60 w-4/5 flex-col items-center justify-center gap-5 rounded-xl bg-[#c7c1c1] lg:w-1/2">
           <h1 className="text-center text-sm font-bold sm:text-base lg:text-lg">
-            Please wait Admin is reviewing you'r information.
+            Please wait Admin is reviewing you&#39;r information.
           </h1>
           <Link to="/dashboard/interface">
             <button
@@ -148,7 +148,7 @@ const TeacherEnrollment = () => {
         <h1 className="p-5 text-center text-2xl font-bold">Became A Teacher</h1>
         {/* form card */}
         <form onSubmit={handleSubmit(onSubmit)}>
-          <div className="mb-5 space-y-5 rounded-lg border border-black p-4 xl:mb-0">
+          <div className="mb-5 space-y-5 rounded-xl bg-white p-4 shadow-lg xl:mb-0">
             {/* image input */}
             <div className="flex h-1/2 w-full items-center justify-center">
               <img
@@ -229,7 +229,7 @@ const TeacherEnrollment = () => {
             <div>
               <button
                 type="submit"
-                className="btn w-full border-2 hover:bg-blue-500 hover:text-white"
+                className="btn w-full border-2 hover:bg-orange-500 hover:text-white"
               >
                 Submit For Review
               </button>

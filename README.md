@@ -9,6 +9,21 @@ The goal of this project is to create a learning management platform where users
 
 ---
 
+## 🔐 **Access**
+> Use the following **admin** credentials to explore the platform from the admin perspective.
+
+- **Admin Email:** `admin@gmail.com`
+- **Admin Password:** `123456789aB@`
+
+### How to test the admin flow
+1. Sign in using the credentials above via **Login**.
+2. Navigate to **Admin → Manage Users (/admin/users)** to review & approve teacher requests.
+3. Open **Admin → All Enrollments (/admin/enrollments)** to view platform-wide transactions and statuses.
+
+> **Important:** These credentials are for demo purposes only. Do **not** reuse them in production. Consider rotating or disabling this account before any public launch.
+
+---
+
 ## 💡 **Key Features**
 - **Authentication System:** Login and registration with email/password and Google, protected routes, and account recovery.
 - **Course Enrollment:** Students can apply for paid courses and complete payments via Stripe.
@@ -121,5 +136,55 @@ The goal of this project is to create a learning management platform where users
 - RTK Query caching and invalidation.
 - Minimal re-renders via memoization.
 
+---
+
+## 🧭 **Quick Links**
+- **Login:** `/login`
+- **Admin Users:** `/admin/users`
+- **Admin Enrollments:** `/admin/enrollments`
+- **Teacher Courses:** `/teacher/courses`
+- **Course Catalog:** `/courses`
 
 ---
+
+## 🛡️ **Security Note for Demo Environments**
+- Restrict demo accounts with least-privilege access and clear audit logs.
+- Tag demo data so it’s easy to purge.
+- Never commit real secrets. Keep Stripe keys, JWT secrets, and Firebase config in `.env`.
+
+---
+
+## ⚙️ **Environment Variables (example)**
+Create a `.env` file (or platform-specific environment panel) and add the required variables:
+
+```bash
+VITE_API_URL=
+VITE_FIREBASE_API_KEY=
+VITE_FIREBASE_AUTH_DOMAIN=
+VITE_FIREBASE_PROJECT_ID=
+VITE_FIREBASE_STORAGE_BUCKET=
+VITE_FIREBASE_MESSAGING_SENDER_ID=
+VITE_FIREBASE_APP_ID=
+VITE_STRIPE_PUBLISHABLE_KEY=
+```
+
+(Keep server-side secrets—JWT secret, Stripe secret key, Mongo URI—on the backend only.)
+
+---
+
+## ✅ **Smoke Test Checklist (Admin)**
+- [ ] Can log in as admin without errors
+- [ ] Can open `/admin/users` and see pending teacher requests
+- [ ] Can approve/reject teacher requests and see status update
+- [ ] Can open `/admin/enrollments` and see transactions list
+- [ ] Protected routes redirect unauthenticated users
+
+---
+
+## 📣 **Contributing**
+PRs welcome! Please open an issue for feature requests, bugs, or documentation improvements.
+
+---
+
+## 📄 **License**
+MIT (or your preferred license)
