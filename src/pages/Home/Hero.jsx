@@ -217,56 +217,24 @@ const Hero = () => {
             </div>
           </div>
 
-          {/* Image Content */}
-          <div className="w-full lg:w-1/2 max-w-lg lg:max-w-none">
-            
-            {/* Main Image/Video */}
-            <div className="relative mb-4 sm:mb-6">
-              {isVideoPlaying ? (
-                <video
-                  ref={videoRef}
-                  className="w-full h-48 sm:h-64 md:h-72 lg:h-80 xl:h-96 rounded-2xl object-cover shadow-xl"
-                  controls
-                  onEnded={() => setIsVideoPlaying(false)}
-                >
-                  <source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4" />
-                  Your browser does not support the video tag.
-                </video>
-              ) : (
-                <div className="relative">
-                  <img
-                    ref={mainImageRef}
-                    src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fwww.nea.org%2Fsites%2Fdefault%2Ffiles%2Flegacy%2F2020%2F04%2Fnew_teacher.jpeg&f=1&nofb=1&ipt=0d3e1ea6475419185788530ea3dcd8f08f858cae50f60cddb849f525d99f1678&ipo=images"
-                    alt="Learning Experience"
-                    className="w-full h-48 sm:h-64 md:h-72 lg:h-80 xl:h-96 rounded-2xl object-cover shadow-xl"
-                  />
-                  
-                  {/* Play Button Overlay */}
-                  <div className="absolute inset-0 flex items-center justify-center">
-                    <button
-                      onClick={toggleVideo}
-                      className="p-4 sm:p-6 bg-white/90 backdrop-blur-sm rounded-full shadow-lg hover:scale-110 hover:bg-white transition-all duration-300"
-                    >
-                      <HiPlay className="text-2xl sm:text-3xl lg:text-4xl text-orange-500" />
-                    </button>
-                  </div>
-                </div>
-              )}
-            </div>
-
-            {/* Small Images Grid */}
-            <div className="grid grid-cols-2 gap-3 sm:gap-4">
+          {/* Image content */}
+          <div className="flex w-full flex-col items-center justify-center gap-3 lg:w-1/2">
+            <img
+              src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fcdn-wordpress-info.futurelearn.com%2Fwp-content%2Fuploads%2F1_Different-teaching-methods-and-how-to-use-them.jpg.optimal.jpg&f=1&nofb=1&ipt=aaf72edc8449a687dfcf43497651d184629206356801bae86847610daa864717"
+              alt="hero section image 1"
+              className="h-1/2 w-5/6 rounded-2xl border-2 border-black object-cover"
+            />
+            <div className="flex items-center justify-center gap-5">
               <img
-                ref={el => smallImagesRef.current[0] = el}
                 src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fwallpapercave.com%2Fwp%2Fwp11867996.jpg&f=1&nofb=1&ipt=88948f2abbd08c06768368415796843c6e37a78140d7abcd1b372619795b611a&ipo=images"
-                alt="Coding Environment"
-                className="w-full h-24 sm:h-32 md:h-36 lg:h-40 xl:h-44 rounded-xl object-cover shadow-lg hover:shadow-xl transition-shadow duration-300"
+                alt="hero section image 2"
+                className="h-full w-1/3 rounded-2xl border-2 border-black object-cover"
               />
               <img
                 ref={el => smallImagesRef.current[1] = el}
                 src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fcdn8.dissolve.com%2Fp%2FD2115_185_452%2FD2115_185_452_1200.jpg&f=1&nofb=1&ipt=73d53eec312d3e51f3e82ca61990be4c06a468a570a208ba15e0ccd1c580ebc7&ipo=images"
-                alt="Study Environment"
-                className="w-full h-24 sm:h-32 md:h-36 lg:h-40 xl:h-44 rounded-xl object-cover shadow-lg hover:shadow-xl transition-shadow duration-300"
+                alt="hero section image 3"
+                className="h-full w-1/3 rounded-2xl border-2 border-black object-cover"
               />
             </div>
           </div>
