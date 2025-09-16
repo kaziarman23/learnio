@@ -1,36 +1,234 @@
+import { useEffect, useRef, useMemo, useState } from "react";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useForm } from "react-hook-form";
 import { useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router";
 import { usePostTeachersMutation } from "../../Redux/features/api/teachersApi";
 import Loading from "../../components/Loading/Loading";
 import { useGetUsersQuery } from "../../Redux/features/api/usersApi";
-import { useMemo } from "react";
+import { FaGraduationCap, FaUser, FaEnvelope, FaBriefcase, FaTags, FaCheckCircle, FaClock, FaTimes } from "react-icons/fa";
+import { HiSparkles, HiAcademicCap, HiShieldCheck, HiLightningBolt } from "react-icons/hi";
+import { BsStars, BsCheckCircle, BsArrowRight, BsArrowLeft } from "react-icons/bs";
+import { MdVerified, MdPending, MdError, MdDashboard } from "react-icons/md";
 import toast from "react-hot-toast";
+
+// Register GSAP plugin
+gsap.registerPlugin(ScrollTrigger);
 
 const TeacherEnrollment = () => {
   // States
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const navigate = useNavigate();
 
   // Form hook
-  const { handleSubmit, register } = useForm();
+  const { 
+    handleSubmit, 
+    register, 
+    formState: { errors },
+    watch 
+  } = useForm();
 
   // Redux state
   const { userName, userPhoto, userEmail } = useSelector(
     (state) => state.userSlice,
   );
 
-  // Rtk query hooks
-  const { data, refetch } = useGetUsersQuery();
-  const [postTeachers, { isLoading, isError, error }] =
-    usePostTeachersMutation();
+  // Refs for animations
+  const enrollmentRef = useRef(null);
+  const headerRef = useRef(null);
+  const badgeRef = useRef(null);
+  const titleRef = useRef(null);
+  const formRef = useRef(null);
+  const imageRef = useRef(null);
+  const inputsRef = useRef([]);
+  const buttonRef = useRef(null);
+  const benefitsRef = useRef([]);
+  const particlesRef = useRef([]);
 
-  // Fetching the user data
+  // RTK query hooks
+  const { data, refetch } = useGetUsersQuery();
+  const [postTeachers, { isLoading, isError, error }] = usePostTeachersMutation();
+
+  // Watch form values
+  const watchedValues = watch();
+
+  // Fetching user data
   const user = useMemo(
     () => data?.find((user) => user.userEmail === userEmail),
     [data, userEmail],
   );
   const isTeacher = user?.isTeacher;
   const userRole = user?.userRole;
+
+  // Teacher benefits
+  const teacherBenefits = [
+    {
+      icon: <HiAcademicCap className="text-2xl" />,
+      title: "Share Knowledge",
+      description: "Inspire and educate the next generation",
+      color: "from-blue-500 to-cyan-500"
+    },
+    {
+      icon: <HiLightningBolt className="text-2xl" />,
+      title: "Flexible Schedule",
+      description: "Teach at your own pace and time",
+      color: "from-green-500 to-emerald-500"
+    },
+    {
+      icon: <HiShieldCheck className="text-2xl" />,
+      title: "Verified Profile",
+      description: "Get verified instructor badge",
+      color: "from-purple-500 to-pink-500"
+    },
+    {
+      icon: <HiSparkles className="text-2xl" />,
+      title: "Earn Revenue",
+      description: "Monetize your expertise",
+      color: "from-orange-500 to-red-500"
+    }
+  ];
+
+  // Create particle system
+  useEffect(() => {
+    const createParticles = () => {
+      for (let i = 0; i < 12; i++) {
+        const particle = document.createElement('div');
+        particle.className = 'absolute w-1 h-1 bg-orange-400 rounded-full opacity-20 pointer-events-none';
+        particle.style.left = Math.random() * 100 + '%';
+        particle.style.top = Math.random() * 100 + '%';
+        enrollmentRef.current?.appendChild(particle);
+        particlesRef.current.push(particle);
+
+        gsap.to(particle, {
+          y: -150,
+          opacity: 0,
+          duration: Math.random() * 5 + 4,
+          repeat: -1,
+          ease: "power2.out",
+          delay: Math.random() * 4
+        });
+      }
+    };
+
+    if (enrollmentRef.current && !isTeacher) {
+      createParticles();
+    }
+
+    return () => {
+      particlesRef.current.forEach(particle => particle.remove());
+      particlesRef.current = [];
+    };
+  }, [isTeacher]);
+
+  // Main animations for enrollment form
+  useEffect(() => {
+    if (isTeacher !== null && isTeacher !== undefined) return;
+
+    const tl = gsap.timeline({ delay: 0.3 });
+
+    // Badge animation
+    tl.fromTo(badgeRef.current,
+      { 
+        scale: 0, 
+        opacity: 0,
+        rotation: -180
+      },
+      { 
+        scale: 1, 
+        opacity: 1,
+        rotation: 0,
+        duration: 0.8,
+        ease: "elastic.out(1, 0.8)"
+      }
+    );
+
+    // Title animation
+    tl.fromTo(titleRef.current,
+      { 
+        y: 60, 
+        opacity: 0,
+        scale: 0.9
+      },
+      { 
+        y: 0, 
+        opacity: 1,
+        scale: 1,
+        duration: 1,
+        ease: "power3.out"
+      },
+      "-=0.5"
+    );
+
+    // Benefits animation
+    tl.fromTo(benefitsRef.current,
+      { 
+        y: 40, 
+        opacity: 0,
+        scale: 0.9
+      },
+      { 
+        y: 0, 
+        opacity: 1,
+        scale: 1,
+        duration: 0.6,
+        stagger: 0.15,
+        ease: "back.out(1.7)"
+      },
+      "-=0.3"
+    );
+
+    // Form animation
+    tl.fromTo(formRef.current,
+      { 
+        y: 80, 
+        opacity: 0,
+        scale: 0.95
+      },
+      { 
+        y: 0, 
+        opacity: 1,
+        scale: 1,
+        duration: 1,
+        ease: "power3.out"
+      },
+      "-=0.5"
+    );
+
+    // Image animation
+    tl.fromTo(imageRef.current,
+      { 
+        scale: 0.5, 
+        opacity: 0,
+        rotation: -45
+      },
+      { 
+        scale: 1, 
+        opacity: 1,
+        rotation: 0,
+        duration: 1,
+        ease: "elastic.out(1, 0.8)"
+      },
+      "-=0.7"
+    );
+
+    // Input fields stagger
+    tl.fromTo(inputsRef.current,
+      { 
+        y: 30, 
+        opacity: 0 
+      },
+      { 
+        y: 0, 
+        opacity: 1, 
+        duration: 0.6,
+        stagger: 0.1,
+        ease: "power2.out"
+      },
+      "-=0.5"
+    );
+
+  }, [isTeacher]);
 
   // Handle Loading
   if (isLoading) {
@@ -39,203 +237,529 @@ const TeacherEnrollment = () => {
 
   // Handle Error
   if (isError) {
-    console.log("Error: ", error.error);
-    console.log("Error in teacher enrollment component");
-
-    // showing an alert
-    toast.error(error);
+    console.log("Error:", error.error);
+    toast.error(error.message || "An error occurred");
   }
 
-  // Handle teacher state
-  if (isTeacher === "pandding") {
+  // Status Components
+  const StatusCard = ({ icon, title, message, buttonText, status, onButtonClick }) => {
+    const statusRef = useRef(null);
+    const statusIconRef = useRef(null);
+    const statusButtonRef = useRef(null);
+
+    useEffect(() => {
+      const tl = gsap.timeline({ delay: 0.3 });
+
+      tl.fromTo(statusRef.current,
+        { 
+          scale: 0.8, 
+          opacity: 0,
+          y: 50
+        },
+        { 
+          scale: 1, 
+          opacity: 1,
+          y: 0,
+          duration: 1,
+          ease: "elastic.out(1, 0.8)"
+        }
+      );
+
+      tl.fromTo(statusIconRef.current,
+        { 
+          scale: 0, 
+          rotation: -180
+        },
+        { 
+          scale: 1, 
+          rotation: 0,
+          duration: 0.8,
+          ease: "elastic.out(1, 0.8)"
+        },
+        "-=0.5"
+      );
+
+      tl.fromTo(statusButtonRef.current,
+        { 
+          y: 30, 
+          opacity: 0 
+        },
+        { 
+          y: 0, 
+          opacity: 1, 
+          duration: 0.8,
+          ease: "power2.out"
+        },
+        "-=0.3"
+      );
+    }, []);
+
+    const getStatusColor = () => {
+      switch (status) {
+        case 'pending': return 'from-yellow-500 to-orange-500';
+        case 'approved': return 'from-green-500 to-emerald-500';
+        case 'rejected': return 'from-red-500 to-pink-500';
+        default: return 'from-blue-500 to-cyan-500';
+      }
+    };
+
     return (
-      <div className="flex h-screen w-full items-center justify-center bg-white">
-        <div className="flex h-60 w-4/5 flex-col items-center justify-center gap-5 rounded-xl bg-[#c7c1c1] lg:w-1/2">
-          <h1 className="text-center text-sm font-bold sm:text-base lg:text-lg">
-            Please wait Admin is reviewing you&#39;r information.
-          </h1>
-          <Link to="/dashboard/interface">
-            <button
-              type="button"
-              className="btn hover:border-none hover:bg-blue-500 hover:text-white"
+      <div className="relative flex h-screen w-full items-center justify-center bg-gradient-to-br from-white via-gray-50/30 to-orange-50/20 overflow-hidden">
+        {/* Background Elements */}
+        <div className="absolute inset-0 overflow-hidden">
+          <div className="absolute top-1/4 left-1/4 w-72 h-72 sm:w-96 sm:h-96 bg-gradient-to-r from-orange-400/5 to-pink-400/5 rounded-full blur-3xl animate-pulse" />
+          <div className="absolute bottom-1/4 right-1/4 w-72 h-72 sm:w-96 sm:h-96 bg-gradient-to-r from-blue-400/5 to-purple-400/5 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '2s' }} />
+        </div>
+
+        <div 
+          ref={statusRef}
+          className="relative z-10 w-11/12 max-w-lg mx-auto"
+        >
+          <div className="bg-white/90 backdrop-blur-sm rounded-3xl shadow-2xl border border-white/20 p-8 sm:p-12 text-center">
+            {/* Status Icon */}
+            <div 
+              ref={statusIconRef}
+              className={`inline-flex p-6 bg-gradient-to-r ${getStatusColor()} rounded-full mb-6 shadow-2xl`}
             >
-              Interface
+              <div className="text-white text-4xl">
+                {icon}
+              </div>
+            </div>
+
+            {/* Title */}
+            <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-800 mb-4">
+              {title}
+            </h1>
+
+            {/* Message */}
+            <p className="text-gray-600 text-base sm:text-lg leading-relaxed mb-8">
+              {message}
+            </p>
+
+            {/* Action Button */}
+            <button
+              ref={statusButtonRef}
+              onClick={onButtonClick}
+              className="group w-full sm:w-auto px-8 py-4 bg-gradient-to-r from-orange-500 to-orange-600 text-white rounded-2xl font-bold text-base sm:text-lg shadow-2xl hover:scale-105 transition-all duration-300"
+            >
+              <span className="flex items-center justify-center gap-3">
+                <MdDashboard className="text-xl" />
+                {buttonText}
+                <BsArrowRight className="text-lg group-hover:translate-x-1 transition-transform duration-300" />
+              </span>
             </button>
-          </Link>
+          </div>
         </div>
       </div>
+    );
+  };
+
+  // Handle teacher states
+  if (isTeacher === "pending" || isTeacher === "pandding") {
+    return (
+      <StatusCard
+        icon={<MdPending />}
+        title="Application Under Review"
+        message="Thank you for your interest in becoming a teacher! Our admin team is currently reviewing your application. We'll notify you once the review is complete."
+        buttonText="Go to Dashboard"
+        status="pending"
+        onButtonClick={() => navigate("/dashboard/interface")}
+      />
     );
   } else if (isTeacher === true) {
     return (
-      <div className="flex h-screen w-full items-center justify-center bg-white">
-        <div className="flex h-60 w-4/5 flex-col items-center justify-center gap-5 rounded-xl bg-[#c7c1c1] lg:w-1/2">
-          <h1 className="text-center text-sm font-bold sm:text-base lg:text-lg">
-            Congratulation. You are Now a Teacher in Learnio !
-          </h1>
-          <Link to="/dashboard/interface">
-            <button
-              type="button"
-              className="btn hover:border-none hover:bg-blue-500 hover:text-white"
-            >
-              Interface
-            </button>
-          </Link>
-        </div>
-      </div>
+      <StatusCard
+        icon={<FaCheckCircle />}
+        title="Welcome, Teacher!"
+        message="🎉 Congratulations! You are now a verified teacher on Learnio. Start creating courses and sharing your knowledge with students worldwide."
+        buttonText="Go to Dashboard"
+        status="approved"
+        onButtonClick={() => navigate("/dashboard/interface")}
+      />
     );
   } else if (isTeacher === false) {
     return (
-      <div className="flex h-screen w-full items-center justify-center bg-white">
-        <div className="flex h-60 w-4/5 flex-col items-center justify-center gap-5 rounded-xl bg-[#c7c1c1] lg:w-1/2">
-          <h1 className="text-center text-xs font-bold sm:text-base lg:text-lg">
-            You are Rejected as a Teacher. <br /> Plase Try again with more
-            strong skills.
-          </h1>
-          <Link to="/dashboard/interface">
-            <button
-              type="button"
-              className="btn hover:border-none hover:bg-blue-500 hover:text-white"
-            >
-              Interface
-            </button>
-          </Link>
-        </div>
-      </div>
+      <StatusCard
+        icon={<FaTimes />}
+        title="Application Not Approved"
+        message="Unfortunately, your teacher application was not approved this time. Please review our requirements and consider reapplying with additional qualifications."
+        buttonText="Go to Dashboard"
+        status="rejected"
+        onButtonClick={() => navigate("/dashboard/interface")}
+      />
     );
   }
 
   // Handle form submit
-  const onSubmit = (data) => {
-    // checking for the admin
+  const onSubmit = async (data) => {
     if (userRole === "admin" || userRole === "teacher") {
-      // showing an alert
-      toast.error("You are not a student");
+      toast.error("Admins and teachers cannot apply to become teachers.");
       return;
     }
 
-    // saving the teacherInfo
+    setIsSubmitting(true);
+
+    // Animate button
+    gsap.to(buttonRef.current, {
+      scale: 0.95,
+      duration: 0.1,
+      ease: "power2.out",
+      yoyo: true,
+      repeat: 1
+    });
+
     const teacherInfo = {
       ...data,
       userPhoto: userPhoto,
-      isTeacher: "pandding",
+      isTeacher: "pending",
     };
-    postTeachers(teacherInfo)
-      .unwrap()
-      .then(() => {
-        // refetching the user data
-        refetch();
 
-        // navigating the user
-        navigate(-1);
-
-        // showing an alert
-        toast.success("Requiest send successfully");
-      })
-      .catch((error) => {
-        console.log(
-          "Error while sending teacher data in the database: ",
-          error,
-        );
-
-        // showing an alert
-        toast.error(error);
+    try {
+      await postTeachers(teacherInfo).unwrap();
+      await refetch();
+      
+      // Success animation
+      gsap.to(formRef.current, {
+        scale: 1.02,
+        duration: 0.3,
+        ease: "power2.out",
+        yoyo: true,
+        repeat: 1
       });
+
+      navigate(-1);
+      toast.success("🎉 Application submitted successfully! We'll review it soon.");
+    } catch (error) {
+      console.log("Error submitting teacher application:", error);
+      toast.error(error.message || "Failed to submit application. Please try again.");
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
+  // Input focus animations
+  const handleInputFocus = (element, isFocusing) => {
+    if (isFocusing) {
+      gsap.to(element, {
+        scale: 1.02,
+        borderColor: "#f97316",
+        duration: 0.3,
+        ease: "power2.out"
+      });
+    } else {
+      gsap.to(element, {
+        scale: 1,
+        borderColor: "#000000",
+        duration: 0.3,
+        ease: "power2.out"
+      });
+    }
+  };
+
+  // Benefit hover effects
+  const handleBenefitHover = (element, isEntering) => {
+    if (isEntering) {
+      gsap.to(element, {
+        y: -5,
+        scale: 1.02,
+        duration: 0.3,
+        ease: "power2.out"
+      });
+    } else {
+      gsap.to(element, {
+        y: 0,
+        scale: 1,
+        duration: 0.3,
+        ease: "power2.out"
+      });
+    }
   };
 
   return (
-    <div className="h-full w-full">
-      <div className="mx-auto h-full w-11/12 xl:h-screen xl:w-1/2">
-        <h1 className="p-5 text-center text-2xl font-bold">Became A Teacher</h1>
-        {/* form card */}
-        <form onSubmit={handleSubmit(onSubmit)}>
-          <div className="mb-5 space-y-5 rounded-xl bg-white p-4 shadow-lg xl:mb-0">
-            {/* image input */}
-            <div className="flex h-1/2 w-full items-center justify-center">
-              <img
-                src={userPhoto}
-                alt="user profile picture"
-                className="h-40 w-40 rounded-full"
-              />
-            </div>
+    <div 
+      ref={enrollmentRef}
+      className="relative min-h-screen w-full bg-gradient-to-br from-white via-gray-50/30 to-orange-50/20 overflow-hidden"
+    >
+      {/* Background Elements */}
+      <div className="absolute inset-0 overflow-hidden">
+        <div className="absolute top-1/4 left-1/4 w-72 h-72 sm:w-96 sm:h-96 bg-gradient-to-r from-orange-400/5 to-pink-400/5 rounded-full blur-3xl animate-pulse" />
+        <div className="absolute bottom-1/4 right-1/4 w-72 h-72 sm:w-96 sm:h-96 bg-gradient-to-r from-blue-400/5 to-purple-400/5 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '2s' }} />
+      </div>
 
-            {/* name & email input */}
-            <div className="flex flex-col items-center justify-center gap-4 md:flex-row md:justify-between">
-              <div className="flex w-full flex-col items-start justify-center gap-2 md:w-1/2">
-                <label htmlFor="name" className="font-bold">
-                  Name
-                </label>
-                <input
-                  id="name"
-                  type="text"
-                  readOnly
-                  className="w-full rounded-md border-2 border-black p-2"
-                  defaultValue={userName}
-                  {...register("userName")}
-                />
-              </div>
+      <div className="relative z-10 mx-auto h-full w-11/12 max-w-6xl py-12 sm:py-16 lg:py-20">
+        
+        {/* Enhanced Header */}
+        <div ref={headerRef} className="text-center mb-12 sm:mb-16 lg:mb-20">
+          {/* Badge */}
+          <div 
+            ref={badgeRef}
+            className="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-orange-100 to-pink-100 rounded-full border border-orange-200 mb-6 sm:mb-8"
+          >
+            <BsStars className="text-orange-500 text-sm" />
+            <span className="text-orange-600 text-sm font-bold uppercase tracking-wider">
+              Teacher Application
+            </span>
+          </div>
 
-              <div className="flex w-full flex-col items-start justify-center gap-2 md:w-1/2">
-                <label htmlFor="email" className="font-bold">
-                  Email
-                </label>
-                <input
-                  id="email"
-                  type="email"
-                  readOnly
-                  className="w-full rounded-md border-2 border-black p-2"
-                  defaultValue={userEmail}
-                  {...register("userEmail")}
-                />
-              </div>
-            </div>
+          {/* Title */}
+          <h1 
+            ref={titleRef}
+            className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold text-gray-800 mb-6 sm:mb-8"
+          >
+            Become a{" "}
+            <span className="bg-gradient-to-r from-orange-500 via-pink-500 to-purple-500 bg-clip-text text-transparent">
+              Teacher
+            </span>
+          </h1>
 
-            {/* experience & category input */}
-            <div className="flex flex-col items-center justify-center gap-4 md:flex-row md:justify-between">
-              <div className="flex w-full flex-col items-start justify-center gap-2 md:w-1/2">
-                <label htmlFor="experience" className="font-bold">
-                  Experience
-                </label>
-                <select
-                  name="experience"
-                  id="experience"
-                  className="w-full border-2 border-black p-2"
-                  {...register("experience")}
-                >
-                  <option value="beginner">Beginner</option>
-                  <option value="midLevel">Mid-Level</option>
-                  <option value="experienced">Experienced</option>
-                </select>
-              </div>
+          {/* Description */}
+          <p className="text-base sm:text-lg lg:text-xl text-gray-600 leading-relaxed max-w-3xl mx-auto mb-8 sm:mb-12">
+            🎓 Join our community of expert instructors and share your knowledge with students worldwide. Create courses, inspire learners, and build your teaching career.
+          </p>
 
-              <div className="flex w-full flex-col items-start justify-center gap-2 md:w-1/2">
-                <label htmlFor="category" className="font-bold">
-                  category
-                </label>
-                <select
-                  name="category"
-                  id="category"
-                  className="w-full border-2 border-black p-2"
-                  {...register("category")}
-                >
-                  <option value="web-development">Web Development</option>
-                  <option value="app-development">App Development</option>
-                  <option value="game-development">Game Development</option>
-                  <option value="uiux-designer">Ui-Ux Designer</option>
-                  <option value="mechine-learning">Mechine Learning</option>
-                </select>
-              </div>
-            </div>
-            {/* Submit Button */}
-            <div>
-              <button
-                type="submit"
-                className="btn w-full border-2 hover:bg-orange-500 hover:text-white"
+          {/* Benefits Grid */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
+            {teacherBenefits.map((benefit, index) => (
+              <div
+                key={benefit.title}
+                ref={el => benefitsRef.current[index] = el}
+                className="group p-4 sm:p-6 bg-white/80 backdrop-blur-sm rounded-2xl shadow-lg border border-white/20 hover:shadow-xl transition-all duration-300 cursor-pointer"
+                onMouseEnter={(e) => handleBenefitHover(e.currentTarget, true)}
+                onMouseLeave={(e) => handleBenefitHover(e.currentTarget, false)}
               >
-                Submit For Review
+                <div className={`inline-flex p-3 bg-gradient-to-r ${benefit.color} rounded-xl shadow-lg mb-4 group-hover:scale-110 transition-transform duration-300`}>
+                  <div className="text-white">
+                    {benefit.icon}
+                  </div>
+                </div>
+                <h3 className="font-bold text-gray-800 text-sm sm:text-base mb-2">
+                  {benefit.title}
+                </h3>
+                <p className="text-gray-600 text-xs sm:text-sm">
+                  {benefit.description}
+                </p>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Enhanced Form */}
+        <div 
+          ref={formRef}
+          className="max-w-4xl mx-auto bg-white/90 backdrop-blur-sm rounded-3xl shadow-2xl border border-white/20 p-6 sm:p-8 lg:p-12"
+        >
+          <div className="text-center mb-8 sm:mb-12">
+            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-800 mb-4">
+              Teacher Application Form
+            </h2>
+            <p className="text-gray-600 text-sm sm:text-base">
+              Fill out the form below to apply for our teacher program
+            </p>
+          </div>
+
+          <form onSubmit={handleSubmit(onSubmit)} className="space-y-6 sm:space-y-8">
+            
+            {/* Profile Image */}
+            <div className="text-center">
+              <div className="inline-block relative">
+                <img
+                  ref={imageRef}
+                  src={userPhoto}
+                  alt="Profile"
+                  className="h-32 w-32 sm:h-40 sm:w-40 rounded-full border-4 border-white shadow-2xl"
+                />
+                <div className="absolute bottom-2 right-2 p-2 bg-gradient-to-r from-green-500 to-emerald-500 rounded-full">
+                  <MdVerified className="text-white text-lg" />
+                </div>
+              </div>
+            </div>
+
+            {/* Name & Email Row */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              {/* Name Input */}
+              <div ref={el => inputsRef.current[0] = el}>
+                <label htmlFor="name" className="block text-sm font-semibold text-gray-700 mb-2">
+                  Full Name
+                </label>
+                <div className="relative">
+                  <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                    <FaUser className="h-4 w-4 text-gray-400" />
+                  </div>
+                  <input
+                    id="name"
+                    type="text"
+                    readOnly
+                    className="w-full rounded-xl border-2 border-black pl-10 pr-4 py-3 text-sm sm:text-base bg-gray-50 cursor-not-allowed"
+                    defaultValue={userName}
+                    {...register("userName")}
+                  />
+                </div>
+              </div>
+
+              {/* Email Input */}
+              <div ref={el => inputsRef.current[1] = el}>
+                <label htmlFor="email" className="block text-sm font-semibold text-gray-700 mb-2">
+                  Email Address
+                </label>
+                <div className="relative">
+                  <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                    <FaEnvelope className="h-4 w-4 text-gray-400" />
+                  </div>
+                  <input
+                    id="email"
+                    type="email"
+                    readOnly
+                    className="w-full rounded-xl border-2 border-black pl-10 pr-4 py-3 text-sm sm:text-base bg-gray-50 cursor-not-allowed"
+                    defaultValue={userEmail}
+                    {...register("userEmail")}
+                  />
+                </div>
+              </div>
+            </div>
+
+            {/* Experience & Category Row */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              {/* Experience Input */}
+              <div ref={el => inputsRef.current[2] = el}>
+                <label htmlFor="experience" className="block text-sm font-semibold text-gray-700 mb-2">
+                  Teaching Experience *
+                </label>
+                <div className="relative">
+                  <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                    <FaBriefcase className="h-4 w-4 text-gray-400" />
+                  </div>
+                  <select
+                    name="experience"
+                    id="experience"
+                    className="w-full rounded-xl border-2 border-black pl-10 pr-4 py-3 text-sm sm:text-base transition-all duration-300 focus:border-orange-500 focus:outline-none"
+                    onFocus={(e) => handleInputFocus(e.currentTarget, true)}
+                    onBlur={(e) => handleInputFocus(e.currentTarget, false)}
+                    {...register("experience", { required: "Experience level is required" })}
+                  >
+                    <option value="">Select your experience level</option>
+                    <option value="beginner">Beginner (0-2 years)</option>
+                    <option value="midLevel">Mid-Level (2-5 years)</option>
+                    <option value="experienced">Experienced (5+ years)</option>
+                  </select>
+                </div>
+                {errors.experience && (
+                  <p className="mt-2 text-sm text-red-600 flex items-center gap-1">
+                    <span className="w-4 h-4 rounded-full bg-red-100 flex items-center justify-center text-xs">!</span>
+                    {errors.experience.message}
+                  </p>
+                )}
+              </div>
+
+              {/* Category Input */}
+              <div ref={el => inputsRef.current[3] = el}>
+                <label htmlFor="category" className="block text-sm font-semibold text-gray-700 mb-2">
+                  Expertise Category *
+                </label>
+                <div className="relative">
+                  <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                    <FaTags className="h-4 w-4 text-gray-400" />
+                  </div>
+                  <select
+                    name="category"
+                    id="category"
+                    className="w-full rounded-xl border-2 border-black pl-10 pr-4 py-3 text-sm sm:text-base transition-all duration-300 focus:border-orange-500 focus:outline-none"
+                    onFocus={(e) => handleInputFocus(e.currentTarget, true)}
+                    onBlur={(e) => handleInputFocus(e.currentTarget, false)}
+                    {...register("category", { required: "Category is required" })}
+                  >
+                    <option value="">Select your expertise</option>
+                    <option value="web-development">Web Development</option>
+                    <option value="app-development">App Development</option>
+                    <option value="game-development">Game Development</option>
+                    <option value="uiux-designer">UI/UX Design</option>
+                    <option value="machine-learning">Machine Learning</option>
+                  </select>
+                </div>
+                {errors.category && (
+                  <p className="mt-2 text-sm text-red-600 flex items-center gap-1">
+                    <span className="w-4 h-4 rounded-full bg-red-100 flex items-center justify-center text-xs">!</span>
+                    {errors.category.message}
+                  </p>
+                )}
+              </div>
+            </div>
+
+            {/* Form Preview */}
+            {(watchedValues.experience || watchedValues.category) && (
+              <div className="p-6 bg-orange-50 border border-orange-200 rounded-2xl">
+                <h3 className="text-lg font-bold text-orange-800 mb-4 flex items-center gap-2">
+                  <BsCheckCircle className="text-orange-500" />
+                  Application Preview
+                </h3>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm">
+                  {watchedValues.experience && (
+                    <div>
+                      <span className="font-semibold text-gray-700">Experience:</span>
+                      <span className="ml-2 text-gray-600 capitalize">{watchedValues.experience}</span>
+                    </div>
+                  )}
+                  {watchedValues.category && (
+                    <div>
+                      <span className="font-semibold text-gray-700">Category:</span>
+                      <span className="ml-2 text-gray-600 capitalize">{watchedValues.category.replace('-', ' ')}</span>
+                    </div>
+                  )}
+                </div>
+              </div>
+            )}
+
+            {/* Submit Button */}
+            <div className="flex flex-col sm:flex-row gap-4 pt-6">
+              <button
+                ref={buttonRef}
+                type="submit"
+                disabled={isSubmitting}
+                className={`group relative flex-1 transform rounded-2xl px-6 py-4 text-sm sm:text-base font-bold text-white shadow-2xl transition-all duration-300 focus:outline-none overflow-hidden ${
+                  isSubmitting 
+                    ? 'bg-gray-400 cursor-not-allowed' 
+                    : 'bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 hover:scale-105'
+                }`}
+              >
+                <div className="absolute inset-0 bg-gradient-to-r from-white/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                <span className="relative z-10 flex items-center justify-center gap-3">
+                  {isSubmitting ? (
+                    <>
+                      <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                      Submitting Application...
+                    </>
+                  ) : (
+                    <>
+                      <FaGraduationCap className="text-xl" />
+                      Submit for Review
+                      <BsArrowRight className="text-lg group-hover:translate-x-1 transition-transform duration-300" />
+                    </>
+                  )}
+                </span>
+              </button>
+
+              <button
+                type="button"
+                onClick={() => navigate(-1)}
+                className="group px-6 py-4 border-2 border-gray-300 text-gray-700 rounded-2xl font-bold text-sm sm:text-base hover:bg-gray-50 hover:border-gray-400 transition-all duration-300"
+              >
+                <span className="flex items-center justify-center gap-3">
+                  <BsArrowLeft className="text-lg group-hover:-translate-x-1 transition-transform duration-300" />
+                  Go Back
+                </span>
               </button>
             </div>
-          </div>
-        </form>
+
+            {/* Disclaimer */}
+            <div className="mt-8 p-4 bg-blue-50 border border-blue-200 rounded-xl text-center">
+              <div className="flex items-center justify-center gap-2 text-blue-600">
+                <HiShieldCheck className="text-lg" />
+                <span className="text-sm font-medium">
+                  Your application will be reviewed within 24-48 hours
+                </span>
+              </div>
+            </div>
+          </form>
+        </div>
       </div>
     </div>
   );
