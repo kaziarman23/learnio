@@ -38,23 +38,23 @@ const Dashboard = () => {
   // Redux state
   const { userEmail } = useSelector((state) => state.userSlice);
 
-  // Rtk query hooks
+  // Rtk query hooks - MUST be called unconditionally at the top level
   const { data, isLoading, isError, error } = useGetUsersQuery();
 
-  // Handle loading
+  // Handle loading - return early after hooks
   if (isLoading) {
     return <Loading />;
   }
 
-  // Handle error
+  // Handle error - return early after hooks
   if (isError) {
     console.log("Error When fetching user data: ", error.error);
     toast.error("Error When fetching user data");
     return null;
   }
 
-  // finding the data
-  const userInfo = data.find(
+  // finding the data - this is safe now since we return early for loading/error
+  const userInfo = data?.find(
     (user) => user.userEmail.toLowerCase() === userEmail.toLowerCase(),
   );
   const user = userInfo?.userRole;
