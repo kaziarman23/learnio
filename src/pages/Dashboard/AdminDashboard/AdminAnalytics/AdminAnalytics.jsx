@@ -77,7 +77,7 @@ const AdminAnalytics = () => {
             animateCounter(counter.element, counter.target);
           }
         });
-      }, [], ">-0.5"); // Starts this animation 0.5s before the previous one ends for a nice overlap
+      }, [], ">-0.5");
 
       // --- Modern hover animations for stat cards ---
       statCardRefs.current.forEach((card) => {
@@ -85,7 +85,7 @@ const AdminAnalytics = () => {
           card.addEventListener('mouseenter', () => {
             gsap.to(card, {
               y: -8,
-              boxShadow: "0px 20px 30px -10px rgba(0, 183, 255, 0.3)", // A subtle blue glow
+              boxShadow: "0px 20px 30px -10px rgba(71, 145, 255, 0.3)", // A subtle blue glow
               duration: 0.3,
               ease: "power2.out"
             });
@@ -94,7 +94,7 @@ const AdminAnalytics = () => {
           card.addEventListener('mouseleave', () => {
             gsap.to(card, {
               y: 0,
-              boxShadow: "0px 10px 15px -3px rgba(0, 0, 0, 0.1), 0px 4px 6px -2px rgba(0, 0, 0, 0.05)",
+              boxShadow: "0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1)",
               duration: 0.3,
               ease: "power2.out"
             });
@@ -126,37 +126,37 @@ const AdminAnalytics = () => {
       title: "Active Students",
       counterClass: "counter-students",
       Icon: FaUsers,
-      iconColor: "text-blue-400",
-      bgColor: "bg-blue-500/10",
+      iconColor: "text-blue-500",
+      bgColor: "bg-blue-100",
     },
     {
       title: "Instructors",
       counterClass: "counter-teachers",
       Icon: LiaChalkboardTeacherSolid,
-      iconColor: "text-green-400",
-      bgColor: "bg-green-500/10",
+      iconColor: "text-green-500",
+      bgColor: "bg-green-100",
     },
     {
       title: "Ongoing Courses",
       counterClass: "counter-courses",
       Icon: SiGoogleclassroom,
-      iconColor: "text-purple-400",
-      bgColor: "bg-purple-500/10",
+      iconColor: "text-purple-500",
+      bgColor: "bg-purple-100",
     },
   ];
 
   return (
     <div
       ref={containerRef}
-      className="w-full min-h-screen bg-slate-900 text-white p-4 sm:p-6 lg:p-8 opacity-0"
+      className="w-full min-h-screen bg-slate-50 text-slate-800 p-4 sm:p-6 lg:p-8 opacity-0"
     >
       <div className="max-w-7xl mx-auto my-10 flex flex-col gap-12">
         {/* --- Header Section --- */}
         <div ref={titleRef} className="text-center">
-          <h1 className="text-4xl md:text-5xl font-bold tracking-tight bg-gradient-to-r from-cyan-400 to-purple-500 bg-clip-text text-transparent">
+          <h1 className="text-4xl md:text-5xl font-bold tracking-tight bg-gradient-to-r from-cyan-500 to-purple-600 bg-clip-text text-transparent">
             Admin Dashboard
           </h1>
-          <p className="mt-3 text-lg text-slate-400">
+          <p className="mt-3 text-lg text-slate-600">
             Real-time platform analytics and enrollment statistics.
           </p>
         </div>
@@ -167,15 +167,15 @@ const AdminAnalytics = () => {
             <div
               key={stat.title}
               ref={el => (statCardRefs.current[index] = el)}
-              className="bg-slate-800/50 backdrop-blur-sm border border-slate-700 rounded-2xl p-6 flex items-center gap-6 shadow-lg transform-gpu cursor-pointer"
+              className="bg-white/80 backdrop-blur-sm border border-slate-200 rounded-2xl p-6 flex items-center gap-6 shadow-md transform-gpu cursor-pointer"
               // Default shadow for the mouseleave animation to return to
-              style={{ boxShadow: "0px 10px 15px -3px rgba(0, 0, 0, 0.1), 0px 4px 6px -2px rgba(0, 0, 0, 0.05)" }}
+              style={{ boxShadow: "0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1)" }}
             >
               <div className={`p-4 rounded-full ${stat.bgColor}`}>
                 <stat.Icon className={`w-8 h-8 ${stat.iconColor} stat-icon`} />
               </div>
               <div>
-                <p className="text-slate-400 text-sm font-medium">{stat.title}</p>
+                <p className="text-slate-500 text-sm font-medium">{stat.title}</p>
                 <p className={`text-4xl font-bold tracking-tighter ${stat.counterClass}`}>
                   0
                 </p>
@@ -187,9 +187,9 @@ const AdminAnalytics = () => {
         {/* --- Pie Chart Section --- */}
         <div
           ref={pieChartSectionRef}
-          className="bg-slate-800/50 backdrop-blur-sm border border-slate-700 rounded-2xl p-6 md:p-8 shadow-lg"
+          className="bg-white/80 backdrop-blur-sm border border-slate-200 rounded-2xl p-6 md:p-8 shadow-lg"
         >
-          <h2 className="text-2xl font-bold text-center mb-6">
+          <h2 className="text-2xl font-bold text-center mb-6 text-slate-800">
             Course Distribution
           </h2>
           <div className="w-full h-80 md:h-96 flex justify-center items-center">
