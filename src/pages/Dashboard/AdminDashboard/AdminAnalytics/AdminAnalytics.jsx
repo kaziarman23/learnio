@@ -2,22 +2,21 @@ import { useEffect, useRef } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { FaUsers } from "react-icons/fa";
-import CoursePieChart from "../../../../components/CoursePieChart";
+import CoursePieChart from "../../../../components/CoursePieChart"; // Assuming this path is correct
 import { LiaChalkboardTeacherSolid } from "react-icons/lia";
 import { SiGoogleclassroom } from "react-icons/si";
 
-// Register ScrollTrigger plugin
+// Register GSAP plugins
 gsap.registerPlugin(ScrollTrigger);
 
 const AdminAnalytics = () => {
+  // Refs for DOM elements to be animated
   const containerRef = useRef(null);
   const titleRef = useRef(null);
-  const statsContainerRef = useRef(null);
   const statCardRefs = useRef([]);
   const pieChartSectionRef = useRef(null);
-  const pieChartTitleRef = useRef(null);
 
-  // Counter animation function
+  // Reusable counter animation function with number formatting
   const animateCounter = (element, target, duration = 2) => {
     gsap.fromTo(element, 
       { innerText: 0 },
@@ -27,108 +26,46 @@ const AdminAnalytics = () => {
         ease: "power2.out",
         snap: { innerText: 1 },
         onUpdate: function() {
-          element.innerText = Math.ceil(element.innerText);
+          element.innerText = Math.ceil(element.innerText).toLocaleString();
         }
       }
     );
   };
 
   useEffect(() => {
+    // GSAP context for safe animation scoping and cleanup
     const ctx = gsap.context(() => {
-      // Initial setup - hide elements
-      gsap.set([titleRef.current, statsContainerRef.current, pieChartSectionRef.current], {
-        opacity: 0,
-        y: 50
-      });
+      // --- Initial states for elements before they animate in ---
+      gsap.set([titleRef.current, pieChartSectionRef.current], { opacity: 0, y: 50 });
+      gsap.set(statCardRefs.current, { opacity: 0, y: 30, scale: 0.95 });
 
-      gsap.set(statCardRefs.current, {
-        opacity: 0,
-        scale: 0.8,
-        rotationY: 180
-      });
+      // --- Main animation timeline for sequencing ---
+      const tl = gsap.timeline({ delay: 0.3 });
 
-      // Create main timeline
-      const tl = gsap.timeline({ delay: 0.2 });
+      tl.to(containerRef.current, { opacity: 1, duration: 0.5 })
+        .to(titleRef.current, {
+          opacity: 1,
+          y: 0,
+          duration: 0.8,
+          ease: "back.out(1.7)"
+        }, "-=0.2")
+        .to(statCardRefs.current, {
+          opacity: 1,
+          y: 0,
+          scale: 1,
+          duration: 0.7,
+          stagger: 0.2,
+          ease: "back.out(1.7)"
+        }, "-=0.5")
+        .to(pieChartSectionRef.current, {
+          opacity: 1,
+          y: 0,
+          duration: 0.8,
+          ease: "power3.out"
+        }, "-=0.5");
 
-      // Animate main container entrance
-      tl.to(containerRef.current, {
-        opacity: 1,
-        duration: 0.5,
-        ease: "power2.out"
-      })
-      
-      // Animate title
-      .to(titleRef.current, {
-        opacity: 1,
-        y: 0,
-        duration: 0.8,
-        ease: "back.out(1.7)"
-      })
-      
-      // Animate stats container
-      .to(statsContainerRef.current, {
-        opacity: 1,
-        y: 0,
-        duration: 0.6,
-        ease: "power2.out"
-      }, "-=0.3")
-      
-      // Animate stat cards with stagger
-      .to(statCardRefs.current, {
-        opacity: 1,
-        scale: 1,
-        rotationY: 0,
-        duration: 0.8,
-        stagger: 0.2,
-        ease: "back.out(1.7)"
-      }, "-=0.3")
-      
-      // Animate pie chart section
-      .to(pieChartSectionRef.current, {
-        opacity: 1,
-        y: 0,
-        duration: 0.8,
-        ease: "power2.out"
-      }, "-=0.4")
-      
-      .to(pieChartTitleRef.current, {
-        opacity: 1,
-        y: 0,
-        duration: 0.6,
-        ease: "back.out(1.7)"
-      }, "-=0.5");
-
-      // Add hover animations for stat cards
-      statCardRefs.current.forEach((card) => {
-        if (card) {
-          gsap.set(card, {
-            transformOrigin: "center center"
-          });
-
-          card.addEventListener('mouseenter', () => {
-            gsap.to(card, {
-              scale: 1.05,
-              rotationY: 5,
-              z: 20,
-              duration: 0.3,
-              ease: "power2.out"
-            });
-          });
-
-          card.addEventListener('mouseleave', () => {
-            gsap.to(card, {
-              scale: 1,
-              rotationY: 0,
-              z: 0,
-              duration: 0.3,
-              ease: "power2.out"
-            });
-          });
-        }
-      });
-
-      // Animate counters after cards are visible
-      setTimeout(() => {
+      // --- Animate counters after cards are visible ---
+      tl.call(() => {
         const counters = [
           { element: document.querySelector('.counter-students'), target: 2000 },
           { element: document.querySelector('.counter-teachers'), target: 36 },
@@ -140,102 +77,122 @@ const AdminAnalytics = () => {
             animateCounter(counter.element, counter.target);
           }
         });
-      }, 1500);
+      }, [], ">-0.5"); // Starts this animation 0.5s before the previous one ends for a nice overlap
 
-      // Add floating animation to icons
-      const icons = document.querySelectorAll('.stat-icon');
-      icons.forEach((icon, index) => {
+      // --- Modern hover animations for stat cards ---
+      statCardRefs.current.forEach((card) => {
+        if (card) {
+          card.addEventListener('mouseenter', () => {
+            gsap.to(card, {
+              y: -8,
+              boxShadow: "0px 20px 30px -10px rgba(0, 183, 255, 0.3)", // A subtle blue glow
+              duration: 0.3,
+              ease: "power2.out"
+            });
+          });
+
+          card.addEventListener('mouseleave', () => {
+            gsap.to(card, {
+              y: 0,
+              boxShadow: "0px 10px 15px -3px rgba(0, 0, 0, 0.1), 0px 4px 6px -2px rgba(0, 0, 0, 0.05)",
+              duration: 0.3,
+              ease: "power2.out"
+            });
+          });
+        }
+      });
+      
+      // --- Floating animation for icons ---
+      gsap.utils.toArray('.stat-icon').forEach((icon, index) => {
         gsap.to(icon, {
           y: -5,
-          duration: 2,
+          duration: 2.5,
           ease: "sine.inOut",
           yoyo: true,
           repeat: -1,
-          delay: index * 0.3
+          delay: index * 0.4
         });
-      });
-
-      // Add pulse effect to the main container border
-      gsap.to(statsContainerRef.current, {
-        boxShadow: "0 0 20px rgba(0,0,0,0.3)",
-        duration: 2,
-        ease: "sine.inOut",
-        yoyo: true,
-        repeat: -1
       });
 
     }, containerRef);
 
+    // Cleanup function to revert animations when the component unmounts
     return () => ctx.revert();
   }, []);
 
+  // Data for the stat cards, making the JSX cleaner
+  const stats = [
+    {
+      title: "Active Students",
+      counterClass: "counter-students",
+      Icon: FaUsers,
+      iconColor: "text-blue-400",
+      bgColor: "bg-blue-500/10",
+    },
+    {
+      title: "Instructors",
+      counterClass: "counter-teachers",
+      Icon: LiaChalkboardTeacherSolid,
+      iconColor: "text-green-400",
+      bgColor: "bg-green-500/10",
+    },
+    {
+      title: "Ongoing Courses",
+      counterClass: "counter-courses",
+      Icon: SiGoogleclassroom,
+      iconColor: "text-purple-400",
+      bgColor: "bg-purple-500/10",
+    },
+  ];
+
   return (
-    <div 
+    <div
       ref={containerRef}
-      className="w-full min-h-screen bg-[#e0cece] flex justify-center items-center opacity-0"
+      className="w-full min-h-screen bg-slate-900 text-white p-4 sm:p-6 lg:p-8 opacity-0"
     >
-      <div className="w-11/12 overflow-hidden my-10 flex flex-col gap-5 xl:w-4/5">
-        {/* course analytics */}
-        <div className="w-full rounded-2xl bg-[#c7c1c1] overflow-hidden">
-          <h1 
-            ref={titleRef}
-            className="text-2xl text-center p-2 font-bold transform"
-          >
-            Enrollment Stats
+      <div className="max-w-7xl mx-auto my-10 flex flex-col gap-12">
+        {/* --- Header Section --- */}
+        <div ref={titleRef} className="text-center">
+          <h1 className="text-4xl md:text-5xl font-bold tracking-tight bg-gradient-to-r from-cyan-400 to-purple-500 bg-clip-text text-transparent">
+            Admin Dashboard
           </h1>
-          
-          {/* stats */}
-          <div>
-            <div 
-              ref={statsContainerRef}
-              className="w-4/5 h-full mt-5 border-b-2 flex justify-center items-center flex-col gap-5 border-2 border-black rounded-2xl mx-auto p-2 shadow md:flex-row lg:flex-row lg:h-1/3 lg:w-2/3 transform"
+          <p className="mt-3 text-lg text-slate-400">
+            Real-time platform analytics and enrollment statistics.
+          </p>
+        </div>
+
+        {/* --- Stats Cards Section --- */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {stats.map((stat, index) => (
+            <div
+              key={stat.title}
+              ref={el => (statCardRefs.current[index] = el)}
+              className="bg-slate-800/50 backdrop-blur-sm border border-slate-700 rounded-2xl p-6 flex items-center gap-6 shadow-lg transform-gpu cursor-pointer"
+              // Default shadow for the mouseleave animation to return to
+              style={{ boxShadow: "0px 10px 15px -3px rgba(0, 0, 0, 0.1), 0px 4px 6px -2px rgba(0, 0, 0, 0.05)" }}
             >
-              <div 
-                ref={el => statCardRefs.current[0] = el}
-                className="w-full py-2 border-b-2 border-black flex justify-center items-center flex-col md:w-1/3 md:border-b-0 md:border-r-2 xl:py-0 cursor-pointer transition-all duration-300"
-              >
-                <div className="stat-title">Active Students</div>
-                <div className="stat-value flex items-center gap-2">
-                  <span className="counter-students">0</span> 
-                  <FaUsers className="stat-icon" />
-                </div>
+              <div className={`p-4 rounded-full ${stat.bgColor}`}>
+                <stat.Icon className={`w-8 h-8 ${stat.iconColor} stat-icon`} />
               </div>
-
-              <div 
-                ref={el => statCardRefs.current[1] = el}
-                className="w-full py-2 border-b-2 border-black flex justify-center items-center flex-col md:w-1/3 md:border-b-0 md:border-r-2 xl:py-0 cursor-pointer transition-all duration-300"
-              >
-                <div className="stat-title">Available Teacher</div>
-                <div className="stat-value flex items-center gap-2">
-                  <span className="counter-teachers">0</span> 
-                  <LiaChalkboardTeacherSolid className="stat-icon" />
-                </div>
-              </div>
-
-              <div 
-                ref={el => statCardRefs.current[2] = el}
-                className="w-full border-black flex justify-center items-center flex-col md:w-1/3 md:border-b-0 md:border-r-0 cursor-pointer transition-all duration-300"
-              >
-                <div className="stat-title">On Going Course</div>
-                <div className="stat-value flex items-center gap-2">
-                  <span className="counter-courses">0</span> 
-                  <SiGoogleclassroom className="stat-icon" />
-                </div>
+              <div>
+                <p className="text-slate-400 text-sm font-medium">{stat.title}</p>
+                <p className={`text-4xl font-bold tracking-tighter ${stat.counterClass}`}>
+                  0
+                </p>
               </div>
             </div>
-          </div>
+          ))}
+        </div>
 
-          {/* pie chart */}
-          <div 
-            ref={pieChartSectionRef}
-            className="space-y-3 mt-10 transform"
-          >
-            <h1 
-              ref={pieChartTitleRef}
-              className="text-2xl text-center p-2 font-bold transform"
-            >
-              Available Courses
-            </h1>
+        {/* --- Pie Chart Section --- */}
+        <div
+          ref={pieChartSectionRef}
+          className="bg-slate-800/50 backdrop-blur-sm border border-slate-700 rounded-2xl p-6 md:p-8 shadow-lg"
+        >
+          <h2 className="text-2xl font-bold text-center mb-6">
+            Course Distribution
+          </h2>
+          <div className="w-full h-80 md:h-96 flex justify-center items-center">
             <CoursePieChart />
           </div>
         </div>
