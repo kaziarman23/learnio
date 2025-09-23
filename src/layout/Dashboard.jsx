@@ -38,29 +38,13 @@ const Dashboard = () => {
   // Redux state
   const { userEmail } = useSelector((state) => state.userSlice);
 
-  // Rtk query hooks
+  // Rtk query hooks - MUST be called unconditionally at the top level
   const { data, isLoading, isError, error } = useGetUsersQuery();
 
-  // Handle loading
-  if (isLoading) {
-    return <Loading />;
-  }
-
-  // Handle error
-  if (isError) {
-    console.log("Error When fetching user data: ", error.error);
-    toast.error("Error When fetching user data");
-    return null;
-  }
-
-  // finding the data
-  const userInfo = data.find(
-    (user) => user.userEmail.toLowerCase() === userEmail.toLowerCase(),
-  );
-  const user = userInfo?.userRole;
-
-  // GSAP Animations
+  // GSAP Animations - moved before conditional returns
   useEffect(() => {
+    if (!data || isLoading || isError) return; // Don't run animations if data isn't ready
+
     const tl = gsap.timeline();
 
     // Logo animation
@@ -94,7 +78,7 @@ const Dashboard = () => {
       yoyo: true,
       repeat: -1,
     });
-  }, []);
+  }, [data, isLoading, isError]); // Added dependencies
 
   // Mobile menu animations
   const toggleMobileMenu = () => {
@@ -164,7 +148,7 @@ const Dashboard = () => {
     });
   };
 
-  const getMenuItems = () => {
+  const getMenuItems = (user) => {
     if (user === "admin") {
       return [
         { to: "/dashboard/interface", icon: MdDashboard, label: "Interface" },
@@ -249,6 +233,25 @@ const Dashboard = () => {
     </NavLink>
   );
 
+  // Handle loading - return early after ALL hooks are called
+  if (isLoading) {
+    return <Loading />;
+  }
+
+  // Handle error - return early after ALL hooks are called
+  if (isError) {
+    console.log("Error When fetching user data: ", error.error);
+    toast.error("Error When fetching user data");
+    return null;
+  }
+
+  // finding the data - this is safe now since we return early for loading/error
+  const userInfo = data?.find(
+    (user) => user.userEmail.toLowerCase() === userEmail.toLowerCase(),
+  );
+  const user = userInfo?.userRole;
+  const menuItems = getMenuItems(user);
+
   return (
     <div className="flex min-h-screen flex-col bg-gradient-to-br from-gray-50 via-blue-50 to-purple-50 lg:flex-row">
       {/* Mobile Header */}
@@ -305,7 +308,7 @@ const Dashboard = () => {
           </div>
 
           <div className="space-y-2">
-            {getMenuItems().map((item, index) => (
+            {menuItems.map((item, index) => (
               <MenuItem key={item.to} {...item} index={index} isMobile={true} />
             ))}
 
@@ -314,7 +317,7 @@ const Dashboard = () => {
                 <MenuItem
                   key={item.to}
                   {...item}
-                  index={index + getMenuItems().length}
+                  index={index + menuItems.length}
                   isMobile={true}
                 />
               ))}
@@ -347,7 +350,7 @@ const Dashboard = () => {
 
           {/* Menu Items */}
           <div className="space-y-3">
-            {getMenuItems().map((item, index) => (
+            {menuItems.map((item, index) => (
               <MenuItem key={item.to} {...item} index={index} />
             ))}
 
@@ -356,7 +359,7 @@ const Dashboard = () => {
                 <MenuItem
                   key={item.to}
                   {...item}
-                  index={index + getMenuItems().length}
+                  index={index + menuItems.length}
                 />
               ))}
             </div>
