@@ -1,13 +1,12 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import { gsap } from "gsap";
-import { HiPlay, HiPause } from "react-icons/hi";
 import { BsArrowRight } from "react-icons/bs";
 import { FaGraduationCap, FaUsers, FaTrophy } from "react-icons/fa";
+import { Link } from "react-router";
+import { FaGoogleScholar } from "react-icons/fa6";
 
 const Hero = () => {
-  const [isVideoPlaying, setIsVideoPlaying] = useState(false);
-
-  // Refs for animations
+  // Refs
   const heroRef = useRef(null);
   const titleRef = useRef(null);
   const descriptionRef = useRef(null);
@@ -15,200 +14,188 @@ const Hero = () => {
   const mainImageRef = useRef(null);
   const smallImagesRef = useRef([]);
   const statsRef = useRef([]);
-  const particlesRef = useRef([]);
-  const videoRef = useRef(null);
 
-  // Statistics data
   const stats = [
     { number: "50K+", label: "Students", icon: FaUsers },
     { number: "1000+", label: "Courses", icon: FaGraduationCap },
     { number: "95%", label: "Success Rate", icon: FaTrophy },
   ];
 
-  // Create subtle particle system
+  // Trigger animation only once using IntersectionObserver
   useEffect(() => {
-    const createParticles = () => {
-      for (let i = 0; i < 8; i++) {
-        const particle = document.createElement('div');
-        particle.className = 'absolute w-1 h-1 bg-orange-400 rounded-full opacity-30 pointer-events-none';
-        particle.style.left = Math.random() * 100 + '%';
-        particle.style.top = Math.random() * 100 + '%';
-        heroRef.current?.appendChild(particle);
-        particlesRef.current.push(particle);
+    const observer = new IntersectionObserver(
+      (entries, obs) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            // Timeline animation
+            const tl = gsap.timeline();
 
-        gsap.to(particle, {
-          y: -50,
-          opacity: 0,
-          duration: Math.random() * 3 + 2,
-          repeat: -1,
-          ease: "power2.out",
-          delay: Math.random() * 2
+            tl.fromTo(
+              titleRef.current,
+              { y: 50, opacity: 0 },
+              { y: 0, opacity: 1, duration: 0.8, ease: "power2.out" },
+            );
+
+            tl.fromTo(
+              descriptionRef.current,
+              { y: 30, opacity: 0 },
+              { y: 0, opacity: 1, duration: 0.6, ease: "power2.out" },
+              "-=0.4",
+            );
+
+            tl.fromTo(
+              ctaButtonsRef.current,
+              { y: 30, opacity: 0 },
+              {
+                y: 0,
+                opacity: 1,
+                duration: 0.6,
+                stagger: 0.1,
+                ease: "power2.out",
+              },
+              "-=0.3",
+            );
+
+            tl.fromTo(
+              statsRef.current,
+              { y: 20, opacity: 0 },
+              {
+                y: 0,
+                opacity: 1,
+                duration: 0.6,
+                stagger: 0.1,
+                ease: "power2.out",
+              },
+              "-=0.2",
+            );
+
+            tl.fromTo(
+              mainImageRef.current,
+              { x: 50, opacity: 0 },
+              { x: 0, opacity: 1, duration: 0.8, ease: "power2.out" },
+              "-=0.6",
+            );
+
+            tl.fromTo(
+              smallImagesRef.current,
+              { y: 30, opacity: 0 },
+              {
+                y: 0,
+                opacity: 1,
+                duration: 0.6,
+                stagger: 0.1,
+                ease: "power2.out",
+              },
+              "-=0.4",
+            );
+
+            // Stop observing after the first trigger
+            obs.unobserve(entry.target);
+          }
         });
-      }
-    };
+      },
+      { threshold: 0.2 }, // 20% of section visible triggers animation
+    );
 
-    createParticles();
+    if (heroRef.current) observer.observe(heroRef.current);
 
-    return () => {
-      particlesRef.current.forEach(particle => particle.remove());
-      particlesRef.current = [];
-    };
+    return () => observer.disconnect();
   }, []);
 
-  // Clean entrance animations
-  useEffect(() => {
-    const tl = gsap.timeline({ delay: 0.3 });
-
-    // Title entrance
-    tl.fromTo(titleRef.current,
-      { y: 50, opacity: 0 },
-      { y: 0, opacity: 1, duration: 0.8, ease: "power2.out" }
-    );
-
-    // Description entrance
-    tl.fromTo(descriptionRef.current,
-      { y: 30, opacity: 0 },
-      { y: 0, opacity: 1, duration: 0.6, ease: "power2.out" },
-      "-=0.4"
-    );
-
-    // Buttons entrance
-    tl.fromTo(ctaButtonsRef.current,
-      { y: 30, opacity: 0 },
-      { y: 0, opacity: 1, duration: 0.6, stagger: 0.1, ease: "power2.out" },
-      "-=0.3"
-    );
-
-    // Stats entrance
-    tl.fromTo(statsRef.current,
-      { y: 20, opacity: 0 },
-      { y: 0, opacity: 1, duration: 0.6, stagger: 0.1, ease: "power2.out" },
-      "-=0.2"
-    );
-
-    // Main image entrance
-    tl.fromTo(mainImageRef.current,
-      { x: 50, opacity: 0 },
-      { x: 0, opacity: 1, duration: 0.8, ease: "power2.out" },
-      "-=0.6"
-    );
-
-    // Small images entrance
-    tl.fromTo(smallImagesRef.current,
-      { y: 30, opacity: 0 },
-      { y: 0, opacity: 1, duration: 0.6, stagger: 0.1, ease: "power2.out" },
-      "-=0.4"
-    );
-
-  }, []);
-
-  // Handle video play/pause
-  const toggleVideo = () => {
-    if (videoRef.current) {
-      if (isVideoPlaying) {
-        videoRef.current.pause();
-      } else {
-        videoRef.current.play();
-      }
-      setIsVideoPlaying(!isVideoPlaying);
-    }
-  };
-
-  // Button hover animations
-  const handleButtonHover = (element, isEntering, variant = "primary") => {
+  const handleButtonHover = (element, isEntering) => {
     if (isEntering) {
       gsap.to(element, {
         scale: 1.02,
         y: -2,
         duration: 0.3,
-        ease: "power2.out"
+        ease: "power2.out",
       });
     } else {
-      gsap.to(element, {
-        scale: 1,
-        y: 0,
-        duration: 0.3,
-        ease: "power2.out"
-      });
+      gsap.to(element, { scale: 1, y: 0, duration: 0.3, ease: "power2.out" });
     }
   };
 
   return (
-    <section 
+    <section
       ref={heroRef}
-      className="relative min-h-screen w-full flex items-center justify-center bg-gradient-to-br from-gray-50 to-white py-8 sm:py-12 lg:py-12 overflow-hidden"
+      className="relative flex min-h-screen w-full items-center justify-center overflow-hidden bg-gradient-to-br from-gray-50 to-white py-8 sm:py-12 lg:py-12"
     >
-      <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex flex-col lg:flex-row items-center justify-between gap-8 lg:gap-12 xl:gap-16">
-          
+      <div className="mx-auto w-full max-w-6xl px-4 sm:px-6 lg:px-8">
+        <div className="flex flex-col items-center justify-between gap-8 lg:flex-row lg:gap-12 xl:gap-16">
           {/* Text Content */}
-          <div className="w-full lg:w-1/2 text-center lg:text-left">
-            
+          <div className="w-full text-center lg:w-1/2 lg:text-left">
             {/* Main Title */}
-            <h1 
+            <h1
               ref={titleRef}
-              className="text-3xl sm:text-4xl md:text-5xl lg:text-5xl xl:text-6xl 2xl:text-7xl font-bold leading-tight mb-4 sm:mb-6"
+              className="mb-4 text-3xl font-bold leading-tight sm:mb-6 sm:text-4xl md:text-5xl lg:text-5xl xl:text-4xl 2xl:text-5xl"
             >
-              Unlock Your{" "}
-              <span className="text-orange-500">Potential</span>
+              Unlock Your <span className="text-orange-500">Potential</span>
               <br />
               One Skill at a Time
             </h1>
 
             {/* Description */}
-            <p 
+            <p
               ref={descriptionRef}
-              className="text-base sm:text-lg lg:text-xl text-gray-600 leading-relaxed mb-6 sm:mb-8 max-w-2xl mx-auto lg:mx-0"
+              className="mx-auto mb-6 max-w-2xl text-base leading-relaxed text-gray-600 sm:mb-8 sm:text-lg lg:mx-0 lg:text-xl"
             >
-              Discover expert-led courses designed to help you master new skills, 
-              elevate your career, or pursue your passions. Learn at your own pace 
-              from anywhere in the world.
+              Discover expert-led courses designed to help you master new
+              skills, elevate your career, or pursue your passions. Learn at
+              your own pace from anywhere in the world.
             </p>
 
             {/* CTA Buttons */}
-            <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 mb-8 sm:mb-12">
-              <button
-                ref={el => ctaButtonsRef.current[0] = el}
-                className="w-full sm:w-auto px-6 sm:px-8 py-3 sm:py-4 bg-gradient-to-r from-orange-500 to-orange-600 text-white rounded-xl font-bold text-base sm:text-lg shadow-lg hover:shadow-xl transition-all duration-300"
-                onMouseEnter={(e) => handleButtonHover(e.currentTarget, true)}
-                onMouseLeave={(e) => handleButtonHover(e.currentTarget, false)}
-              >
-                <span className="flex items-center justify-center gap-2">
-                  Start Learning Now
-                  <BsArrowRight className="text-lg" />
-                </span>
-              </button>
+            <div className="mb-8 flex flex-col items-center justify-center gap-4 sm:mb-12 sm:flex-row lg:justify-start">
+              <Link to="/courses">
+                <button
+                  ref={(el) => (ctaButtonsRef.current[0] = el)}
+                  className="w-full rounded-xl bg-gradient-to-r from-orange-500 to-orange-600 px-6 py-3 text-base font-bold text-white shadow-lg transition-all duration-300 hover:shadow-xl sm:w-auto sm:px-8 sm:py-4 sm:text-lg"
+                  onMouseEnter={(e) => handleButtonHover(e.currentTarget, true)}
+                  onMouseLeave={(e) =>
+                    handleButtonHover(e.currentTarget, false)
+                  }
+                >
+                  <span className="flex items-center justify-center gap-2">
+                    Start Learning Now
+                    <BsArrowRight className="text-lg" />
+                  </span>
+                </button>
+              </Link>
 
               <button
-                ref={el => ctaButtonsRef.current[1] = el}
-                className="w-full sm:w-auto px-6 sm:px-8 py-3 sm:py-4 border-2 border-gray-300 text-gray-700 rounded-xl font-bold text-base sm:text-lg hover:border-gray-400 hover:bg-gray-50 transition-all duration-300"
-                onMouseEnter={(e) => handleButtonHover(e.currentTarget, true, "secondary")}
-                onMouseLeave={(e) => handleButtonHover(e.currentTarget, false, "secondary")}
+                ref={(el) => (ctaButtonsRef.current[1] = el)}
+                className="w-full rounded-xl bg-gradient-to-r from-orange-500 to-orange-600 px-6 py-3 text-base font-bold text-white shadow-lg transition-all duration-300 hover:shadow-xl sm:w-auto sm:px-8 sm:py-4 sm:text-lg"
+                onMouseEnter={(e) =>
+                  handleButtonHover(e.currentTarget, true, "secondary")
+                }
+                onMouseLeave={(e) =>
+                  handleButtonHover(e.currentTarget, false, "secondary")
+                }
               >
                 <span className="flex items-center justify-center gap-2">
-                  {isVideoPlaying ? <HiPause /> : <HiPlay />}
-                  Watch Demo
+                  About Us
+                  <FaGoogleScholar />
                 </span>
               </button>
             </div>
 
             {/* Stats */}
-            <div className="grid grid-cols-3 gap-4 sm:gap-6 lg:gap-8 max-w-md mx-auto lg:mx-0">
+            <div className="mx-auto grid max-w-md grid-cols-3 gap-4 sm:gap-6 lg:mx-0 lg:gap-8">
               {stats.map((stat, index) => {
                 const IconComponent = stat.icon;
                 return (
                   <div
                     key={stat.label}
-                    ref={el => statsRef.current[index] = el}
-                    className="text-center p-3 sm:p-4 bg-white rounded-xl shadow-sm border border-gray-100"
+                    ref={(el) => (statsRef.current[index] = el)}
+                    className="rounded-xl border border-gray-100 bg-white p-3 text-center shadow-sm sm:p-4"
                   >
-                    <div className="inline-flex p-2 bg-orange-100 rounded-lg mb-2">
-                      <IconComponent className="text-orange-500 text-lg sm:text-xl" />
+                    <div className="mb-2 inline-flex rounded-lg bg-orange-100 p-2">
+                      <IconComponent className="text-lg text-orange-500 sm:text-xl" />
                     </div>
-                    <div className="text-xl sm:text-2xl lg:text-2xl xl:text-3xl font-bold text-gray-800 mb-1">
+                    <div className="mb-1 text-xl font-bold text-gray-800 sm:text-2xl lg:text-2xl xl:text-3xl">
                       {stat.number}
                     </div>
-                    <div className="text-xs sm:text-sm text-gray-600">
+                    <div className="text-xs text-gray-600 sm:text-sm">
                       {stat.label}
                     </div>
                   </div>
@@ -220,19 +207,21 @@ const Hero = () => {
           {/* Image content */}
           <div className="flex w-full flex-col items-center justify-center gap-3 lg:w-1/2">
             <img
-              src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fcdn-wordpress-info.futurelearn.com%2Fwp-content%2Fuploads%2F1_Different-teaching-methods-and-how-to-use-them.jpg.optimal.jpg&f=1&nofb=1&ipt=aaf72edc8449a687dfcf43497651d184629206356801bae86847610daa864717"
+              ref={(el) => (smallImagesRef.current[0] = el)}
+              src="/HeroImageOne.jpg"
               alt="hero section image 1"
               className="h-1/2 w-5/6 rounded-2xl border-2 border-black object-cover"
             />
             <div className="flex items-center justify-center gap-5">
               <img
-                src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fwallpapercave.com%2Fwp%2Fwp11867996.jpg&f=1&nofb=1&ipt=88948f2abbd08c06768368415796843c6e37a78140d7abcd1b372619795b611a&ipo=images"
+                ref={(el) => (smallImagesRef.current[1] = el)}
+                src="/HeroImageTwo.jpg"
                 alt="hero section image 2"
                 className="h-full w-1/3 rounded-2xl border-2 border-black object-cover"
               />
               <img
-                ref={el => smallImagesRef.current[1] = el}
-                src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fcdn8.dissolve.com%2Fp%2FD2115_185_452%2FD2115_185_452_1200.jpg&f=1&nofb=1&ipt=73d53eec312d3e51f3e82ca61990be4c06a468a570a208ba15e0ccd1c580ebc7&ipo=images"
+                ref={(el) => (smallImagesRef.current[2] = el)}
+                src="/HeroImageThree.jpg"
                 alt="hero section image 3"
                 className="h-full w-1/3 rounded-2xl border-2 border-black object-cover"
               />

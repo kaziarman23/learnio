@@ -1,5 +1,5 @@
 import Hero from "./Hero";
-import About from "./About";
+import LearnioOffers from "./LearnioOffers";
 import Events from "./Events";
 import Explore from "./Explore";
 import HighLights from "./HighLights";
@@ -11,7 +11,7 @@ const Home = () => {
   return (
     <div>
       <Hero />
-      <About />
+      <LearnioOffers />
       <Overview />
       <Service />
       <Explore />

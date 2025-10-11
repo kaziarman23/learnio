@@ -29,8 +29,13 @@ const Navbar = () => {
   const navigationLinks = [
     { to: "/", label: "Home" },
     { to: "/courses", label: "All Courses" },
-    { to: "/teacher", label: "Teacher Enrollment" },
-    { to: "/dashboard/interface", label: "Dashboard" }
+    { to: "/aboutUs", label: "About" },
+    ...(userEmail
+      ? [
+          { to: "/teacher", label: "Teacher Enrollment" },
+          { to: "/dashboard/interface", label: "Dashboard" },
+        ]
+      : []),
   ];
 
   // Scroll effect
@@ -49,30 +54,40 @@ const Navbar = () => {
     const tl = gsap.timeline();
 
     // Navbar slide down animation
-    tl.fromTo(navbarRef.current,
+    tl.fromTo(
+      navbarRef.current,
       { y: -100, opacity: 0 },
-      { y: 0, opacity: 1, duration: 0.8, ease: "power3.out" }
+      { y: 0, opacity: 1, duration: 0.8, ease: "power3.out" },
     );
 
     // Logo animation with rotation and scale
-    tl.fromTo(logoRef.current,
+    tl.fromTo(
+      logoRef.current,
       { scale: 0, rotation: -180, opacity: 0 },
-      { scale: 1, rotation: 0, opacity: 1, duration: 0.6, ease: "back.out(1.7)" },
-      "-=0.5"
+      {
+        scale: 1,
+        rotation: 0,
+        opacity: 1,
+        duration: 0.6,
+        ease: "back.out(1.7)",
+      },
+      "-=0.5",
     );
 
     // Navigation links stagger animation
-    tl.fromTo(navLinksRef.current,
+    tl.fromTo(
+      navLinksRef.current,
       { y: -30, opacity: 0 },
       { y: 0, opacity: 1, duration: 0.5, stagger: 0.1, ease: "power2.out" },
-      "-=0.4"
+      "-=0.4",
     );
 
     // Auth buttons animation
-    tl.fromTo(authButtonsRef.current,
+    tl.fromTo(
+      authButtonsRef.current,
       { x: 50, opacity: 0 },
       { x: 0, opacity: 1, duration: 0.5, stagger: 0.1, ease: "power2.out" },
-      "-=0.3"
+      "-=0.3",
     );
 
     // Continuous logo floating animation
@@ -81,19 +96,23 @@ const Navbar = () => {
       duration: 2,
       ease: "power2.inOut",
       yoyo: true,
-      repeat: -1
+      repeat: -1,
     });
-
   }, []);
 
   // Scroll-based navbar transformation
   useEffect(() => {
     gsap.to(navbarRef.current, {
-      backgroundColor: isScrolled ? "rgba(255, 255, 255, 0.95)" : "rgba(255, 255, 255, 0.8)",
+      backgroundColor: isScrolled
+        ? "rgba(255, 255, 255, 0.95)"
+        : "rgba(255, 255, 255, 0.8)",
       backdropFilter: isScrolled ? "blur(20px)" : "blur(10px)",
-      boxShadow: isScrolled ? "0 10px 30px rgba(0, 0, 0, 0.1)" : "0 4px 20px rgba(0, 0, 0, 0.05)",
+      WebkitBackdropFilter: isScrolled ? "blur(20px)" : "blur(10px)",
+      boxShadow: isScrolled
+        ? "0 10px 30px rgba(0, 0, 0, 0.1)"
+        : "0 4px 20px rgba(0, 0, 0, 0.05)",
       duration: 0.3,
-      ease: "power2.out"
+      ease: "power2.out",
     });
   }, [isScrolled]);
 
@@ -101,23 +120,28 @@ const Navbar = () => {
   const toggleMobileMenu = () => {
     if (!isMobileMenuOpen) {
       setIsMobileMenuOpen(true);
-      
+
       gsap.set(mobileMenuRef.current, { display: "block" });
       gsap.set(overlayRef.current, { display: "block" });
-      
+
       const tl = gsap.timeline();
-      tl.to(overlayRef.current, { opacity: 1, duration: 0.3 })
-        .fromTo(mobileMenuRef.current, 
-          { y: "-100%", opacity: 0 },
-          { y: "0%", opacity: 1, duration: 0.5, ease: "power3.out" },
-          "-=0.2"
-        );
+      tl.to(overlayRef.current, { opacity: 1, duration: 0.3 }).fromTo(
+        mobileMenuRef.current,
+        { y: "-100%", opacity: 0 },
+        { y: "0%", opacity: 1, duration: 0.5, ease: "power3.out" },
+        "-=0.2",
+      );
     } else {
       const tl = gsap.timeline();
-      tl.to(mobileMenuRef.current, { y: "-100%", opacity: 0, duration: 0.4, ease: "power3.in" })
+      tl.to(mobileMenuRef.current, {
+        y: "-100%",
+        opacity: 0,
+        duration: 0.4,
+        ease: "power3.in",
+      })
         .to(overlayRef.current, { opacity: 0, duration: 0.3 }, "-=0.2")
         .set([mobileMenuRef.current, overlayRef.current], { display: "none" });
-      
+
       setIsMobileMenuOpen(false);
     }
   };
@@ -129,14 +153,14 @@ const Navbar = () => {
         y: -3,
         scale: 1.05,
         duration: 0.3,
-        ease: "power2.out"
+        ease: "power2.out",
       });
     } else {
       gsap.to(element, {
         y: 0,
         scale: 1,
         duration: 0.3,
-        ease: "power2.out"
+        ease: "power2.out",
       });
     }
   };
@@ -150,7 +174,7 @@ const Navbar = () => {
           backgroundColor: "#DC2626",
           color: "#FFFFFF",
           duration: 0.3,
-          ease: "power2.out"
+          ease: "power2.out",
         });
       } else {
         gsap.to(element, {
@@ -158,7 +182,7 @@ const Navbar = () => {
           backgroundColor: "#000000",
           color: "#FFFFFF",
           duration: 0.3,
-          ease: "power2.out"
+          ease: "power2.out",
         });
       }
     } else {
@@ -167,7 +191,7 @@ const Navbar = () => {
         backgroundColor: "transparent",
         color: variant === "logout" ? "#DC2626" : "#000000",
         duration: 0.3,
-        ease: "power2.out"
+        ease: "power2.out",
       });
     }
   };
@@ -175,12 +199,12 @@ const Navbar = () => {
   // handle logout with animation
   const handleLogout = () => {
     const tl = gsap.timeline();
-    
+
     tl.to(navbarRef.current, {
       y: -100,
       opacity: 0.5,
       duration: 0.5,
-      ease: "power3.in"
+      ease: "power3.in",
     });
 
     tl.call(() => {
@@ -194,7 +218,7 @@ const Navbar = () => {
       y: 0,
       opacity: 1,
       duration: 0.5,
-      ease: "power3.out"
+      ease: "power3.out",
     });
   };
 
@@ -202,19 +226,23 @@ const Navbar = () => {
   const NavigationLink = ({ to, label, index, isMobile = false }) => (
     <NavLink
       to={to}
-      ref={el => navLinksRef.current[index] = el}
+      ref={(el) => (navLinksRef.current[index] = el)}
       className={({ isActive }) =>
         `relative p-3 font-bold transition-all duration-300 ${
-          isActive 
-            ? "text-transparent bg-gradient-to-r from-orange-500 to-red-500 bg-clip-text" 
+          isActive
+            ? "bg-gradient-to-r from-orange-500 to-red-500 bg-clip-text text-transparent"
             : "text-gray-700 hover:text-orange-500"
-        } ${isMobile ? "block w-full text-center py-4 text-lg" : ""}`
+        } ${isMobile ? "block w-full py-4 text-center text-lg" : ""}`
       }
-      onMouseEnter={(e) => !isMobile && handleNavLinkHover(e.currentTarget, true)}
-      onMouseLeave={(e) => !isMobile && handleNavLinkHover(e.currentTarget, false)}
+      onMouseEnter={(e) =>
+        !isMobile && handleNavLinkHover(e.currentTarget, true)
+      }
+      onMouseLeave={(e) =>
+        !isMobile && handleNavLinkHover(e.currentTarget, false)
+      }
     >
       {label}
-      <div className="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-orange-500 to-red-500 transition-all duration-300 group-hover:w-full" />
+      <div className="absolute bottom-0 left-0 h-0.5 w-0 bg-gradient-to-r from-orange-500 to-red-500 transition-all duration-300 group-hover:w-full" />
     </NavLink>
   );
 
@@ -223,25 +251,28 @@ const Navbar = () => {
       {/* Main Navbar */}
       <nav
         ref={navbarRef}
-        className="fixed top-0 left-0 right-0 z-50 bg-white/80 backdrop-blur-lg border-b border-gray-200/50 shadow-lg transition-all duration-300"
+        className="fixed left-0 right-0 top-0 z-50 border-b border-gray-200/50 bg-white/70 backdrop-blur-lg transition-all duration-300"
       >
-        <div className="navbar mx-auto h-full w-full justify-between sm:w-4/5 px-4">
+        <div className="navbar mx-auto h-full w-full justify-between px-4 sm:w-4/5">
           {/* Left Section */}
           <div className="flex items-center justify-start">
             {/* Mobile Menu Button */}
             <button
               onClick={toggleMobileMenu}
-              className="lg:hidden p-2 rounded-xl bg-gradient-to-r from-orange-500 to-red-500 text-white shadow-lg hover:shadow-xl transition-all duration-300 mr-3"
+              className="mr-3 rounded-xl bg-gradient-to-r from-orange-500 to-red-500 p-2 text-white shadow-lg hover:shadow-xl lg:hidden"
             >
               <HiMenuAlt3 className="text-xl" />
             </button>
 
             {/* Logo */}
-            <div ref={logoRef} className="flex items-center gap-2 cursor-pointer group">
-              <div className="p-2 bg-gradient-to-r from-orange-500 to-red-500 rounded-xl shadow-lg group-hover:shadow-xl transition-all duration-300">
-                <FaGripfire className="text-white text-lg sm:text-xl xl:text-2xl" />
+            <div
+              // ref={logoRef}
+              className="group flex cursor-pointer items-center gap-2"
+            >
+              <div className="rounded-xl bg-gradient-to-r from-orange-500 to-red-500 p-2 shadow-lg group-hover:shadow-xl">
+                <FaGripfire className="text-lg text-white sm:text-xl xl:text-2xl" />
               </div>
-              <h1 className="text-sm font-bold sm:text-lg xl:text-2xl bg-gradient-to-r from-gray-800 to-gray-600 bg-clip-text text-transparent">
+              <h1 className="bg-gradient-to-r from-gray-800 to-gray-600 bg-clip-text text-sm font-bold text-transparent sm:text-lg xl:text-2xl">
                 Learnio
               </h1>
             </div>
@@ -262,11 +293,15 @@ const Navbar = () => {
           <div className="flex items-center gap-3">
             {userEmail ? (
               <button
-                ref={el => authButtonsRef.current[0] = el}
+                ref={(el) => (authButtonsRef.current[0] = el)}
                 onClick={handleLogout}
-                className="px-4 py-2 rounded-xl border-2 border-red-500 text-red-600 font-bold transition-all duration-300 hover:bg-red-500 hover:text-white hover:shadow-lg"
-                onMouseEnter={(e) => handleButtonHover(e.currentTarget, true, "logout")}
-                onMouseLeave={(e) => handleButtonHover(e.currentTarget, false, "logout")}
+                className="rounded-xl border-2 border-red-500 px-4 py-2 font-bold text-red-600 transition-all duration-300 hover:bg-red-500 hover:text-white hover:shadow-lg"
+                onMouseEnter={(e) =>
+                  handleButtonHover(e.currentTarget, true, "logout")
+                }
+                onMouseLeave={(e) =>
+                  handleButtonHover(e.currentTarget, false, "logout")
+                }
               >
                 Logout
               </button>
@@ -274,18 +309,28 @@ const Navbar = () => {
               <>
                 <Link to="/register">
                   <button
-                    ref={el => authButtonsRef.current[0] = el}
-                    className="px-4 py-2 rounded-xl border-2 border-gray-800 text-gray-800 font-bold text-xs sm:text-sm lg:text-base transition-all duration-300 hover:bg-gray-800 hover:text-white hover:shadow-lg"
-                    onMouseEnter={(e) => handleButtonHover(e.currentTarget, true)}
-                    onMouseLeave={(e) => handleButtonHover(e.currentTarget, false)}
+                    className="transform rounded-xl bg-gradient-to-r from-orange-500 to-red-500 px-4 py-2 text-xs font-bold text-white shadow-lg transition-all duration-300 hover:scale-105 hover:shadow-xl sm:text-sm lg:text-base"
+                    ref={(el) => (authButtonsRef.current[0] = el)}
+                    onMouseEnter={(e) =>
+                      handleButtonHover(e.currentTarget, true)
+                    }
+                    onMouseLeave={(e) =>
+                      handleButtonHover(e.currentTarget, false)
+                    }
                   >
                     Register
                   </button>
                 </Link>
                 <Link to="/login">
                   <button
-                    ref={el => authButtonsRef.current[1] = el}
-                    className="px-4 py-2 rounded-xl bg-gradient-to-r from-orange-500 to-red-500 text-white font-bold text-xs sm:text-sm lg:text-base shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300"
+                    ref={(el) => (authButtonsRef.current[1] = el)}
+                    className="transform rounded-xl bg-gradient-to-r from-orange-500 to-red-500 px-4 py-2 text-xs font-bold text-white shadow-lg transition-all duration-300 hover:scale-105 hover:shadow-xl sm:text-sm lg:text-base"
+                    onMouseEnter={(e) =>
+                      handleButtonHover(e.currentTarget, true)
+                    }
+                    onMouseLeave={(e) =>
+                      handleButtonHover(e.currentTarget, false)
+                    }
                   >
                     Login
                   </button>
@@ -299,7 +344,7 @@ const Navbar = () => {
       {/* Mobile Menu Overlay */}
       <div
         ref={overlayRef}
-        className="fixed inset-0 bg-black/50 z-40 lg:hidden"
+        className="fixed inset-0 z-40 bg-black/50 lg:hidden"
         style={{ display: "none" }}
         onClick={toggleMobileMenu}
       />
@@ -307,22 +352,22 @@ const Navbar = () => {
       {/* Mobile Menu */}
       <div
         ref={mobileMenuRef}
-        className="fixed top-0 left-0 right-0 bg-white/95 backdrop-blur-lg shadow-2xl z-50 lg:hidden"
+        className="fixed left-0 right-0 top-0 z-50 bg-white/95 shadow-2xl backdrop-blur-lg lg:hidden"
         style={{ display: "none" }}
       >
         <div className="p-6">
-          <div className="flex items-center justify-between mb-8">
+          <div className="mb-8 flex items-center justify-between">
             <div className="flex items-center gap-3">
-              <div className="p-3 bg-gradient-to-r from-orange-500 to-red-500 rounded-xl">
+              <div className="rounded-xl bg-gradient-to-r from-orange-500 to-red-500 p-3">
                 <FaGripfire className="text-2xl text-white" />
               </div>
-              <h1 className="text-2xl font-bold bg-gradient-to-r from-gray-800 to-gray-600 bg-clip-text text-transparent">
+              <h1 className="bg-gradient-to-r from-gray-800 to-gray-600 bg-clip-text text-2xl font-bold text-transparent">
                 Learnio
               </h1>
             </div>
             <button
               onClick={toggleMobileMenu}
-              className="p-2 rounded-xl bg-gray-100 hover:bg-gray-200 transition-colors"
+              className="rounded-xl bg-gray-100 p-2 transition-colors hover:bg-gray-200"
             >
               <HiX className="text-xl" />
             </button>
@@ -330,26 +375,31 @@ const Navbar = () => {
 
           <div className="space-y-2">
             {navigationLinks.map((link, index) => (
-              <NavigationLink key={link.to} {...link} index={index} isMobile={true} />
+              <NavigationLink
+                key={link.to}
+                {...link}
+                index={index}
+                isMobile={true}
+              />
             ))}
-            
-            <div className="border-t border-gray-200 my-6 pt-6 space-y-3">
+
+            <div className="my-6 space-y-3 border-t border-gray-200 pt-6">
               {userEmail ? (
                 <button
                   onClick={handleLogout}
-                  className="w-full py-3 rounded-xl border-2 border-red-500 text-red-600 font-bold hover:bg-red-500 hover:text-white transition-all duration-300"
+                  className="w-full rounded-xl border-2 border-red-500 py-3 font-bold text-red-600 transition-all duration-300 hover:bg-red-500 hover:text-white"
                 >
                   Logout
                 </button>
               ) : (
                 <>
                   <Link to="/register" className="block">
-                    <button className="w-full py-3 rounded-xl border-2 border-gray-800 text-gray-800 font-bold hover:bg-gray-800 hover:text-white transition-all duration-300">
+                    <button className="w-full rounded-xl border-2 border-gray-800 py-3 font-bold text-gray-800 transition-all duration-300 hover:bg-gray-800 hover:text-white">
                       Register
                     </button>
                   </Link>
                   <Link to="/login" className="block">
-                    <button className="w-full py-3 rounded-xl bg-gradient-to-r from-orange-500 to-red-500 text-white font-bold shadow-lg transition-all duration-300">
+                    <button className="w-full rounded-xl bg-gradient-to-r from-orange-500 to-red-500 py-3 font-bold text-white shadow-lg transition-all duration-300">
                       Login
                     </button>
                   </Link>
@@ -361,7 +411,7 @@ const Navbar = () => {
       </div>
 
       {/* Spacer to prevent content from hiding behind fixed navbar */}
-      <div className="h-16 sm:h-18 lg:h-20"></div>
+      <div className="sm:h-18 h-16 lg:h-20"></div>
     </div>
   );
 };
