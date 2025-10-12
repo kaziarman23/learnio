@@ -230,7 +230,7 @@ const TabItem = ({ Course, searchTerm = "", sortBy = "newest", viewMode = "grid"
             <div
               key={course._id || index}
               ref={el => cardsRef.current[index] = el}
-              className={`group relative bg-white/90 backdrop-blur-sm rounded-3xl shadow-xl border border-white/20 transition-all duration-500 hover:shadow-2xl cursor-pointer overflow-hidden ${
+              className={`group relative bg-white/90 backdrop-blur-sm rounded-3xl shadow-xl border border-gray-300 transition-all duration-500 hover:shadow-2xl cursor-pointer overflow-hidden ${
                 viewMode === 'grid' 
                   ? 'w-full max-w-sm h-auto' 
                   : 'w-full flex flex-col sm:flex-row h-auto'

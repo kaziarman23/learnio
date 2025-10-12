@@ -339,7 +339,7 @@ const StudentEnrollments = () => {
           ref={emptyRef}
           className="relative z-10 w-11/12 max-w-lg mx-auto"
         >
-          <div className="bg-white/90 backdrop-blur-sm rounded-3xl shadow-2xl border border-white/20 p-8 sm:p-12 text-center">
+          <div className="bg-white/90 backdrop-blur-sm rounded-3xl shadow-2xl border border-gray-300 p-8 sm:p-12 text-center">
             {/* Empty Icon */}
             <div 
               ref={emptyIconRef}
@@ -454,7 +454,7 @@ const StudentEnrollments = () => {
   const EnrollmentCard = ({ enrollment, index }) => (
     <div
       ref={el => cardsRef.current[index] = el}
-      className="bg-white/90 backdrop-blur-sm rounded-2xl shadow-lg border border-white/20 p-6 hover:shadow-xl transition-all duration-300"
+      className="bg-white/90 backdrop-blur-sm rounded-2xl shadow-lg border border-gray-300 p-6 hover:shadow-xl transition-all duration-300"
     >
       <div className="flex items-start justify-between mb-4">
         <div className="flex-1">
@@ -576,7 +576,7 @@ const StudentEnrollments = () => {
                 <div
                   key={stat.label}
                   ref={el => statsRef.current[index] = el}
-                  className="text-center p-4 sm:p-6 bg-white/80 backdrop-blur-sm rounded-2xl shadow-lg border border-white/20"
+                  className="text-center p-4 sm:p-6 bg-white/80 backdrop-blur-sm rounded-2xl shadow-lg border border-gray-300"
                 >
                   <div className="inline-flex p-3 bg-gradient-to-r from-orange-500 to-pink-500 rounded-xl shadow-lg mb-3">
                     <IconComponent className="text-white text-lg sm:text-xl" />
@@ -595,7 +595,7 @@ const StudentEnrollments = () => {
           {/* Filters and Search */}
           <div 
             ref={filtersRef}
-            className="bg-white/80 backdrop-blur-sm rounded-2xl p-4 sm:p-6 shadow-lg border border-white/20 mb-8"
+            className="bg-white/80 backdrop-blur-sm rounded-2xl p-4 sm:p-6 shadow-lg border border-gray-300 mb-8"
           >
             <div className="flex flex-col lg:flex-row gap-4 items-center justify-between">
               {/* Search */}
@@ -702,7 +702,7 @@ const StudentEnrollments = () => {
               </div>
             ) : (
               // Table View
-              <div className="bg-white/90 backdrop-blur-sm rounded-2xl shadow-lg border border-white/20 overflow-hidden">
+              <div className="bg-white/90 backdrop-blur-sm rounded-2xl shadow-lg border border-gray-300 overflow-hidden">
                 <div className="overflow-x-auto">
                   <table className="w-full">
                     <thead className="bg-gradient-to-r from-orange-500 to-pink-500 text-white">

@@ -351,7 +351,7 @@ const AllCourses = () => {
                 <div
                   key={stat.label}
                   ref={(el) => (statsRef.current[index] = el)}
-                  className="rounded-xl border border-white/20 bg-white/80 p-3 text-center shadow-lg backdrop-blur-sm sm:p-4"
+                  className="rounded-xl border border-gray-300 bg-white/80 p-3 text-center shadow-lg backdrop-blur-sm sm:p-4"
                 >
                   <div className="mb-2 inline-flex rounded-lg bg-gradient-to-r from-orange-500 to-pink-500 p-2 shadow-md">
                     <IconComponent className="text-sm text-white sm:text-base" />
@@ -371,7 +371,7 @@ const AllCourses = () => {
         {/* Enhanced Search and Filters */}
         <div
           ref={searchRef}
-          className="mb-8 rounded-2xl border border-white/20 bg-white/80 p-4 shadow-lg backdrop-blur-sm sm:mb-12 sm:p-6"
+          className="mb-8 rounded-2xl border border-gray-300 bg-white/80 p-4 shadow-lg backdrop-blur-sm sm:mb-12 sm:p-6"
         >
           <div className="flex flex-col items-center justify-between gap-4 sm:flex-row">
             {/* Search Bar */}
@@ -431,7 +431,7 @@ const AllCourses = () => {
         <div ref={tabsRef} className="my-8 sm:my-12">
           <Tabs selectedIndex={tabIndex} onSelect={handleTabChange}>
             {/* Mobile Tabs */}
-            <TabList className="scrollbar-hide flex overflow-x-auto rounded-2xl border border-white/20 bg-white/80 p-2 shadow-lg backdrop-blur-sm lg:hidden">
+            <TabList className="scrollbar-hide flex overflow-x-auto rounded-2xl border border-gray-300 bg-white/80 p-2 shadow-lg backdrop-blur-sm lg:hidden">
               {categories.map((category, index) => (
                 <Tab
                   key={category.id}
@@ -452,7 +452,7 @@ const AllCourses = () => {
             </TabList>
 
             {/* Desktop Tabs */}
-            <TabList className="hidden justify-center rounded-2xl border border-white/20 bg-white/80 p-2 shadow-lg backdrop-blur-sm lg:flex">
+            <TabList className="hidden justify-center rounded-2xl border border-gray-300 bg-white/80 p-2 shadow-lg backdrop-blur-sm lg:flex">
               {categories.map((category, index) => (
                 <Tab
                   key={category.id}

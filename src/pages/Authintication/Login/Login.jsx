@@ -318,7 +318,7 @@ const Login = () => {
       </div>
 
       <div className="relative z-10 container mx-auto max-w-7xl">
-        <div className="overflow-hidden rounded-3xl bg-white/90 backdrop-blur-sm shadow-2xl border border-white/20 lg:grid lg:grid-cols-5">
+        <div className="overflow-hidden rounded-3xl bg-white/90 backdrop-blur-sm shadow-2xl border border-gray-300 lg:grid lg:grid-cols-5">
           
           {/* Left side: Enhanced Welcome Section */}
           <div 
@@ -333,7 +333,7 @@ const Login = () => {
               <div className="flex items-center justify-center gap-3 mb-6">
                 <div className="relative">
                   <div className="absolute inset-0 bg-white/30 rounded-xl blur opacity-75" />
-                  <div className="relative p-3 bg-white/20 rounded-xl shadow-xl border border-white/20">
+                  <div className="relative p-3 bg-white/20 rounded-xl shadow-xl border border-gray-300">
                     <FaGripfire className="text-2xl sm:text-3xl" />
                   </div>
                 </div>
@@ -341,7 +341,7 @@ const Login = () => {
               </div>
 
               {/* Badge */}
-              <div className="inline-flex items-center gap-2 px-4 py-2 bg-white/20 backdrop-blur-sm rounded-full border border-white/20 mb-6">
+              <div className="inline-flex items-center gap-2 px-4 py-2 bg-white/20 backdrop-blur-sm rounded-full border border-gray-300 mb-6">
                 <BsStars className="text-sm" />
                 <span className="text-sm font-bold">WELCOME BACK</span>
               </div>
@@ -362,7 +362,7 @@ const Login = () => {
                   <div
                     key={feature.title}
                     ref={el => featuresRef.current[index] = el}
-                    className="group flex items-center gap-4 p-4 bg-white/10 backdrop-blur-sm rounded-2xl border border-white/20 hover:bg-white/20 transition-all duration-300 cursor-pointer"
+                    className="group flex items-center gap-4 p-4 bg-white/10 backdrop-blur-sm rounded-2xl border border-gray-300 hover:bg-white/20 transition-all duration-300 cursor-pointer"
                     onMouseEnter={(e) => handleFeatureHover(e.currentTarget, true)}
                     onMouseLeave={(e) => handleFeatureHover(e.currentTarget, false)}
                   >
@@ -389,7 +389,7 @@ const Login = () => {
                     <div
                       key={stat.label}
                       ref={el => statsRef.current[index] = el}
-                      className="text-center p-3 bg-white/10 backdrop-blur-sm rounded-xl border border-white/20"
+                      className="text-center p-3 bg-white/10 backdrop-blur-sm rounded-xl border border-gray-300"
                     >
                       <div className="inline-flex p-2 bg-white/20 rounded-lg mb-2">
                         <IconComponent className="text-sm" />

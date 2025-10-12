@@ -9,6 +9,7 @@ import {
 } from "react-icons/fa";
 import { HiSparkles, HiLightningBolt, HiAcademicCap } from "react-icons/hi";
 import { BsRocket, BsStars, BsTrophy } from "react-icons/bs";
+import { Link } from "react-router";
 
 // Register GSAP plugin
 gsap.registerPlugin(ScrollTrigger);
@@ -307,7 +308,7 @@ const LearnioOffers = () => {
           {/* Brand Section */}
           <div className="w-full space-y-6 text-left sm:space-y-8 xl:w-1/2 xl:p-5">
             <div ref={titleRef} className="space-y-4">
-              <div className="flex items-center gap-3 text-3xl font-black sm:text-4xl lg:text-5xl xl:text-6xl">
+              <div className="flex items-center gap-3 text-3xl font-black sm:text-4xl lg:text-5xl xl:text-3xl">
                 <div className="relative">
                   <div className="absolute inset-0 rounded-xl bg-gradient-to-r from-orange-500 to-pink-500 opacity-75 blur" />
                   <div className="relative rounded-xl bg-gradient-to-r from-orange-500 via-pink-500 to-purple-500 p-3 shadow-xl">
@@ -339,13 +340,23 @@ const LearnioOffers = () => {
               master in-demand skills, Learnio provides a flexible, affordable,
               and engaging learning experience.
             </p>
+            <p
+              ref={descriptionRef}
+              className="text-base leading-relaxed text-gray-600 sm:text-lg lg:text-xl"
+            >
+              Learnio will be always there for you&#39;r help . Adipisci
+              nesciunt aut eaque alias, quaerat itaque sapiente suscipit facilis
+              voluptatibus reiciendis amet vel ut. Vitae possimus facere
+              repellat, harum inventore perspiciatis? Corrupti distinctio optio
+              dolore voluptatem amet nobis suscipit vel quam modi numquam ipsam.
+            </p>
           </div>
 
           {/* Benefits Section */}
           <div className="w-full space-y-6 sm:space-y-8 xl:w-1/2 xl:p-5">
             <h2
               ref={benefitsRef}
-              className="text-left text-2xl font-bold sm:text-3xl lg:text-4xl xl:text-5xl"
+              className="text-left text-2xl font-bold sm:text-3xl lg:text-4xl xl:text-3xl"
             >
               With Learnio, you&#39;ll{" "}
               <span className="bg-gradient-to-r from-orange-500 to-pink-500 bg-clip-text text-transparent">
@@ -359,7 +370,7 @@ const LearnioOffers = () => {
                 <div
                   key={benefit.title}
                   ref={(el) => (benefitItemsRef.current[index] = el)}
-                  className={`group cursor-pointer rounded-2xl border border-white/20 bg-white/80 p-4 shadow-lg backdrop-blur-sm transition-all duration-300 hover:shadow-xl sm:p-6 ${index >= 2 ? "sm:col-span-2 lg:col-span-1" : ""}`}
+                  className={`group cursor-pointer rounded-2xl border border-gray-300 bg-white/80 p-4 shadow-lg backdrop-blur-sm transition-all duration-300 hover:shadow-xl sm:p-6 ${index >= 2 ? "sm:col-span-2 lg:col-span-1" : ""}`}
                   onMouseEnter={(e) =>
                     handleBenefitHover(e.currentTarget, true)
                   }
@@ -367,14 +378,16 @@ const LearnioOffers = () => {
                     handleBenefitHover(e.currentTarget, false)
                   }
                 >
-                  <div
-                    className={`inline-flex bg-gradient-to-r p-3 ${benefit.color} mb-4 rounded-xl shadow-lg transition-transform duration-300 group-hover:scale-110`}
-                  >
-                    <div className="text-white">{benefit.icon}</div>
+                  <div className="flex items-center justify-center gap-2">
+                    <div
+                      className={`inline-flex bg-gradient-to-r p-1.5 ${benefit.color} mb-4 rounded-xl shadow-lg transition-transform duration-300 group-hover:scale-110`}
+                    >
+                      <div className="text-white">{benefit.icon}</div>
+                    </div>
+                    <h3 className="mb-2 text-lg font-bold text-gray-800 sm:text-sm">
+                      {benefit.title}
+                    </h3>
                   </div>
-                  <h3 className="mb-2 text-lg font-bold text-gray-800 sm:text-xl">
-                    {benefit.title}
-                  </h3>
                   <p className="text-sm leading-relaxed text-gray-600 sm:text-base">
                     {benefit.description}
                   </p>
@@ -393,7 +406,7 @@ const LearnioOffers = () => {
               <div
                 key={stat.label}
                 ref={(el) => (statsRef.current[index] = el)}
-                className="rounded-2xl border border-white/20 bg-white/80 p-4 text-center shadow-lg backdrop-blur-sm sm:p-6"
+                className="rounded-2xl border border-gray-300 bg-white/80 p-4 text-center shadow-lg backdrop-blur-sm sm:p-6"
               >
                 <div className="mb-3 inline-flex rounded-xl bg-gradient-to-r from-orange-500 to-pink-500 p-3 shadow-lg">
                   <IconComponent className="text-xl text-white sm:text-2xl" />
@@ -429,7 +442,7 @@ const LearnioOffers = () => {
               <div
                 key={index}
                 ref={(el) => (imagesRef.current[index] = el)}
-                className="group relative w-full max-w-xs sm:w-64 lg:w-72 xl:w-80"
+                className="group relative w-full max-w-xs hover:cursor-wait sm:w-64 lg:w-72 xl:w-80"
                 onMouseEnter={(e) => handleImageHover(e.currentTarget, true)}
                 onMouseLeave={(e) => handleImageHover(e.currentTarget, false)}
               >
@@ -437,7 +450,7 @@ const LearnioOffers = () => {
                   <img
                     src={item.img}
                     alt={item.title}
-                    className="h-48 w-full object-cover transition-transform duration-500 group-hover:scale-110 sm:h-64 lg:h-72 xl:h-80"
+                    className="h-48 w-full object-cover transition-transform duration-500 group-hover:scale-110 sm:h-64 lg:h-72 xl:h-96"
                   />
 
                   {/* Overlay */}
@@ -473,12 +486,14 @@ const LearnioOffers = () => {
             <p className="mx-auto mb-6 max-w-2xl text-base opacity-90 sm:mb-8 sm:text-lg lg:text-xl">
               Join our community of learners and unlock your potential today!
             </p>
-            <button className="hover:shadow-3xl rounded-2xl bg-white px-8 py-4 text-base font-bold text-orange-500 shadow-2xl transition-all duration-300 hover:scale-105 sm:px-12 sm:py-5 sm:text-lg lg:text-xl">
-              <span className="flex items-center justify-center gap-3">
-                <BsRocket className="text-xl" />
-                Get Started Now
-              </span>
-            </button>
+            <Link to="/courses">
+              <button className="hover:shadow-3xl rounded-2xl bg-white px-8 py-4 text-base font-bold text-orange-500 shadow-2xl transition-all duration-300 hover:scale-105 hover:bg-orange-500 hover:text-white sm:px-12 sm:py-5 sm:text-lg lg:text-xl">
+                <span className="flex items-center justify-center gap-3">
+                  <BsRocket className="text-xl" />
+                  Get Started Now
+                </span>
+              </button>
+            </Link>
           </div>
         </div>
       </div>

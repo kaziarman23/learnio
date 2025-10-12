@@ -434,7 +434,7 @@ const CourseDetails = () => {
         {/* Enhanced Hero Section */}
         <div ref={heroRef} className="relative">
           {/* Course Image */}
-          <div className="relative h-64 sm:h-80 md:h-96 lg:h-[500px] w-full rounded-3xl overflow-hidden shadow-2xl border border-white/20">
+          <div className="relative h-64 sm:h-80 md:h-96 lg:h-[500px] w-full rounded-3xl overflow-hidden shadow-2xl border border-gray-300">
             <img
               ref={imageRef}
               src={course.courseImage}
@@ -524,7 +524,7 @@ const CourseDetails = () => {
                   <div
                     key={detail.label}
                     ref={el => detailsCardsRef.current[index] = el}
-                    className="p-4 sm:p-6 bg-white/80 backdrop-blur-sm rounded-2xl shadow-lg border border-white/20"
+                    className="p-4 sm:p-6 bg-white/80 backdrop-blur-sm rounded-2xl shadow-lg border border-gray-300"
                   >
                     <div className="flex items-center gap-3">
                       <div className="p-2 bg-gray-100 rounded-xl">
@@ -541,7 +541,7 @@ const CourseDetails = () => {
             </div>
 
             {/* Course Description */}
-            <div className="p-6 sm:p-8 bg-white/80 backdrop-blur-sm rounded-2xl shadow-lg border border-white/20">
+            <div className="p-6 sm:p-8 bg-white/80 backdrop-blur-sm rounded-2xl shadow-lg border border-gray-300">
               <h3 className="text-xl sm:text-2xl font-bold text-gray-800 mb-4">About This Course</h3>
               <p className="text-gray-600 leading-relaxed text-sm sm:text-base">
                 {showFullDescription 
@@ -565,7 +565,7 @@ const CourseDetails = () => {
                 <div
                   key={feature.title}
                   ref={el => featuresRef.current[index] = el}
-                  className="group p-4 sm:p-6 bg-white/80 backdrop-blur-sm rounded-2xl shadow-lg border border-white/20 hover:shadow-xl transition-all duration-300 cursor-pointer"
+                  className="group p-4 sm:p-6 bg-white/80 backdrop-blur-sm rounded-2xl shadow-lg border border-gray-300 hover:shadow-xl transition-all duration-300 cursor-pointer"
                   onMouseEnter={(e) => handleFeatureHover(e.currentTarget, true)}
                   onMouseLeave={(e) => handleFeatureHover(e.currentTarget, false)}
                 >
@@ -589,7 +589,7 @@ const CourseDetails = () => {
           <div className="space-y-6 sm:space-y-8">
             
             {/* Price Card */}
-            <div className="sticky top-6 p-6 sm:p-8 bg-white/90 backdrop-blur-sm rounded-2xl shadow-2xl border border-white/20">
+            <div className="sticky top-6 p-6 sm:p-8 bg-white/90 backdrop-blur-sm rounded-2xl shadow-2xl border border-gray-300">
               <div className="text-center mb-6 sm:mb-8">
                 <div className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-800 mb-2">
                   ${course.coursePrice}

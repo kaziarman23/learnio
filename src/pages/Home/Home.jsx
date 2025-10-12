@@ -3,7 +3,6 @@ import LearnioOffers from "./LearnioOffers";
 import Events from "./Events";
 import Explore from "./Explore";
 import HighLights from "./HighLights";
-import Contact from "./Contact";
 import Overview from "./Overview";
 import Service from "./Service";
 
@@ -17,7 +16,6 @@ const Home = () => {
       <Explore />
       <Events />
       <HighLights />
-      <Contact />
     </div>
   );
 };

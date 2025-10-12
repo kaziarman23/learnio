@@ -315,7 +315,7 @@ const TeacherEnrollment = () => {
           ref={statusRef}
           className="relative z-10 w-11/12 max-w-lg mx-auto"
         >
-          <div className="bg-white/90 backdrop-blur-sm rounded-3xl shadow-2xl border border-white/20 p-8 sm:p-12 text-center">
+          <div className="bg-white/90 backdrop-blur-sm rounded-3xl shadow-2xl border border-gray-300 p-8 sm:p-12 text-center">
             {/* Status Icon */}
             <div 
               ref={statusIconRef}
@@ -523,7 +523,7 @@ const TeacherEnrollment = () => {
               <div
                 key={benefit.title}
                 ref={el => benefitsRef.current[index] = el}
-                className="group p-4 sm:p-6 bg-white/80 backdrop-blur-sm rounded-2xl shadow-lg border border-white/20 hover:shadow-xl transition-all duration-300 cursor-pointer"
+                className="group p-4 sm:p-6 bg-white/80 backdrop-blur-sm rounded-2xl shadow-lg border border-gray-300 hover:shadow-xl transition-all duration-300 cursor-pointer"
                 onMouseEnter={(e) => handleBenefitHover(e.currentTarget, true)}
                 onMouseLeave={(e) => handleBenefitHover(e.currentTarget, false)}
               >
@@ -546,7 +546,7 @@ const TeacherEnrollment = () => {
         {/* Enhanced Form */}
         <div 
           ref={formRef}
-          className="max-w-4xl mx-auto bg-white/90 backdrop-blur-sm rounded-3xl shadow-2xl border border-white/20 p-6 sm:p-8 lg:p-12"
+          className="max-w-4xl mx-auto bg-white/90 backdrop-blur-sm rounded-3xl shadow-2xl border border-gray-300 p-6 sm:p-8 lg:p-12"
         >
           <div className="text-center mb-8 sm:mb-12">
             <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-800 mb-4">
