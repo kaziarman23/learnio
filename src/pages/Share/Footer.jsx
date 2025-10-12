@@ -7,7 +7,7 @@ import {
   FaGripfire,
 } from "react-icons/fa";
 import { HiSparkles, HiLightningBolt } from "react-icons/hi";
-import { BsRocket, BsStars } from "react-icons/bs";
+import { BsRocket } from "react-icons/bs";
 import { useEffect, useRef } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";

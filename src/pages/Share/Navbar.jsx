@@ -29,7 +29,8 @@ const Navbar = () => {
   const navigationLinks = [
     { to: "/", label: "Home" },
     { to: "/courses", label: "All Courses" },
-    { to: "/aboutUs", label: "About" },
+    // have to change it latter...
+    { to: "/aboutUs", label: "Contact" },
     ...(userEmail
       ? [
           { to: "/teacher", label: "Teacher Enrollment" },
