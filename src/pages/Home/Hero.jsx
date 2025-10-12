@@ -137,19 +137,19 @@ const Hero = () => {
             {/* Description */}
             <p
               ref={descriptionRef}
-              className="mx-auto mb-6 max-w-2xl text-base leading-relaxed text-gray-600 sm:mb-8 sm:text-lg lg:mx-0 lg:text-xl"
+              className="mx-auto mb-6 max-w-2xl text-left text-base leading-relaxed text-gray-600 sm:mb-8 sm:text-lg lg:mx-0 lg:text-xl"
             >
               Discover expert-led courses designed to help you master new
               skills, elevate your career, or pursue your passions. Learn at
               your own pace from anywhere in the world.
             </p>
 
-            {/* CTA Buttons */}
-            <div className="mb-8 flex flex-col items-center justify-center gap-4 sm:mb-12 sm:flex-row lg:justify-start">
-              <Link to="/courses">
+            {/* Buttons */}
+            <div className="mb-8 flex w-full flex-col items-center justify-center gap-4 sm:mb-12 sm:flex-row lg:justify-start xl:mb-8">
+              <Link to="/courses" className="w-full sm:w-auto">
                 <button
                   ref={(el) => (ctaButtonsRef.current[0] = el)}
-                  className="w-full rounded-xl bg-gradient-to-r from-orange-500 to-orange-600 px-6 py-3 text-base font-bold text-white shadow-lg transition-all duration-300 hover:shadow-xl sm:w-auto sm:px-8 sm:py-4 sm:text-lg"
+                  className="w-full rounded-xl bg-gradient-to-r from-orange-500 to-orange-600 px-6 py-3 text-base font-bold text-white shadow-lg transition-all duration-300 hover:shadow-xl sm:px-8 sm:py-4 sm:text-lg lg:w-full lg:text-sm xl:text-lg"
                   onMouseEnter={(e) => handleButtonHover(e.currentTarget, true)}
                   onMouseLeave={(e) =>
                     handleButtonHover(e.currentTarget, false)
@@ -161,22 +161,23 @@ const Hero = () => {
                   </span>
                 </button>
               </Link>
-
-              <button
-                ref={(el) => (ctaButtonsRef.current[1] = el)}
-                className="w-full rounded-xl bg-gradient-to-r from-orange-500 to-orange-600 px-6 py-3 text-base font-bold text-white shadow-lg transition-all duration-300 hover:shadow-xl sm:w-auto sm:px-8 sm:py-4 sm:text-lg"
-                onMouseEnter={(e) =>
-                  handleButtonHover(e.currentTarget, true, "secondary")
-                }
-                onMouseLeave={(e) =>
-                  handleButtonHover(e.currentTarget, false, "secondary")
-                }
-              >
-                <span className="flex items-center justify-center gap-2">
-                  About Us
-                  <FaGoogleScholar />
-                </span>
-              </button>
+              <Link to="/contact" className="w-full sm:w-auto">
+                <button
+                  ref={(el) => (ctaButtonsRef.current[1] = el)}
+                  className="w-full rounded-xl bg-gradient-to-r from-orange-500 to-orange-600 px-6 py-3 text-base font-bold text-white shadow-lg transition-all duration-300 hover:shadow-xl sm:px-8 sm:py-4 sm:text-lg lg:w-auto lg:text-sm xl:text-lg"
+                  onMouseEnter={(e) =>
+                    handleButtonHover(e.currentTarget, true, "secondary")
+                  }
+                  onMouseLeave={(e) =>
+                    handleButtonHover(e.currentTarget, false, "secondary")
+                  }
+                >
+                  <span className="flex items-center justify-center gap-2">
+                    Contact Us
+                    <FaGoogleScholar />
+                  </span>
+                </button>
+              </Link>
             </div>
 
             {/* Stats */}
@@ -187,7 +188,7 @@ const Hero = () => {
                   <div
                     key={stat.label}
                     ref={(el) => (statsRef.current[index] = el)}
-                    className="rounded-xl border border-gray-100 bg-white p-3 text-center shadow-sm sm:p-4"
+                    className="rounded-xl border border-gray-300 bg-white p-3 text-center shadow-sm sm:p-4"
                   >
                     <div className="mb-2 inline-flex rounded-lg bg-orange-100 p-2">
                       <IconComponent className="text-lg text-orange-500 sm:text-xl" />

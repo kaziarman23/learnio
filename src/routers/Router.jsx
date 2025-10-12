@@ -25,7 +25,7 @@ import PanddingCourseReview from "../pages/Dashboard/AdminDashboard/CourseReview
 import ActiveCourseReview from "../pages/Dashboard/AdminDashboard/CourseReview/ActiveCourseReview";
 import RejectCourseReview from "../pages/Dashboard/AdminDashboard/CourseReview/RejectCourseReview";
 import Users from "../pages/Dashboard/AdminDashboard/Users/Users";
-import AboutUs from "../pages/AboutUs/AboutUs";
+import Contact from '../pages/Contact/Contact';
 
 const Router = createBrowserRouter([
   {
@@ -49,8 +49,8 @@ const Router = createBrowserRouter([
         ),
       },
       {
-        path: "/aboutUs",
-        element: <AboutUs />,
+        path: "/contact",
+        element: <Contact />,
       },
       {
         path: "/teacher",

@@ -29,8 +29,7 @@ const Navbar = () => {
   const navigationLinks = [
     { to: "/", label: "Home" },
     { to: "/courses", label: "All Courses" },
-    // have to change it latter...
-    { to: "/aboutUs", label: "Contact" },
+    { to: "/contact", label: "Contact" },
     ...(userEmail
       ? [
           { to: "/teacher", label: "Teacher Enrollment" },
@@ -252,9 +251,9 @@ const Navbar = () => {
       {/* Main Navbar */}
       <nav
         ref={navbarRef}
-        className="fixed left-0 right-0 top-0 z-50 border-b border-gray-200/50 bg-white/70 backdrop-blur-lg transition-all duration-300"
+        className="fixed left-0 right-0 top-0 z-50 border-b border-gray-300 bg-white/70 backdrop-blur-lg transition-all duration-300"
       >
-        <div className="navbar mx-auto h-full w-full justify-between px-4 sm:w-4/5">
+        <div className="navbar mx-auto h-full w-full justify-between sm:w-11/12 xl:w-4/5">
           {/* Left Section */}
           <div className="flex items-center justify-start">
             {/* Mobile Menu Button */}
@@ -266,11 +265,8 @@ const Navbar = () => {
             </button>
 
             {/* Logo */}
-            <div
-              // ref={logoRef}
-              className="group flex cursor-pointer items-center gap-2"
-            >
-              <div className="rounded-xl bg-gradient-to-r from-orange-500 to-red-500 p-2 shadow-lg group-hover:shadow-xl">
+            <div className="group flex cursor-pointer items-center gap-2">
+              <div className="hidden rounded-xl bg-gradient-to-r from-orange-500 to-red-500 p-2 shadow-lg group-hover:shadow-xl lg:block">
                 <FaGripfire className="text-lg text-white sm:text-xl xl:text-2xl" />
               </div>
               <h1 className="bg-gradient-to-r from-gray-800 to-gray-600 bg-clip-text text-sm font-bold text-transparent sm:text-lg xl:text-2xl">
@@ -291,7 +287,7 @@ const Navbar = () => {
           </div>
 
           {/* Right Section - Auth Buttons */}
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-1 lg:gap-3">
             {userEmail ? (
               <button
                 ref={(el) => (authButtonsRef.current[0] = el)}
@@ -395,7 +391,7 @@ const Navbar = () => {
               ) : (
                 <>
                   <Link to="/register" className="block">
-                    <button className="w-full rounded-xl border-2 border-gray-800 py-3 font-bold text-gray-800 transition-all duration-300 hover:bg-gray-800 hover:text-white">
+                    <button className="w-full rounded-xl bg-gradient-to-r from-orange-500 to-red-500 py-3 font-bold text-white shadow-lg transition-all duration-300">
                       Register
                     </button>
                   </Link>

@@ -431,9 +431,9 @@ const LearnioOffers = () => {
                 Difference
               </span>
             </h3>
-            <p className="mx-auto max-w-2xl text-base text-gray-600 sm:text-lg">
+            <p className="mx-auto max-w-2xl text-left text-base text-gray-600 sm:text-lg">
               Join thousands of learners who have transformed their careers with
-              our platform
+              our platform.
             </p>
           </div>
 
@@ -442,7 +442,7 @@ const LearnioOffers = () => {
               <div
                 key={index}
                 ref={(el) => (imagesRef.current[index] = el)}
-                className="group relative w-full max-w-xs hover:cursor-wait sm:w-64 lg:w-72 xl:w-80"
+                className="group relative w-full hover:cursor-wait sm:w-64 lg:w-72 xl:w-80"
                 onMouseEnter={(e) => handleImageHover(e.currentTarget, true)}
                 onMouseLeave={(e) => handleImageHover(e.currentTarget, false)}
               >
@@ -450,7 +450,7 @@ const LearnioOffers = () => {
                   <img
                     src={item.img}
                     alt={item.title}
-                    className="h-48 w-full object-cover transition-transform duration-500 group-hover:scale-110 sm:h-64 lg:h-72 xl:h-96"
+                    className="h-96 w-full object-cover transition-transform duration-500 group-hover:scale-110 sm:h-64 lg:h-96"
                   />
 
                   {/* Overlay */}

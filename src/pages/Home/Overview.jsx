@@ -314,7 +314,7 @@ function Overview() {
             </div>
 
             {/* Achievement Stats */}
-            <div className="grid grid-cols-2 gap-4 pt-4 sm:grid-cols-4">
+            <div className="grid grid-cols-2 gap-4 pt-4 sm:grid-cols-4 lg:grid-cols-2">
               {achievements.map((achievement, index) => (
                 <div
                   key={achievement.label}
@@ -336,7 +336,7 @@ function Overview() {
           </div>
 
           {/* Right Cards Section */}
-          <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 sm:gap-8">
+          <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 sm:gap-8 lg:gap-2 xl:gap-4">
             {cards.map((card, index) => (
               <div
                 key={card.id}
@@ -402,11 +402,11 @@ function Overview() {
                 <div className="rounded-xl bg-white/20 p-3">
                   <FaGripfire className="text-2xl sm:text-3xl" />
                 </div>
-                <h3 className="text-2xl font-bold sm:text-3xl lg:text-4xl">
+                <h3 className="text-lg font-bold sm:text-2xl lg:text-4xl">
                   Join the Learnio Community
                 </h3>
               </div>
-              <p className="mx-auto mb-6 max-w-2xl text-base opacity-90 sm:mb-8 sm:text-lg lg:text-xl">
+              <p className="mx-auto mb-6 max-w-2xl text-left text-base opacity-90 sm:mb-8 sm:text-lg lg:text-center lg:text-xl">
                 Be part of a global movement that&#39;s reshaping education and
                 empowering learners worldwide.
               </p>

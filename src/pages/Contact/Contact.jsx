@@ -365,7 +365,7 @@ function Contact() {
             ref={titleRef}
             className="mb-6 text-3xl font-bold text-gray-800 sm:mb-8 sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl"
           >
-            Let's{" "}
+            Let&#39;s{" "}
             <span className="bg-gradient-to-r from-orange-500 via-pink-500 to-purple-500 bg-clip-text text-transparent">
               Connect!
             </span>
@@ -376,7 +376,7 @@ function Contact() {
             ref={descriptionRef}
             className="mx-auto mb-8 max-w-3xl text-base leading-relaxed text-gray-600 sm:mb-12 sm:text-lg lg:text-xl"
           >
-            🚀 We'd love to hear from you! Whether you have questions about
+            🚀 We&#39;d love to hear from you! Whether you have questions about
             courses, need support, or want to share feedback, our team is here
             to help. Reach out through any channel below or fill out our contact
             form.
@@ -425,7 +425,7 @@ function Contact() {
               </div>
 
               <p className="mb-8 text-base leading-relaxed opacity-90 sm:mb-12 sm:text-lg">
-                Choose your preferred way to connect with us. We're available
+                Choose your preferred way to connect with us. We&#39;re available
                 through multiple channels to ensure you get the support you
                 need.
               </p>
@@ -496,7 +496,7 @@ function Contact() {
                 Send us a Message
               </h3>
               <p className="text-gray-600">
-                Fill out the form below and we'll get back to you as soon as
+                Fill out the form below and we&#39;ll get back to you as soon as
                 possible.
               </p>
             </div>
@@ -631,7 +631,7 @@ function Contact() {
             {submitStatus === "success" && (
               <div className="mt-6 rounded-xl border border-green-300 bg-green-100 p-4 text-center text-green-800">
                 <BsCheckCircle className="mr-2 inline-block text-xl" />
-                Thank you! We'll get back to you within 24 hours.
+                Thank you! We&#39;ll get back to you within 24 hours.
               </div>
             )}
           </div>
