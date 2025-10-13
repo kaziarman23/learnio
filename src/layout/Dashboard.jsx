@@ -253,7 +253,7 @@ const Dashboard = () => {
   const menuItems = getMenuItems(user);
 
   return (
-    <div className="flex min-h-screen flex-col bg-gradient-to-br from-gray-50 via-blue-50 to-purple-50 lg:flex-row">
+    <div className="flex min-h-screen bg-gradient-to-br from-gray-50 via-blue-50 to-purple-50">
       {/* Mobile Header */}
       <div className="sticky top-0 z-50 border-b border-gray-200 bg-white/80 backdrop-blur-md lg:hidden">
         <div className="flex items-center justify-between p-4">
@@ -337,9 +337,9 @@ const Dashboard = () => {
       {/* Desktop Sidebar */}
       <div
         ref={sidebarRef}
-        className="hidden w-80 border-r border-gray-200/50 bg-white/80 shadow-xl backdrop-blur-lg lg:block"
+        className="z-40 hidden h-screen w-80 border-r border-gray-300 bg-white/80 shadow-xl backdrop-blur-lg lg:fixed lg:left-0 lg:top-0 lg:block"
       >
-        <div className="p-8">
+        <div className="h-full overflow-y-auto p-8">
           {/* Logo Section */}
           <div ref={logoRef} className="mb-12 text-center">
             <div className="inline-flex items-center gap-3 rounded-2xl bg-gradient-to-r from-blue-500 to-purple-500 p-4 shadow-lg">
@@ -349,12 +349,12 @@ const Dashboard = () => {
           </div>
 
           {/* Menu Items */}
-          <div className="space-y-3">
+          <div className="space-y-2">
             {menuItems.map((item, index) => (
               <MenuItem key={item.to} {...item} index={index} />
             ))}
 
-            <div className="my-8 border-t border-gray-200 pt-8">
+            <div className="my-8 border-t border-gray-300 pt-4">
               {commonMenuItems.map((item, index) => (
                 <MenuItem
                   key={item.to}
@@ -366,7 +366,7 @@ const Dashboard = () => {
 
             <button
               onClick={handleLogout}
-              className="group flex w-full items-center gap-4 rounded-2xl p-4 font-medium text-red-600 transition-all duration-300 hover:bg-red-50 hover:shadow-md"
+              className="group relative flex w-full items-center gap-4 rounded-2xl p-4 font-medium text-red-600 transition-all duration-300 hover:bg-red-50 hover:shadow-md"
               onMouseEnter={(e) => handleMenuItemHover(e.currentTarget, true)}
               onMouseLeave={(e) => handleMenuItemHover(e.currentTarget, false)}
             >
@@ -379,8 +379,8 @@ const Dashboard = () => {
       </div>
 
       {/* Main Content */}
-      <div className="flex-1 lg:ml-0">
-        <div className="min-h-screen bg-gradient-to-br from-white via-blue-50/30 to-purple-50/30">
+      <div className="flex-1 lg:ml-80">
+        <div className="min-h-screen overflow-y-auto bg-gradient-to-br from-white via-blue-50/30 to-purple-50/30 p-6">
           <Outlet />
         </div>
       </div>

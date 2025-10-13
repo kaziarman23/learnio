@@ -2,9 +2,10 @@ import React, { useEffect, useRef } from "react";
 import { motion, useScroll, useTransform, useSpring } from "framer-motion";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { HiSparkles, HiNewspaper, HiTrendingUp } from "react-icons/hi";
+import { HiSparkles, HiNewspaper } from "react-icons/hi";
 import { BsStars, BsArrowRight, BsEye } from "react-icons/bs";
 import { FaCalendar, FaUser } from "react-icons/fa";
+import { Link } from "react-router";
 
 // Register GSAP plugin
 gsap.registerPlugin(ScrollTrigger);
@@ -297,26 +298,21 @@ export const Header = () => {
 
         {/* Call to Action */}
         <div className="flex flex-col items-center justify-center gap-4 sm:flex-row lg:justify-start">
-          <button
-            ref={ctaRef}
-            className="group w-full overflow-hidden rounded-2xl bg-gradient-to-r from-orange-500 to-orange-600 px-8 py-4 text-base font-bold text-white shadow-2xl transition-all duration-300 hover:shadow-orange-500/50 sm:w-auto sm:text-lg"
-            onMouseEnter={(e) => handleButtonHover(e.currentTarget, true)}
-            onMouseLeave={(e) => handleButtonHover(e.currentTarget, false)}
-          >
-            <div className="absolute inset-0 bg-gradient-to-r from-white/20 to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
-            <span className="relative z-10 flex items-center justify-center gap-3">
-              <HiSparkles className="text-xl" />
-              Explore All Articles
-              <BsArrowRight className="text-lg transition-transform duration-300 group-hover:translate-x-1" />
-            </span>
-          </button>
-
-          <button className="group w-full rounded-2xl border-2 border-orange-300 px-8 py-4 text-base font-bold text-orange-600 transition-all duration-300 hover:bg-orange-50 sm:w-auto sm:text-lg">
-            <span className="flex items-center justify-center gap-3">
-              <HiTrendingUp className="text-xl" />
-              Trending Topics
-            </span>
-          </button>
+          <Link to="https://medium.com/search?q=react.js" target="_blank">
+            <button
+              ref={ctaRef}
+              className="group w-full overflow-hidden rounded-2xl bg-gradient-to-r from-orange-500 to-orange-600 px-8 py-4 text-base font-bold text-white shadow-2xl transition-all duration-300 hover:shadow-orange-500/50 sm:w-auto sm:text-lg"
+              onMouseEnter={(e) => handleButtonHover(e.currentTarget, true)}
+              onMouseLeave={(e) => handleButtonHover(e.currentTarget, false)}
+            >
+              <div className="absolute inset-0 bg-gradient-to-r from-white/20 to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
+              <span className="relative z-10 flex items-center justify-center gap-3">
+                <HiSparkles className="text-xl" />
+                Explore All Articles
+                <BsArrowRight className="text-lg transition-transform duration-300 group-hover:translate-x-1" />
+              </span>
+            </button>
+          </Link>
         </div>
       </div>
     </div>

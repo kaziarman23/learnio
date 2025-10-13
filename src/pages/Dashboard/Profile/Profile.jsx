@@ -32,11 +32,11 @@ const Profile = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-100 to-slate-200 flex items-center justify-center p-4">
+    <div className="min-h-screen bg-gradient-to-br from-white via-gray-50/30 to-blue-50/20 flex items-center justify-center p-4">
       <div className="w-full max-w-2xl bg-white rounded-2xl shadow-2xl overflow-hidden transform transition-all duration-300 hover:shadow-3xl">
         
         {/* Header Section with Background Pattern */}
-        <div className="relative h-32 bg-gradient-to-r from-blue-500 to-purple-600 overflow-hidden">
+        <div className="relative h-32 bg-gradient-to-r from-blue-500 to-sky-500  overflow-hidden">
           <div className="absolute inset-0 bg-black bg-opacity-10"></div>
           <div className="absolute -top-4 -right-4 w-32 h-32 bg-white bg-opacity-10 rounded-full"></div>
           <div className="absolute -bottom-4 -left-4 w-24 h-24 bg-white bg-opacity-10 rounded-full"></div>
@@ -95,7 +95,7 @@ const Profile = () => {
 
             <div className="flex items-center space-x-3 group">
               <div className="flex-shrink-0 w-10 h-10 bg-green-100 rounded-lg flex items-center justify-center group-hover:bg-green-200 transition-colors duration-200">
-                <Mail className="w-5 h-5 text-green-600" />
+                <Mail className="w-5 h-5 text-sky-600" />
               </div>
               <div className="flex-1 min-w-0">
                 <p className="text-sm font-medium text-gray-500 uppercase tracking-wide">Email</p>
@@ -113,14 +113,14 @@ const Profile = () => {
               className="flex-1"
               aria-label="Update your profile information"
             >
-              <button className="w-full bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white font-semibold py-3 px-6 rounded-xl transition-all duration-300 transform hover:scale-105 hover:shadow-lg flex items-center justify-center space-x-2 group">
+              <button className="w-full bg-gradient-to-r from-blue-500 to-sky-500  hover:from-blue-600 hover:to-sky-700 text-white font-semibold py-3 px-6 rounded-xl transition-all duration-300 transform hover:scale-105 hover:shadow-lg flex items-center justify-center space-x-2 group">
                 <Edit3 className="w-5 h-5 group-hover:rotate-12 transition-transform duration-200" />
                 <span>Update Profile</span>
               </button>
             </Link>
 
             <button 
-              className="bg-gray-100 hover:bg-gray-200 text-gray-700 font-semibold py-3 px-6 rounded-xl transition-all duration-300 transform hover:scale-105 flex items-center justify-center space-x-2"
+              className="bg-gradient-to-r from-blue-500 to-sky-500  hover:bg-gray-200 text-white font-semibold py-3 px-6 rounded-xl transition-all duration-300 transform hover:scale-105 flex items-center justify-center space-x-2"
               aria-label="Share profile"
             >
               <span>Share</span>
