@@ -1,124 +1,236 @@
-import { Link, useNavigate } from "react-router";
-import { useGetCoursesQuery } from "../../../../Redux/features/api/coursesApi";
 import { useMemo } from "react";
-import Loading from "../../../../components/Loading/Loading";
+import { Link, useNavigate } from "react-router-dom"; // Use Link from react-router-dom
 import toast from "react-hot-toast";
 
+// Components
+import Loading from "../../../../components/Loading/Loading";
+
+// Redux
+import { useGetCoursesQuery } from "../../../../Redux/features/api/coursesApi";
+
+// Icons
+import { FaTimesCircle, FaUser } from "react-icons/fa";
+import { HiCurrencyDollar, HiSparkles } from "react-icons/hi";
+import { BsArrowRight } from "react-icons/bs";
+
 const RejectCourseReview = () => {
-  //states
+  // states
   const navigate = useNavigate();
 
-  // Rtk query hooks
-  const { data, isLoading, isError, error } = useGetCoursesQuery();
+  // RTK Query hooks
+  const {
+    data: courses = [],
+    isLoading,
+    isError,
+    error,
+    refetch,
+  } = useGetCoursesQuery();
 
   // fetching reject courses data
   const rejectCourses = useMemo(
-    () => data?.filter((course) => course.courseStatus === "reject"),
-    [data],
+    () => courses?.filter((course) => course.courseStatus === "reject") || [],
+    [courses],
   );
 
-  // Handle Loading
+  // --- Loading State UI ---
   if (isLoading) {
     return <Loading />;
   }
 
-  // Handle error
+  // --- Error State UI (Adopted modern style) ---
   if (isError) {
-    console.log(
+    console.error(
       "Error while fetching the courses data from the database : ",
-      error.error,
+      error,
     );
-    // showing an alert
-    toast.error(error);
-  }
+    // ⚠️ FIX: Add safe fallback message for toast
+    toast.error(
+      error?.data?.message ||
+        error?.error ||
+        "Failed to load rejected courses data",
+    );
 
-  // Handle empty courses
-  if (rejectCourses.length === 0) {
     return (
-      <div className="flex h-screen w-full items-center justify-center bg-[#e0cece]">
-        <div className="flex h-40 w-4/5 flex-col items-center justify-center gap-5 rounded-2xl bg-[#c7c1c1]">
-          <h1 className="text-center text-2xl font-bold">
-            You have no reject course !
-          </h1>
-          <Link to="/dashboard/courseReview">
-            <button
-              type="button"
-              className="btn hover:border-none hover:bg-blue-500 hover:text-white"
-            >
-              Review Other Courses
-            </button>
-          </Link>
+      <div className="flex min-h-screen items-center justify-center">
+        <div className="max-w-lg rounded-2xl bg-white/90 p-8 text-center shadow-xl backdrop-blur-sm">
+          <h2 className="mb-4 text-2xl font-bold text-red-600">
+            Error Loading Rejected Courses
+          </h2>
+          <p className="mb-6 text-gray-600">
+            A problem occurred while fetching rejected courses. Please try
+            again.
+          </p>
+          <button
+            onClick={() => refetch()}
+            className="rounded-lg bg-blue-500 px-6 py-3 text-white transition-colors hover:bg-blue-600"
+          >
+            Try Again
+          </button>
         </div>
       </div>
     );
   }
 
+  // --- Empty State UI (Adopted modern style) ---
+  if (rejectCourses.length === 0) {
+    return (
+      <div className="relative flex min-h-screen w-full items-center justify-center overflow-hidden bg-gradient-to-br from-white via-gray-50/30 to-red-50/20">
+        {/* Background Elements (Red/Rose theme for rejected) */}
+        <div className="absolute left-1/4 top-1/4 h-72 w-72 animate-pulse rounded-full bg-gradient-to-r from-red-400/5 to-rose-400/5 blur-3xl" />
+
+        <div className="relative z-10 mx-auto w-11/12 max-w-lg">
+          <div className="rounded-3xl border border-gray-300 bg-white/90 p-8 text-center shadow-2xl backdrop-blur-sm sm:p-12">
+            {/* Empty Icon */}
+            <div className="mb-6 inline-flex rounded-full bg-gradient-to-r from-red-500 to-rose-500 p-6 shadow-2xl">
+              <FaTimesCircle className="text-4xl text-white" />
+            </div>
+
+            {/* Title */}
+            <h1 className="mb-4 text-2xl font-bold text-gray-800 sm:text-3xl lg:text-4xl">
+              No Rejected Courses Found
+            </h1>
+
+            {/* Message */}
+            <p className="mb-8 text-base leading-relaxed text-gray-600 sm:text-lg">
+              There are currently no rejected course submissions in the system.
+            </p>
+
+            {/* Action Buttons */}
+            <div className="space-y-4">
+              <Link to="/dashboard/courseReview">
+                <button className="group w-full rounded-2xl bg-gradient-to-r from-blue-500 to-cyan-500 px-8 py-4 text-base font-bold text-white shadow-2xl transition-all duration-300 hover:scale-105 sm:w-auto sm:text-lg">
+                  <span className="flex items-center justify-center gap-3">
+                    <HiSparkles className="text-xl" />
+                    Review Other Courses
+                    <BsArrowRight className="text-lg transition-transform duration-300 group-hover:translate-x-1" />
+                  </span>
+                </button>
+              </Link>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  // --- Main Content UI (Adopted modern styling) ---
   return (
-    <div className="flex min-h-screen w-full items-center justify-center bg-[#e0cece]">
-      <div className="mx-auto my-5 w-11/12 overflow-hidden rounded-lg bg-[#c7c1c1]">
-        <h1 className="p-5 text-center text-2xl font-bold">
-          All Reject Courses
-        </h1>
-        <div className="flex flex-col items-start justify-start gap-4 p-5 sm:flex-row sm:items-center sm:justify-between">
-          <h3 className="text-base font-bold md:text-lg xl:text-2xl">
-            Reject Courses: {rejectCourses.length}
+    <div className="relative min-h-screen w-full overflow-hidden bg-gradient-to-br from-white via-gray-50/30 to-red-50/20 p-4 sm:p-6 lg:p-8">
+      {/* Background Elements */}
+      <div className="absolute left-1/4 top-1/4 h-72 w-72 animate-pulse rounded-full bg-gradient-to-r from-red-400/5 to-rose-400/5 blur-3xl sm:h-96 sm:w-96" />
+
+      <div className="relative z-10 mx-auto max-w-7xl">
+        {/* Header */}
+        <div className="mb-8 text-center sm:mb-12">
+          <h1 className="mb-2 text-3xl font-bold text-gray-800 sm:text-4xl md:text-5xl">
+            Rejected{" "}
+            <span className="bg-gradient-to-r from-red-500 to-rose-500 bg-clip-text text-transparent">
+              Courses
+            </span>
+          </h1>
+          <p className="mx-auto max-w-2xl text-base leading-relaxed text-gray-600 sm:text-lg">
+            ❌ Courses that were reviewed and ultimately rejected. Total:{" "}
+            <span className="font-bold text-red-600">
+              {rejectCourses.length}
+            </span>
+          </p>
+        </div>
+
+        {/* Navigation/Action Row */}
+        <div className="mb-6 flex flex-col items-start justify-between gap-4 sm:flex-row sm:items-center">
+          <h3 className="text-xl font-bold text-gray-700">
+            Rejected Courses: {rejectCourses.length}
           </h3>
           <button
             onClick={() => navigate(-1)}
             type="button"
-            className="btn hover:border-none hover:bg-blue-500 hover:text-white"
+            className="group rounded-2xl border-2 border-gray-300 px-6 py-3 text-base font-bold text-gray-700 transition-all duration-300 hover:border-gray-400 hover:bg-gray-50 sm:w-auto"
           >
-            Review Other Courses
+            <span className="flex items-center justify-center gap-2">
+              <BsArrowRight className="rotate-180 text-lg transition-transform duration-300 group-hover:-translate-x-1" />
+              Go Back to Review Hub
+            </span>
           </button>
         </div>
 
-        {/* form content */}
-        <div className="overflow-x-auto p-5">
-          <table className="table">
-            <thead>
-              <tr className="font-bold uppercase">
-                <th>SL:</th>
-                <th>Course Image</th>
-                <th>Course Title</th>
-                <th>Course Price</th>
-                <th>Teacher Name</th>
-                <th>Teacher Email</th>
-                <th>Status</th>
-              </tr>
-            </thead>
-            <tbody>
-              {rejectCourses.map((course, index) => (
-                <tr key={index}>
-                  <th>{index + 1}</th>
-                  <td>
-                    <div className="h-16 w-24">
-                      <img
-                        src={course.courseImage}
-                        alt={course.courseTitle}
-                        className="h-full w-full rounded-lg object-cover"
-                      />
-                    </div>
-                  </td>
-                  <td>{course.courseTitle}</td>
-                  <td>{course.coursePrice} $</td>
-                  <td>{course.courseTeacherName}</td>
-                  <td>{course.courseTeacherEmail}</td>
-
-                  <th className="flex items-center justify-center">
-                    {course.courseStatus === "active" ? (
-                      <h1 className="flex items-center justify-center gap-3 rounded-xl bg-blue-500 p-3 text-center text-base font-bold uppercase">
-                        Accepted
-                      </h1>
-                    ) : (
-                      <h1 className="mt-1 flex items-center justify-center gap-3 rounded-xl bg-red-500 p-3 text-center text-base font-bold uppercase">
-                        Rejected
-                      </h1>
-                    )}
+        {/* Table Container (Modern Styling) */}
+        <div className="overflow-hidden rounded-3xl border border-gray-300 bg-white/90 shadow-2xl backdrop-blur-sm">
+          <div className="overflow-x-auto">
+            <table className="w-full">
+              <thead className="bg-gradient-to-r from-red-500 to-rose-500 text-white">
+                <tr>
+                  <th className="px-4 py-4 text-left text-sm font-bold uppercase tracking-wider">
+                    SL
+                  </th>
+                  <th className="px-4 py-4 text-left text-sm font-bold uppercase tracking-wider">
+                    Image
+                  </th>
+                  <th className="px-4 py-4 text-left text-sm font-bold uppercase tracking-wider">
+                    Course Title
+                  </th>
+                  <th className="px-4 py-4 text-left text-sm font-bold uppercase tracking-wider">
+                    Price
+                  </th>
+                  <th className="px-4 py-4 text-left text-sm font-bold uppercase tracking-wider">
+                    Teacher Name
+                  </th>
+                  <th className="px-4 py-4 text-center text-sm font-bold uppercase tracking-wider">
+                    Status
                   </th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
+              </thead>
+              <tbody className="divide-y divide-gray-200">
+                {rejectCourses.map((course, index) => (
+                  <tr
+                    key={course._id}
+                    className="transition-colors duration-200 hover:bg-red-50/50"
+                  >
+                    <td className="whitespace-nowrap px-4 py-4">
+                      <span className="text-sm font-medium text-gray-900">
+                        {index + 1}
+                      </span>
+                    </td>
+                    <td className="px-4 py-4">
+                      <div className="h-12 w-16">
+                        <img
+                          src={course.courseImage}
+                          alt={course.courseTitle}
+                          className="h-full w-full rounded-lg object-cover"
+                        />
+                      </div>
+                    </td>
+                    <td className="px-4 py-4">
+                      <div className="max-w-xs truncate text-sm font-medium text-gray-900">
+                        {course.courseTitle}
+                      </div>
+                    </td>
+                    <td className="whitespace-nowrap px-4 py-4">
+                      <span className="inline-flex items-center gap-1 text-base font-bold text-green-600">
+                        <HiCurrencyDollar className="text-sm" />
+                        {parseFloat(course.coursePrice).toFixed(2)}
+                      </span>
+                    </td>
+                    <td className="whitespace-nowrap px-4 py-4">
+                      <div className="flex items-center">
+                        <FaUser className="mr-2 text-xs text-gray-400" />
+                        <span className="text-sm text-gray-900">
+                          {course.courseTeacherName}
+                        </span>
+                      </div>
+                    </td>
+                    <td className="whitespace-nowrap px-4 py-4 text-center">
+                      <div className="flex items-center justify-center">
+                        <span className="flex items-center justify-center gap-2 rounded-full bg-red-500 px-4 py-2 text-xs font-bold uppercase text-white shadow-lg">
+                          <FaTimesCircle className="text-sm" />
+                          Rejected
+                        </span>
+                      </div>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
         </div>
       </div>
     </div>
