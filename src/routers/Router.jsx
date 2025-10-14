@@ -21,11 +21,12 @@ import NotFound from "../pages/NotFound/NotFound";
 import AdminAnalytics from "../pages/Dashboard/AdminDashboard/AdminAnalytics/AdminAnalytics";
 import TeacherRequiests from "../pages/Dashboard/AdminDashboard/TeacherRequiests/TeacherRequiests";
 import CourseReview from "../pages/Dashboard/AdminDashboard/CourseReview/CourseReview";
-import PanddingCourseReview from "../pages/Dashboard/AdminDashboard/CourseReview/PanddingCourseReview";
+
 import ActiveCourseReview from "../pages/Dashboard/AdminDashboard/CourseReview/ActiveCourseReview";
 import RejectCourseReview from "../pages/Dashboard/AdminDashboard/CourseReview/RejectCourseReview";
 import Users from "../pages/Dashboard/AdminDashboard/Users/Users";
 import Contact from '../pages/Contact/Contact';
+import PendingCourseReview from '../pages/Dashboard/AdminDashboard/CourseReview/PenddingCourseReview';
 
 const Router = createBrowserRouter([
   {
@@ -128,10 +129,10 @@ const Router = createBrowserRouter([
         ),
       },
       {
-        path: "/dashboard/courseReview/pandding",
+        path: "/dashboard/courseReview/pending",
         element: (
           <PrivateRoute>
-            <PanddingCourseReview />
+            <PendingCourseReview />
           </PrivateRoute>
         ),
       },

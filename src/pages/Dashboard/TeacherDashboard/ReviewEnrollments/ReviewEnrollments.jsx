@@ -148,7 +148,7 @@ const ReviewEnrollments = () => {
                     )}
                   </th>
                   <th className="flex items-center justify-center">
-                    {enrollment.enrollmentStatus === "pandding" ? (
+                    {enrollment.enrollmentStatus === "pending" ? (
                       <>
                         <button
                           onClick={() => handleActive(enrollment._id)}

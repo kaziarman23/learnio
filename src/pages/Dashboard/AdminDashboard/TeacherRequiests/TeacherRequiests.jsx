@@ -38,7 +38,7 @@ const TeacherRequiests = () => {
   // FIX: Use the destructured 'teachers' (which defaults to [])
   // or safely access 'data' with the optional chaining operator (?)
   const pendingRequests = useMemo(
-    () => teachers.filter((teacher) => teacher.isTeacher === "pandding"),
+    () => teachers.filter((teacher) => teacher.isTeacher === "pending"),
     [teachers],
   );
 
@@ -183,6 +183,7 @@ const TeacherRequiests = () => {
     );
   }
 
+  console.log(teachers);
   // --- Main Content UI ---
   return (
     <div className="relative min-h-screen w-full overflow-hidden bg-gradient-to-br from-white via-gray-50/30 to-blue-50/20 p-4 sm:p-6 lg:p-8">
@@ -241,7 +242,7 @@ const TeacherRequiests = () => {
                   <tr
                     key={teacher._id}
                     className={`transition-colors duration-200 ${
-                      teacher.isTeacher === "pandding"
+                      teacher.isTeacher === "pending"
                         ? "bg-blue-50/50 hover:bg-blue-100"
                         : "hover:bg-gray-50"
                     }`}
@@ -281,7 +282,7 @@ const TeacherRequiests = () => {
                       </span>
                     </td>
                     <td className="whitespace-nowrap px-4 py-4 text-center">
-                      {teacher.isTeacher === "pandding" ? (
+                      {teacher.isTeacher === "pending" ? (
                         <div className="flex items-center justify-center gap-3">
                           <button
                             onClick={() =>

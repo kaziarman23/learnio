@@ -3,7 +3,7 @@ import { gsap } from "gsap";
 import { FaGoogle, FaEye, FaEyeSlash, FaUser, FaEnvelope, FaLock, FaImage } from "react-icons/fa";
 import { HiSparkles, HiShieldCheck, HiAcademicCap } from "react-icons/hi";
 import { BsStars, BsCheckCircle, BsArrowRight } from "react-icons/bs";
-import { MdSecurity, MdVerified } from "react-icons/md";
+import { MdVerified } from "react-icons/md";
 import { Link, useNavigate } from "react-router";
 import { useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";

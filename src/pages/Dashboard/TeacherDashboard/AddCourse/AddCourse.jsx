@@ -24,7 +24,7 @@ const AddCourse = () => {
       ...data,
       coursePrice: Number(data.coursePrice),
       courseStudentsCount: Number(data.courseStudentsCount),
-      courseStatus: "pandding",
+      courseStatus: "pending",
     };
     addCourse(courseInfo)
       .unwrap()

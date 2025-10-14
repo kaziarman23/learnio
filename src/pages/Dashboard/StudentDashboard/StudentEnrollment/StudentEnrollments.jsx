@@ -108,7 +108,7 @@ const StudentEnrollments = () => {
           case "pending":
             return (
               enrollment.enrollmentStatus === "pending" ||
-              enrollment.enrollmentStatus === "pandding"
+              enrollment.enrollmentStatus === "pending"
             );
           default:
             return true;
@@ -542,7 +542,7 @@ const StudentEnrollments = () => {
         </span>
       );
     } else {
-      const isPending = status === "pending" || status === "pandding";
+      const isPending = status === "pending" || status === "pending";
       return isPending ? (
         <span className="inline-flex items-center gap-1 rounded-full bg-yellow-100 px-3 py-1 text-sm font-bold text-yellow-800">
           <MdPending className="text-xs" />

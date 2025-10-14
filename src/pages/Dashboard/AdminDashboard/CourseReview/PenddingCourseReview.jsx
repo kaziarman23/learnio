@@ -19,7 +19,7 @@ import { IoMdCloseCircle } from "react-icons/io";
 import { HiCurrencyDollar, HiSparkles } from "react-icons/hi";
 import { BsArrowRight } from "react-icons/bs";
 
-const PanddingCourseReview = () => {
+const PendingCourseReview = () => {
   // states
   const navigate = useNavigate();
 
@@ -35,8 +35,8 @@ const PanddingCourseReview = () => {
   const [UpdateRejectCourse] = useUpdateRejectCourseMutation();
 
   // fetching pending courses data
-  const panddingCourses = useMemo(
-    () => courses?.filter((course) => course.courseStatus === "pandding") || [],
+  const pendingCourses = useMemo(
+    () => courses?.filter((course) => course.courseStatus === "pending") || [],
     [courses],
   );
 
@@ -150,7 +150,7 @@ const PanddingCourseReview = () => {
   }
 
   // --- Empty State UI (Adopted from PaymentHistory) ---
-  if (panddingCourses.length === 0) {
+  if (pendingCourses.length === 0) {
     return (
       <div className="relative flex min-h-screen w-full items-center justify-center overflow-hidden bg-gradient-to-br from-white via-gray-50/30 to-blue-50/20">
         {/* Background Elements */}
@@ -209,7 +209,7 @@ const PanddingCourseReview = () => {
           <p className="mx-auto max-w-2xl text-base leading-relaxed text-gray-600 sm:text-lg">
             ⚠️ Courses awaiting review and activation. Total:{" "}
             <span className="font-bold text-yellow-600">
-              {panddingCourses.length}
+              {pendingCourses.length}
             </span>
           </p>
         </div>
@@ -217,7 +217,7 @@ const PanddingCourseReview = () => {
         {/* Navigation/Action Row */}
         <div className="mb-6 flex flex-col items-start justify-between gap-4 sm:flex-row sm:items-center">
           <h3 className="text-xl font-bold text-gray-700">
-            Courses to Review: {panddingCourses.length}
+            Courses to Review: {pendingCourses.length}
           </h3>
           <button
             onClick={() => navigate(-1)}
@@ -258,7 +258,7 @@ const PanddingCourseReview = () => {
                 </tr>
               </thead>
               <tbody className="divide-y divide-gray-200">
-                {panddingCourses.map((course, index) => (
+                {pendingCourses.map((course, index) => (
                   <tr
                     key={course._id}
                     className="transition-colors duration-200 hover:bg-yellow-50/50"
@@ -331,4 +331,4 @@ const PanddingCourseReview = () => {
   );
 };
 
-export default PanddingCourseReview;
+export default PendingCourseReview;

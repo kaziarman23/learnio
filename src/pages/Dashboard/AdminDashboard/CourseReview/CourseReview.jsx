@@ -23,15 +23,15 @@ const CourseReview = () => {
   } = useGetCoursesQuery();
 
   // Calculate course counts using useMemo for efficiency
-  const { panddingCourses, activeCourses, rejectCourses } = useMemo(() => {
-    const pandding = courses.filter(
-      (course) => course.courseStatus === "pandding",
+  const { pendingCourses, activeCourses, rejectCourses } = useMemo(() => {
+    const pending = courses.filter(
+      (course) => course.courseStatus === "pending",
     );
     const active = courses.filter((course) => course.courseStatus === "active");
     const reject = courses.filter((course) => course.courseStatus === "reject");
 
     return {
-      panddingCourses: pandding,
+      pendingCourses: pending,
       activeCourses: active,
       rejectCourses: reject,
     };
@@ -149,7 +149,7 @@ const CourseReview = () => {
               <FaHistory className="mb-2 text-4xl text-yellow-500" />
               <h3 className="text-lg font-semibold text-gray-700">Pending</h3>
               <p className="text-4xl font-extrabold text-yellow-600">
-                {panddingCourses.length}
+                {pendingCourses.length}
               </p>
             </div>
             {/* Active Courses */}
@@ -173,7 +173,7 @@ const CourseReview = () => {
           {/* Navigation Buttons (Kept consistent and visually strong) */}
           <div className="flex flex-col gap-4 sm:flex-row sm:justify-center">
             <Link
-              to="/dashboard/courseReview/pandding"
+              to="/dashboard/courseReview/pending"
               className="w-full sm:w-auto"
             >
               <button

@@ -127,7 +127,7 @@ const TeacherCourses = () => {
                   <td>{course.coursePrice}</td>
                   <td>{course.courseStudentsCount}</td>
                   <td className="uppercase">
-                    {course.courseStatus === "pandding" ? (
+                    {course.courseStatus === "pending" ? (
                       <h1 className="rounded-sm border border-black bg-yellow-500 text-center text-2xl font-bold uppercase">
                         Pendding
                       </h1>
