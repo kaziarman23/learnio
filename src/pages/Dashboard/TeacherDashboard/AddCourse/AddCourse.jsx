@@ -2,9 +2,10 @@ import { useForm } from "react-hook-form";
 import { useSelector } from "react-redux";
 import { useAddCourseMutation } from "../../../../Redux/features/api/coursesApi";
 import toast from "react-hot-toast";
+import { BsArrowRight } from "react-icons/bs";
+import { HiSparkles } from "react-icons/hi";
 
 const AddCourse = () => {
-  // Use form hooks
   const {
     handleSubmit,
     register,
@@ -12,13 +13,9 @@ const AddCourse = () => {
     formState: { errors },
   } = useForm();
 
-  // Rtk query hooks
   const [addCourse] = useAddCourseMutation();
-
-  // Redux state
   const { userName, userEmail } = useSelector((state) => state.userSlice);
 
-  // Handle submit
   const onSubmit = (data) => {
     const courseInfo = {
       ...data,
@@ -26,226 +23,206 @@ const AddCourse = () => {
       courseStudentsCount: Number(data.courseStudentsCount),
       courseStatus: "pending",
     };
+
     addCourse(courseInfo)
       .unwrap()
       .then(() => {
-        // showing an alert
-        toast.success("Course data saved successfully");
+        toast.success("✅ Course added successfully!");
+        reset();
       })
       .catch((error) => {
-        console.log("Failed to send course data in the server");
-
-        // showing an alert
-        toast.error(error);
-      })
-      .finally(() => {
-        clearForm();
+        console.error("Failed to add course:", error);
+        toast.error(error?.data?.message || "Failed to add course.");
       });
   };
 
-  const clearForm = () => {
-    reset();
-  };
-
   return (
-    <div className="flex min-h-screen w-full items-center justify-center bg-[#e0cece]">
-      <div className="mx-auto my-5 w-11/12 overflow-hidden rounded-lg bg-[#c7c1c1] lg:w-4/5">
-        <h1 className="p-5 text-center text-2xl font-bold">Add Course</h1>
-        {/* form content */}
-        <form onSubmit={handleSubmit(onSubmit)}>
-          <div className="h-full w-full space-y-3 p-5">
-            {/* name & email input */}
-            <div className="flex flex-col items-center justify-center gap-4 lg:flex-row lg:justify-between">
-              <div className="flex w-full flex-col items-start justify-center gap-2 lg:w-1/2">
-                <label htmlFor="name" className="font-bold">
+    <div className="relative min-h-screen w-full overflow-hidden bg-gradient-to-br from-white via-gray-50/30 to-blue-50/20 p-6 sm:p-8">
+      {/* Background Elements */}
+      <div className="absolute left-1/4 top-1/4 h-72 w-72 animate-pulse rounded-full bg-gradient-to-r from-blue-400/5 to-cyan-400/5 blur-3xl sm:h-96 sm:w-96" />
+
+      <div className="relative z-10 mx-auto max-w-3xl">
+        {/* Header */}
+        <div className="mb-8 text-center">
+          <h1 className="text-3xl font-bold text-gray-800 sm:text-4xl md:text-5xl">
+            Add{" "}
+            <span className="bg-gradient-to-r from-blue-500 to-cyan-500 bg-clip-text text-transparent">
+              Course
+            </span>
+          </h1>
+          <p className="mt-3 text-base leading-relaxed text-gray-600 sm:text-lg">
+            🧑‍🏫 Fill in the details below to create a new course.
+          </p>
+        </div>
+
+        {/* Form Container */}
+        <div className="rounded-3xl border border-gray-300 bg-white/90 p-6 shadow-2xl backdrop-blur-sm sm:p-10">
+          <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
+            {/* Teacher Info */}
+            <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
+              <div>
+                <label className="mb-2 block text-sm font-semibold text-gray-800">
                   Teacher Name
                 </label>
                 <input
-                  id="name"
                   type="text"
                   readOnly
-                  className="w-full rounded-md border-2 border-black p-2"
                   defaultValue={userName}
                   {...register("courseTeacherName")}
+                  className="w-full rounded-xl border border-gray-300 bg-gray-100 px-4 py-3 text-gray-700 shadow-inner focus:border-blue-500 focus:ring focus:ring-blue-200"
                 />
               </div>
-
-              <div className="flex w-full flex-col items-start justify-center gap-2 lg:w-1/2">
-                <label htmlFor="email" className="font-bold">
+              <div>
+                <label className="mb-2 block text-sm font-semibold text-gray-800">
                   Teacher Email
                 </label>
                 <input
-                  id="email"
                   type="email"
                   readOnly
-                  className="w-full rounded-md border-2 border-black p-2"
                   defaultValue={userEmail}
                   {...register("courseTeacherEmail")}
+                  className="w-full rounded-xl border border-gray-300 bg-gray-100 px-4 py-3 text-gray-700 shadow-inner focus:border-blue-500 focus:ring focus:ring-blue-200"
                 />
               </div>
             </div>
 
-            {/* title & price input */}
-            <div className="flex flex-col items-center justify-center gap-4 lg:flex-row lg:justify-between">
-              <div className="flex w-1/2 flex-col items-start justify-center gap-2">
-                <label htmlFor="title" className="font-bold">
+            {/* Course Title and Price */}
+            <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
+              <div>
+                <label className="mb-2 block text-sm font-semibold text-gray-800">
                   Course Title
                 </label>
                 <input
-                  id="title"
                   type="text"
-                  className="w-full rounded-md border-2 border-black p-2"
                   {...register("courseTitle", {
-                    required: "course title is required",
-                    maxLength: {
-                      value: 22,
-                      message:
-                        "Course Title have to be lower then 22 chareacters",
-                    },
-                    minLength: {
-                      value: 4,
-                      message:
-                        "Course Title have to be getter then 4 chareacters",
-                    },
+                    required: "Course title is required",
+                    maxLength: { value: 22, message: "Max 22 characters" },
+                    minLength: { value: 4, message: "Min 4 characters" },
                   })}
+                  className="w-full rounded-xl border border-gray-300 px-4 py-3 shadow-inner focus:border-blue-500 focus:ring focus:ring-blue-200"
                 />
+                {errors.courseTitle && (
+                  <p className="mt-2 text-sm font-medium text-red-500">
+                    {errors.courseTitle.message}
+                  </p>
+                )}
               </div>
 
-              <div className="flex w-1/2 flex-col items-start justify-center gap-2">
-                <label htmlFor="price" className="font-bold">
-                  Course Price
+              <div>
+                <label className="mb-2 block text-sm font-semibold text-gray-800">
+                  Course Price ($)
                 </label>
                 <input
-                  id="price"
                   type="number"
-                  className="w-full rounded-md border-2 border-black p-2"
                   {...register("coursePrice", {
-                    required: "course price is required",
-                    max: {
-                      value: 500,
-                      message: "Course price must be less then or equal to 500",
-                    },
-                    min: {
-                      value: 10,
-                      message:
-                        "Course price must be greater then or equal to 10",
-                    },
+                    required: "Price is required",
+                    max: { value: 500, message: "Must be ≤ 500" },
+                    min: { value: 10, message: "Must be ≥ 10" },
                   })}
+                  className="w-full rounded-xl border border-gray-300 px-4 py-3 shadow-inner focus:border-blue-500 focus:ring focus:ring-blue-200"
                 />
+                {errors.coursePrice && (
+                  <p className="mt-2 text-sm font-medium text-red-500">
+                    {errors.coursePrice.message}
+                  </p>
+                )}
               </div>
             </div>
 
-            {/* category & student-count */}
-            <div className="flex flex-col items-center justify-center gap-4 lg:flex-row lg:justify-between">
-              <div className="flex w-1/2 flex-col items-start justify-center gap-2">
-                <label htmlFor="category" className="font-bold">
+            {/* Category & Student Count */}
+            <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
+              <div>
+                <label className="mb-2 block text-sm font-semibold text-gray-800">
                   Category
                 </label>
                 <select
-                  name="category"
-                  id="category"
-                  className="w-full border-2 border-black p-2"
                   {...register("category")}
+                  className="w-full rounded-xl border border-gray-300 bg-white px-4 py-3 shadow-inner focus:border-blue-500 focus:ring focus:ring-blue-200"
                 >
                   <option value="web-development">Web Development</option>
                   <option value="app-development">App Development</option>
                   <option value="game-development">Game Development</option>
-                  <option value="uiux-designer">Ui-Ux Designer</option>
-                  <option value="mechine-learning">Mechine Learning</option>
+                  <option value="uiux-designer">UI/UX Designer</option>
+                  <option value="machine-learning">Machine Learning</option>
                 </select>
               </div>
 
-              <div className="flex w-1/2 flex-col items-start justify-center gap-2">
-                <label htmlFor="studentCount" className="font-bold">
+              <div>
+                <label className="mb-2 block text-sm font-semibold text-gray-800">
                   Student Count
                 </label>
                 <input
-                  id="studentCount"
                   type="number"
-                  className="w-full rounded-md border-2 border-black p-2"
                   readOnly
                   defaultValue={0}
                   {...register("courseStudentsCount")}
+                  className="w-full rounded-xl border border-gray-300 bg-gray-100 px-4 py-3 shadow-inner focus:border-blue-500 focus:ring focus:ring-blue-200"
                 />
               </div>
             </div>
 
-            {/* image & description */}
-            <div className="flex flex-col items-center justify-center gap-4 lg:flex-row lg:justify-between">
-              <div className="flex w-1/2 flex-col items-start justify-center gap-2">
-                <label htmlFor="courseImage" className="font-bold">
+            {/* Image & Description */}
+            <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
+              <div>
+                <label className="mb-2 block text-sm font-semibold text-gray-800">
                   Course Image URL
                 </label>
                 <input
-                  id="courseImage"
                   type="text"
-                  className="w-full rounded-md border-2 border-black p-2"
                   {...register("courseImage", {
-                    required: "course image is required",
+                    required: "Course image URL is required",
                   })}
+                  className="w-full rounded-xl border border-gray-300 px-4 py-3 shadow-inner focus:border-blue-500 focus:ring focus:ring-blue-200"
                 />
+                {errors.courseImage && (
+                  <p className="mt-2 text-sm font-medium text-red-500">
+                    {errors.courseImage.message}
+                  </p>
+                )}
               </div>
 
-              <div className="flex w-1/2 flex-col items-start justify-center gap-2">
-                <label htmlFor="courseDescription" className="font-bold">
+              <div>
+                <label className="mb-2 block text-sm font-semibold text-gray-800">
                   Description
                 </label>
                 <input
-                  id="courseDescription"
                   type="text"
-                  className="w-full rounded-md border-2 border-black p-2"
                   {...register("courseDescription", {
-                    required: "You have to tell something about the course",
-                    maxLength: {
-                      value: 300,
-                      message:
-                        "Course description have to be lower then 300 chareacters",
-                    },
-                    minLength: {
-                      value: 10,
-                      message:
-                        "Course description have to be getter then 10 chareacters",
-                    },
+                    required: "Description is required",
+                    maxLength: { value: 300, message: "Max 300 characters" },
+                    minLength: { value: 10, message: "Min 10 characters" },
                   })}
+                  className="w-full rounded-xl border border-gray-300 px-4 py-3 shadow-inner focus:border-blue-500 focus:ring focus:ring-blue-200"
                 />
+                {errors.courseDescription && (
+                  <p className="mt-2 text-sm font-medium text-red-500">
+                    {errors.courseDescription.message}
+                  </p>
+                )}
               </div>
             </div>
-            <button
-              className="btn w-full border-none bg-green-500 text-black hover:bg-green-600 hover:text-white"
-              type="submit"
-            >
-              Upload
-            </button>
-            <button
-              onClick={clearForm}
-              className="btn w-full border-none bg-red-500 text-black hover:bg-red-600 hover:text-white"
-              type="button"
-            >
-              Clear The Form
-            </button>
-            {/* form errors */}
-            {errors.courseTitle && (
-              <p className="text-center text-2xl font-bold uppercase text-red-500">
-                {errors.courseTitle.message}
-              </p>
-            )}
-            {errors.coursePrice && (
-              <p className="text-center text-2xl font-bold uppercase text-red-500">
-                {errors.coursePrice.message}
-              </p>
-            )}
-            {errors.courseImage && (
-              <p className="text-center text-2xl font-bold uppercase text-red-500">
-                {errors.courseImage.message}
-              </p>
-            )}
-            {errors.courseDescription && (
-              <p className="text-center text-2xl font-bold uppercase text-red-500">
-                {errors.courseDescription.message}
-              </p>
-            )}
-          </div>
-        </form>
+
+            {/* Buttons */}
+            <div className="flex flex-col gap-4 pt-4 sm:flex-row sm:justify-center">
+              <button
+                type="submit"
+                className="group flex w-full items-center justify-center gap-2 rounded-2xl bg-gradient-to-r from-blue-500 to-cyan-500 px-8 py-4 text-base font-bold text-white shadow-xl transition-all duration-300 hover:scale-105 sm:w-auto"
+              >
+                <HiSparkles className="text-xl" />
+                Upload
+                <BsArrowRight className="text-lg transition-transform duration-300 group-hover:translate-x-1" />
+              </button>
+
+              <button
+                type="button"
+                onClick={() => reset()}
+                className="group flex w-full items-center justify-center gap-2 rounded-2xl bg-gradient-to-r from-red-500 to-rose-500 px-8 py-4 text-base font-bold text-white shadow-xl transition-all duration-300 hover:scale-105 sm:w-auto"
+              >
+                Clear Form
+              </button>
+            </div>
+          </form>
+        </div>
       </div>
     </div>
   );
